@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FindMatch" />
+        <activity android:name=".MatchBaseAdapter"></activity>
     </application>
 
 </manifest>
