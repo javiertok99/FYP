@@ -23,6 +23,8 @@
         <activity android:name=".MyProfilePage" />
         <activity android:name=".AppSettings" />
         <activity android:name=".SignUp" />
+        <activity android:name=".SignUp2"/>
+        <activity android:name=".SignUp3"/>
         <activity
             android:name=".BottomNavBar"
             android:label="@string/title_activity_bottom_nav_bar"/>
