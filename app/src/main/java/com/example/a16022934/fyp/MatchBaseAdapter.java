@@ -58,7 +58,7 @@ public class MatchBaseAdapter extends BaseAdapter {
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.item_row, null);
+            convertView = inflater.inflate(R.layout.findmatch_row, null);
             holder.llContainer = convertView.findViewById(R.id.llContainer);
             holder.ivProfilePic = convertView.findViewById(R.id.ivProfilePic);
             holder.tvName = convertView.findViewById(R.id.tvName);
