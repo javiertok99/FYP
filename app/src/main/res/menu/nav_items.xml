@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/search"
+        android:title="@string/findMatch"
+        android:icon="@drawable/search" />
+
+    <item android:id="@+id/matchHistory"
+        android:title="@string/matchHistory"
+        android:icon="@drawable/list" />
+
+    <item android:id="@+id/videos"
+        android:title="@string/videos"
+        android:icon="@drawable/video" />
+
+    <item android:id="@+id/topPlayers"
+        android:title="@string/topPlayers"
+        android:icon="@drawable/trophy" />
+
+    <item android:id="@+id/profile"
+        android:title="@string/profile"
+        android:icon="@drawable/user" />
+
+</menu>

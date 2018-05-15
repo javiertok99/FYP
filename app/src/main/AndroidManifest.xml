@@ -18,11 +18,14 @@
         </activity>
         <activity android:name=".PublicProfileSettings" />
         <activity android:name=".PrivateProfileSettings" />
-        <activity android:name=".FindMatch" />
-        <activity android:name=".MatchBaseAdapter" />
+        <activity android:name=".TempPlayerProfile" />
+        <activity android:name=".Chat" />
         <activity android:name=".MyProfilePage" />
         <activity android:name=".AppSettings" />
-        <activity android:name=".SignUp"></activity>
+        <activity android:name=".SignUp" />
+        <activity
+            android:name=".BottomNavBar"
+            android:label="@string/title_activity_bottom_nav_bar"/>
     </application>
 
 </manifest>

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">FYP</string>
+    <string name="findMatch">Find Match</string>
+    <string name="matchHistory">Match History</string>
+    <string name="videos">Videos</string>
+    <string name="topPlayers">Top Players</string>
+    <string name="profile">Profile</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_bottom_nav_bar">BottomNavBar</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

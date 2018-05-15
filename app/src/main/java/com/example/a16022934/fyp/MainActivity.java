@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), MyProfilePage.class);
-                intent.putExtra("Question","q2");
-                startActivity(intent);
+                Intent i = new Intent(MainActivity.this, BottomNavBar.class);
+                startActivity(i);
             }
         });
 
@@ -38,11 +37,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
-
     }
 }
