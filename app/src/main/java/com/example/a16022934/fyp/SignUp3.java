@@ -11,7 +11,7 @@ public class SignUp3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_2);
+        setContentView(R.layout.signup_3);
 
         setTitle("SIGN UP");
 
