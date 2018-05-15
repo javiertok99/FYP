@@ -72,6 +72,7 @@
         android:layout_marginRight="1dp"
         android:layout_marginTop="1dp"
         android:ems="10"
+        android:hint="Tap to edit Bio"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toStartOf="@+id/btnDone"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +107,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/tvSkillType"
+        android:id="@+id/tvSkillOverall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="162dp"
@@ -114,7 +115,7 @@
         android:layout_marginRight="162dp"
         android:layout_marginStart="163dp"
         android:layout_marginTop="1dp"
-        android:text="TextView"
+        android:text="Skill Overall: SkillFul"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,10 +130,11 @@
         android:layout_marginRight="163dp"
         android:layout_marginStart="163dp"
         android:layout_marginTop="10dp"
-        android:text="TextView"
+        android:gravity="center"
+        android:text="Able to play better than most people but alittle unskilled when compared with Professionals"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSkillType" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSkillOverall" />
 
     <TextView
         android:id="@+id/textView5"
@@ -156,6 +158,7 @@
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginTop="50dp"
+        android:rating="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -165,6 +168,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="18dp"
         android:layout_marginRight="18dp"
+        android:rating="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingService" />
 
@@ -174,6 +178,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:rating="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBackHand" />
 
@@ -183,6 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:rating="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingFrontHand" />
 
@@ -192,6 +198,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:rating="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingSmashShot" />
 
