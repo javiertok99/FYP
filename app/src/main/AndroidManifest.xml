@@ -16,8 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".PublicProfileSettings" />
+        <activity android:name=".PrivateProfileSettings" />
         <activity android:name=".FindMatch" />
-        <activity android:name=".MatchBaseAdapter"></activity>
+        <activity android:name=".MatchBaseAdapter" />
+        <activity android:name=".MyProfilePage" />
+        <activity android:name=".AppSettings" />
+        <activity android:name=".SignUp"></activity>
     </application>
 
 </manifest>

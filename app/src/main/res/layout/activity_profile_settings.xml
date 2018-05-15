@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".PublicProfileSettings">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/Constraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/holo_blue_bright"
+            android:text="SAVE"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RatingBar
+            android:id="@+id/ratingSmashShot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:numStars="5"
+            android:rating="0"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerBelowFrontHand" />
+
+        <RatingBar
+            android:id="@+id/ratingDropShot"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_marginEnd="-0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="-0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:numStars="5"
+            android:rating="0"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.472"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerBelowSmashShot" />
+
+        <RatingBar
+            android:id="@+id/ratingFrontHand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:numStars="5"
+            android:rating="0"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBackHand" />
+
+        <TextView
+            android:id="@+id/tvSmashShot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Smash Shot"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ratingSmashShot"
+            app:layout_constraintEnd_toEndOf="@+id/ratingSmashShot"
+            app:layout_constraintStart_toStartOf="@+id/ratingSmashShot"
+            app:layout_constraintTop_toTopOf="@+id/ratingSmashShot" />
+
+        <TextView
+            android:id="@+id/tvDropShot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Drop Shot"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ratingDropShot"
+            app:layout_constraintEnd_toEndOf="@+id/ratingDropShot"
+            app:layout_constraintStart_toStartOf="@+id/ratingDropShot"
+            app:layout_constraintTop_toTopOf="@+id/ratingDropShot" />
+
+        <TextView
+            android:id="@+id/tvFrontHand2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Front Hand"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ratingFrontHand"
+            app:layout_constraintEnd_toEndOf="@+id/ratingFrontHand"
+            app:layout_constraintStart_toStartOf="@+id/ratingFrontHand"
+            app:layout_constraintTop_toTopOf="@+id/ratingFrontHand" />
+
+        <ImageView
+            android:id="@+id/ivProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/profile" />
+
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Your Name"
+            android:inputType="textPersonName"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivProfilePic"
+            app:layout_constraintTop_toTopOf="@+id/ivProfilePic" />
+
+        <EditText
+            android:id="@+id/editText11"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint='"Bio"'
+            android:inputType="textMultiLine"
+            android:textColor="@android:color/black"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ivProfilePic"
+            app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+        <TextView
+            android:id="@+id/tvService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Service"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ratingService"
+            app:layout_constraintEnd_toEndOf="@+id/ratingService"
+            app:layout_constraintStart_toStartOf="@+id/ratingService"
+            app:layout_constraintTop_toTopOf="@+id/ratingService" />
+
+        <RatingBar
+            android:id="@+id/ratingService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:numStars="5"
+            android:rating="0"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerBelowBio" />
+
+        <TextView
+            android:id="@+id/tvBackHand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Back Hand"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ratingBackHand"
+            app:layout_constraintEnd_toEndOf="@+id/ratingBackHand"
+            app:layout_constraintStart_toStartOf="@+id/ratingBackHand"
+            app:layout_constraintTop_toTopOf="@+id/ratingBackHand" />
+
+        <RatingBar
+            android:id="@+id/ratingBackHand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-0dp"
+            android:layout_marginRight="-0dp"
+            android:layout_marginTop="16dp"
+            android:numStars="5"
+            android:rating="0"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerService" />
+
+        <TextView
+            android:id="@+id/tvSkillDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Skill description shown here"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dividerBelowDropShot" />
+
+        <View
+            android:id="@+id/dividerBelowBio"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText11" />
+
+        <View
+            android:id="@+id/dividerBelowBackHand"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBackHand" />
+
+        <View
+            android:id="@+id/dividerService"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingService" />
+
+        <View
+            android:id="@+id/dividerBelowFrontHand"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingFrontHand" />
+
+        <View
+            android:id="@+id/dividerBelowSmashShot"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingSmashShot" />
+
+        <View
+            android:id="@+id/dividerBelowDropShot"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingDropShot" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>
