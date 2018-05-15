@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.a16022934.fyp">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,16 +18,13 @@
         </activity>
         <activity android:name=".PublicProfileSettings" />
         <activity android:name=".PrivateProfileSettings" />
-        <activity android:name=".TempPlayerProfile" />
         <activity android:name=".Chat" />
         <activity android:name=".MyProfilePage" />
         <activity android:name=".AppSettings" />
         <activity android:name=".SignUp" />
         <activity android:name=".SignUp2"/>
         <activity android:name=".SignUp3"/>
-        <activity
-            android:name=".BottomNavBar"
-            android:label="@string/title_activity_bottom_nav_bar"/>
+        <activity android:name=".BottomNavBar" android:label="@string/title_activity_bottom_nav_bar"/>
     </application>
 
 </manifest>

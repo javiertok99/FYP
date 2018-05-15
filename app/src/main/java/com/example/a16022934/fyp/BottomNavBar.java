@@ -29,8 +29,10 @@ public class BottomNavBar extends AppCompatActivity {
                     transaction.replace(R.id.container, new MatchHistoryFragment()).commit();
                     return true;
                 case R.id.videos:
+                    transaction.replace(R.id.container, new VideoFragment()).commit();
                     return true;
                 case R.id.topPlayers:
+                    transaction.replace(R.id.container, new TopPlayerFragment()).commit();
                     return true;
                 case R.id.profile:
                     transaction.replace(R.id.container, new FindMatchFragment()).commit();
