@@ -73,7 +73,7 @@ public class MatchBaseAdapter extends BaseAdapter {
         }
         holder.ivProfilePic.setImageResource(mDisplayedValues.get(position).getRes());
         holder.tvName.setText(mDisplayedValues.get(position).getName());
-        holder.tvAge.setText("Age: " +mDisplayedValues.get(position).getAge() + "");
+        holder.tvAge.setText("Age: " + mDisplayedValues.get(position).getAge() + "");
         holder.tvGender.setText("Gender: " + mDisplayedValues.get(position).getGender());
         holder.tvLocation.setText("Location: " + mDisplayedValues.get(position).getLocation());
         holder.ivProfilePic.getLayoutParams().height = 250;
@@ -82,7 +82,7 @@ public class MatchBaseAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Player player = mDisplayedValues.get(position);
-                Intent i = new Intent(v.getContext(), TempPlayerProfile.class);
+                Intent i = new Intent(v.getContext(), MyProfilePage.class);
                 i.putExtra("player", player);
                 v.getContext().startActivity(i);
 
