@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+    <item
+        android:id="@+id/PublicProfileSettings"
+        android:orderInCategory="100"
+        android:title="Public Profile Info" />
+    <item
+        android:id="@+id/PrivateProfileSettings"
+        android:orderInCategory="101"
+        android:title="Private Profile Info" />
+    <item
+        android:id="@+id/AppSettings"
+        android:orderInCategory="102"
+        android:title="App Settings" />
+</menu>
