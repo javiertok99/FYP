@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvDisplayBirthDate" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvOtherName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -42,7 +42,7 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvOtherName" />
 
     <View
         android:id="@+id/dividerBelowName"

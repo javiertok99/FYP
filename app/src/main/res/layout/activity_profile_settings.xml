@@ -134,7 +134,7 @@
             app:layout_constraintTop_toTopOf="@+id/ratingFrontHand" />
 
         <ImageView
-            android:id="@+id/ivProfilePic"
+            android:id="@+id/ivOtherProfilePic"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginLeft="8dp"
@@ -160,8 +160,8 @@
             android:textColor="@android:color/black"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivProfilePic"
-            app:layout_constraintTop_toTopOf="@+id/ivProfilePic" />
+            app:layout_constraintStart_toEndOf="@+id/ivOtherProfilePic"
+            app:layout_constraintTop_toTopOf="@+id/ivOtherProfilePic" />
 
         <EditText
             android:id="@+id/editText11"
@@ -179,7 +179,7 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/ivProfilePic"
+            app:layout_constraintStart_toEndOf="@+id/ivOtherProfilePic"
             app:layout_constraintTop_toBottomOf="@+id/etName" />
 
         <TextView

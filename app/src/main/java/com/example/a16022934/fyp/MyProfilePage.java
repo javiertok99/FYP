@@ -22,7 +22,7 @@ public class MyProfilePage extends AppCompatActivity {
 
         setTitle("MY PROFILE");
 
-        EditText etBio = findViewById(R.id.etBio);
+        EditText etBio = findViewById(R.id.etOtherBio);
         navbar = findViewById(R.id.navBar);
         etBio.setEnabled(false);
 
