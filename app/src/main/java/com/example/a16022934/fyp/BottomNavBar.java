@@ -26,18 +26,23 @@ public class BottomNavBar extends AppCompatActivity {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             switch (item.getItemId()) {
                 case R.id.search:
+                    setTitle("Find Match");
                     transaction.replace(R.id.container, new FindMatchFragment()).commit();
                     return true;
                 case R.id.matchHistory:
+                    setTitle("Match History");
                     transaction.replace(R.id.container, new MatchHistoryFragment()).commit();
                     return true;
                 case R.id.videos:
+                    setTitle("Videos");
                     transaction.replace(R.id.container, new VideoFragment()).commit();
                     return true;
                 case R.id.topPlayers:
+                    setTitle("Top Players");
                     transaction.replace(R.id.container, new TopPlayerFragment()).commit();
                     return true;
                 case R.id.profile:
+                    setTitle("My Profile");
                     page = "profile";
                     transaction.replace(R.id.container, new MyProfilePageFragment()).commit();
                     return true;
@@ -57,24 +62,21 @@ public class BottomNavBar extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        Intent i = getIntent();
+        String type = i.getStringExtra("type");
+        if(type != null){
+            if(type.equals("signUp")){
+                setTitle("My Profile");
+                transaction.replace(R.id.container, new MyProfilePageFragment()).commit();
+            }else{
+                setTitle("Find Match");
+                transaction.replace(R.id.container, new FindMatchFragment()).commit();
+            }
+        }
 
-        transaction.replace(R.id.container, new FindMatchFragment()).commit();
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.option_menu_profile, menu);
-      //  if(!page.equals("profile")){
-            MenuItem item = menu.findItem(R.id.PublicProfileSettings);
-            item.setVisible(false);
-            MenuItem item2 = menu.findItem(R.id.PrivateProfileSettings);
-            item2.setVisible(false);
-            MenuItem item3 = menu.findItem(R.id.AppSettings);
-            item3.setVisible(false);
-      //  }
-        return true;
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -91,9 +93,13 @@ public class BottomNavBar extends AppCompatActivity {
                 Intent intentToAppSettings = new Intent(getBaseContext(), AppSettings.class);
                 startActivity(intentToAppSettings);
                 return true;
+            case R.id.logOut:
+                Intent intent = new Intent(getBaseContext(), LogIn.class);
+                startActivity(intent);
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

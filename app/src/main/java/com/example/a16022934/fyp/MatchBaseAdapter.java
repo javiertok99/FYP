@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MatchBaseAdapter extends BaseAdapter {
     private ArrayList<Player> mOriginalValues; // Original Values
@@ -70,11 +71,12 @@ public class MatchBaseAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.ivProfilePic.setImageResource(mDisplayedValues.get(position).getRes());
-        holder.tvName.setText(mDisplayedValues.get(position).getName());
-        holder.tvAge.setText("Age: " + mDisplayedValues.get(position).getAge() + "");
-        holder.tvGender.setText("Gender: " + mDisplayedValues.get(position).getGender());
-        holder.tvLocation.setText("Location: " + mDisplayedValues.get(position).getLocation());
+        String fullName = mDisplayedValues.get(position).getFirstName() + " " + mDisplayedValues.get(position).getLastName();
+        holder.tvName.setText(fullName);
+        holder.tvGender.setText(mDisplayedValues.get(position).getGender());
+        String year = mDisplayedValues.get(position).getDateOfBirth().substring(6,9);
+        String age = Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(year) + "";
+        holder.tvAge.setText(age);
         holder.ivProfilePic.getLayoutParams().height = 250;
         holder.ivProfilePic.getLayoutParams().width = 250;
         holder.btnViewProfile.setOnClickListener(new View.OnClickListener() {
