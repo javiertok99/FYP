@@ -59,8 +59,8 @@ public class MatchBaseAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.findmatch_row, null);
             holder.llContainer = convertView.findViewById(R.id.llContainer);
-            holder.ivProfilePic = convertView.findViewById(R.id.ivOtherProfilePic);
-            holder.tvName = convertView.findViewById(R.id.tvOtherName);
+            holder.ivProfilePic = convertView.findViewById(R.id.ivMyProfilePic);
+            holder.tvName = convertView.findViewById(R.id.tvMyName);
             holder.tvAge = convertView.findViewById(R.id.tvAge);
             holder.tvGender = convertView.findViewById(R.id.tvGender);
             holder.tvLocation = convertView.findViewById(R.id.tvLocation);

@@ -1,6 +1,7 @@
 package com.example.a16022934.fyp;
 
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +10,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 
 public class MyProfilePage extends AppCompatActivity {
-
+    ImageView ivMyProfilePic;
+    TextView tvMyName;
+    RatingBar rtb;
+    EditText etMyBio;
     BottomNavigationView navbar;
 
     @Override
@@ -20,9 +27,14 @@ public class MyProfilePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile_page);
 
+        ivMyProfilePic = findViewById(R.id.ivMyProfilePic);
+        tvMyName = findViewById(R.id.tvMyName);
+        rtb = findViewById(R.id.ratingBar);
+        etMyBio = findViewById(R.id.etMyBio);
+
         setTitle("MY PROFILE");
 
-        EditText etBio = findViewById(R.id.etOtherBio);
+        EditText etBio = findViewById(R.id.etMyBio);
         navbar = findViewById(R.id.navBar);
         etBio.setEnabled(false);
 

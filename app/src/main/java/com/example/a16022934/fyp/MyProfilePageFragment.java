@@ -20,7 +20,7 @@ public class MyProfilePageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_profile_page, container, false);
 
-        EditText etBio = view.findViewById(R.id.etOtherBio);
+        EditText etBio = view.findViewById(R.id.etMyBio);
         etBio.setEnabled(false);
 
 
