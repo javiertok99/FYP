@@ -75,7 +75,6 @@ public class SignUp2 extends AppCompatActivity {
 
 
     }
-}
 
 
     //    protected void onActivityResult(int requestCode, int resultCode, Intent
