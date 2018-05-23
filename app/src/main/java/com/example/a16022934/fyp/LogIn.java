@@ -33,6 +33,8 @@ public class LogIn extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference users = db.collection("users");
     DocumentReference userRef;
@@ -66,6 +68,7 @@ public class LogIn extends AppCompatActivity {
         setTitle("LOG IN PAGE");
         TextView tvCreateAcc = findViewById(R.id.tvCreateAccount);
         Button btnLogin = findViewById(R.id.btnLogin);
+        setTitle("MATCH MINTON");
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

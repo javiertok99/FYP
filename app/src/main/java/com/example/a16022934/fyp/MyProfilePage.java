@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-
 public class MyProfilePage extends AppCompatActivity {
     ImageView ivMyProfilePic;
     TextView tvMyName;
