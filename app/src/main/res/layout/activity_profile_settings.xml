@@ -22,9 +22,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:background="@android:color/holo_blue_bright"
+            android:background="@android:color/black"
             android:text="SAVE"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -146,7 +146,7 @@
             app:srcCompat="@drawable/profile" />
 
         <EditText
-            android:id="@+id/etName"
+            android:id="@+id/etSettingsName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -164,7 +164,7 @@
             app:layout_constraintTop_toTopOf="@+id/ivMyProfilePic" />
 
         <EditText
-            android:id="@+id/editText11"
+            android:id="@+id/etSettingsBio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -180,7 +180,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ivMyProfilePic"
-            app:layout_constraintTop_toBottomOf="@+id/etName" />
+            app:layout_constraintTop_toBottomOf="@+id/etSettingsName" />
 
         <TextView
             android:id="@+id/tvService"
@@ -247,15 +247,18 @@
 
         <TextView
             android:id="@+id/tvSkillDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:text="Skill description shown here"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Description will update according to rating bar value"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/btnSave"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dividerBelowDropShot" />
 
@@ -268,7 +271,7 @@
             android:layout_marginTop="16dp"
             android:background="@android:color/darker_gray"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText11" />
+            app:layout_constraintTop_toBottomOf="@+id/etSettingsBio" />
 
         <View
             android:id="@+id/dividerBelowBackHand"
