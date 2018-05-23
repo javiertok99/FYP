@@ -85,4 +85,5 @@ public class MyProfilePage extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
