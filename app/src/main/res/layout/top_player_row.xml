@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/profile" />
 
     <TextView
-        android:id="@+id/tvOtherName"
+        android:id="@+id/tvMyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -69,6 +69,6 @@
         android:textColor="@android:color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/tvOtherName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMyName" />
 
 </android.support.constraint.ConstraintLayout>

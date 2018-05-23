@@ -9,7 +9,7 @@
     tools:context=".MatchBaseAdapter">
 
     <ImageView
-        android:id="@+id/ivOtherProfilePic"
+        android:id="@+id/ivMyProfilePic"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginLeft="8dp"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/profile" />
 
     <TextView
-        android:id="@+id/tvOtherName"
+        android:id="@+id/tvMyName"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
@@ -32,7 +32,7 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivOtherProfilePic" />
+        app:layout_constraintTop_toBottomOf="@+id/ivMyProfilePic" />
 
     <Button
         android:id="@+id/btnViewProfile"
@@ -57,7 +57,7 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tvGender"
-        app:layout_constraintStart_toEndOf="@+id/ivOtherProfilePic"
+        app:layout_constraintStart_toEndOf="@+id/ivMyProfilePic"
         app:layout_constraintTop_toBottomOf="@+id/btnViewProfile" />
 
     <TextView
@@ -70,7 +70,7 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivOtherProfilePic"
+        app:layout_constraintStart_toEndOf="@+id/ivMyProfilePic"
         app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -84,7 +84,7 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/ibChat"
-        app:layout_constraintStart_toEndOf="@+id/ivOtherProfilePic"
+        app:layout_constraintStart_toEndOf="@+id/ivMyProfilePic"
         app:layout_constraintTop_toBottomOf="@+id/tvGender" />
 
     <ImageButton

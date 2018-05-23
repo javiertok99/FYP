@@ -52,7 +52,7 @@ public class TopPlayerBaseAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.top_player_row, null);
             holder.llcontainer = convertView.findViewById(R.id.llContainer);
-            holder.name = convertView.findViewById(R.id.tvOtherName);
+            holder.name = convertView.findViewById(R.id.tvMyName);
             holder.age = convertView.findViewById(R.id.tvAge);
             holder.gender = convertView.findViewById(R.id.tvGender);
             holder.location = convertView.findViewById(R.id.tvLocation);

@@ -21,7 +21,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvDisplayBirthDate" />
 
     <TextView
-        android:id="@+id/tvOtherName"
+        android:id="@+id/tvMyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -42,7 +42,7 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOtherName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMyName" />
 
     <View
         android:id="@+id/dividerBelowName"
@@ -123,22 +123,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
 
-    <EditText
-        android:id="@+id/editText12"
+
+    <TextView
+        android:id="@+id/tvEmailDisplay"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="sengthefluffyunicorn@gmail.com"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
+
+    <View
+        android:id="@+id/DividerBelowEmail"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
         android:layout_marginEnd="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginStart="5dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="sengthefluffyunicorn@gmail.com"
-        android:textColor="@android:color/black"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
-
+        app:layout_constraintTop_toBottomOf="@+id/tvEmailDisplay" />
 
     <TextView
         android:id="@+id/tvEmail"
@@ -161,7 +175,7 @@
         android:layout_weight="1"
         android:text="Gender"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText12" />
+        app:layout_constraintTop_toBottomOf="@+id/DividerBelowEmail" />
 
     <RadioGroup
         android:id="@+id/radioGroup2"

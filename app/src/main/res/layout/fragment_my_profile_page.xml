@@ -7,7 +7,7 @@
     tools:context=".MyProfilePage">
 
     <ImageView
-        android:id="@+id/ivOtherProfilePic"
+        android:id="@+id/ivMyProfilePic"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:layout_marginEnd="8dp"
@@ -21,7 +21,7 @@
         app:srcCompat="@drawable/circleimage" />
 
     <TextView
-        android:id="@+id/tvOtherName"
+        android:id="@+id/tvMyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -33,9 +33,9 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/ivOtherProfilePic"
-        app:layout_constraintStart_toStartOf="@+id/ivOtherProfilePic"
-        app:layout_constraintTop_toBottomOf="@+id/ivOtherProfilePic" />
+        app:layout_constraintEnd_toEndOf="@+id/ivMyProfilePic"
+        app:layout_constraintStart_toStartOf="@+id/ivMyProfilePic"
+        app:layout_constraintTop_toBottomOf="@+id/ivMyProfilePic" />
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -46,12 +46,12 @@
         android:rating="4"
         android:scaleX="0.7"
         android:scaleY="0.7"
-        app:layout_constraintEnd_toEndOf="@+id/tvOtherName"
-        app:layout_constraintStart_toStartOf="@+id/tvOtherName"
-        app:layout_constraintTop_toBottomOf="@+id/tvOtherName" />
+        app:layout_constraintEnd_toEndOf="@+id/tvMyName"
+        app:layout_constraintStart_toStartOf="@+id/tvMyName"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyName" />
 
     <EditText
-        android:id="@+id/etOtherBio"
+        android:id="@+id/etMyBio"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

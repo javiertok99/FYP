@@ -1,59 +1,115 @@
 package com.example.a16022934.fyp;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Player implements Serializable {
-    private int res;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private int phoneNo;
+    private String description;
+    private String email;
+    private String ratingId;
+    private String selfEvalId;
+    private String dateOfBirth;
+    private String username;
     private String gender;
-    private int age;
-    private String location;
 
-    public Player(int res, String name, int age, String location, String gender) {
-        this.res = res;
-        this.name = name;
-        this.age = age;
-        this.location = location;
+    public Player() {
+    }
+
+    public Player(String firstName, String lastName, String password, int phoneNo, String description, String email, String ratingId, String selfEvalId, String dateOfBirth, String username, String gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.phoneNo = phoneNo;
+        this.description = description;
+        this.email = email;
+        this.ratingId = ratingId;
+        this.selfEvalId = selfEvalId;
+        this.dateOfBirth = dateOfBirth;
+        this.username = username;
         this.gender = gender;
     }
 
-    public int getRes() {
-        return res;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRes(int res) {
-        this.res = res;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getName() {
-        return name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getLocation() {
-        return location;
+    public int getPhoneNo() {
+        return phoneNo;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setPhoneNo(int phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
-    public String getGender() {
-        return gender;
+    public String getDescription() {
+        return description;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setDescription(String description) {
+        this.description = description;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRatingId() {
+        return ratingId;
+    }
+
+    public void setRatingId(String ratingId) {
+        this.ratingId = ratingId;
+    }
+
+    public String getSelfEvalId() {
+        return selfEvalId;
+    }
+
+    public void setSelfEvalId(String selfEvalId) {
+        this.selfEvalId = selfEvalId;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getUsername() { return username; }
+
+    public void setUsername(String username) { this.username = username; }
+
+    public String getGender() { return gender; }
+
+    public void setGender(String gender) { this.gender = gender; }
 }
