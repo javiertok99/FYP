@@ -6,7 +6,6 @@ import java.util.Date;
 public class Player implements Serializable {
     private String firstName;
     private String lastName;
-    private String password;
     private int phoneNo;
     private String description;
     private String email;
@@ -19,10 +18,9 @@ public class Player implements Serializable {
     public Player() {
     }
 
-    public Player(String firstName, String lastName, String password, int phoneNo, String description, String email, String ratingId, String selfEvalId, String dateOfBirth, String username, String gender) {
+    public Player(String firstName, String lastName, int phoneNo, String description, String email, String ratingId, String selfEvalId, String dateOfBirth, String username, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.password = password;
         this.phoneNo = phoneNo;
         this.description = description;
         this.email = email;
@@ -47,14 +45,6 @@ public class Player implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getPhoneNo() {

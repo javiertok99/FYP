@@ -1,5 +1,6 @@
 package com.example.a16022934.fyp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -32,6 +33,8 @@ public class LogIn extends AppCompatActivity {
     EditText etPassword;
     private FirebaseUser user;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference users = db.collection("users");
@@ -66,10 +69,12 @@ public class LogIn extends AppCompatActivity {
         setTitle("LOG IN PAGE");
         TextView tvCreateAcc = findViewById(R.id.tvCreateAccount);
         Button btnLogin = findViewById(R.id.btnLogin);
+        setTitle("MATCH MINTON");
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog progressDialog = ProgressDialog.show(LogIn.this, "Authenticating...", "Processing...", true);
                 (mAuth.signInWithEmailAndPassword(etUserName.getText().toString(),etPassword.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -77,6 +82,17 @@ public class LogIn extends AppCompatActivity {
                             user = mAuth.getCurrentUser();
                             String uid = user.getUid();
                             userRef = db.collection("users").document(uid);
+                            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    DocumentSnapshot document = task.getResult();
+                                    Player user = document.toObject(Player.class);
+                                    Intent i = new Intent(LogIn.this, BottomNavBar.class);
+                                    i.putExtra("type", "login");
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
 
                         }
                     }
