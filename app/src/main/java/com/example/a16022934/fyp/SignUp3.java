@@ -34,9 +34,8 @@ public class SignUp3 extends AppCompatActivity {
         setContentView(R.layout.signup_3);
         initialize();
         Intent i = getIntent();
-        final String username = i.getStringExtra("username");
-        final String password = i.getStringExtra("password");
         final String email = i.getStringExtra("email");
+        final String uid = i.getStringExtra("uid");
         final String firstName = i.getStringExtra("firstName");
         final String lastName = i.getStringExtra("lastName");
         final int phoneNo = Integer.parseInt(i.getStringExtra("phone"));
@@ -51,10 +50,9 @@ public class SignUp3 extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DocumentReference newUserRef = db.collection("users").document();
+                DocumentReference newUserRef = db.collection("users").document(uid);
                 DocumentReference newRateRef = db.collection("ratings").document();
                 DocumentReference newEvalRef = db.collection("selfEvaluations").document();
-                String userId = newUserRef.getId();
                 String rateId = newRateRef.getId();
                 String evalId = newEvalRef.getId();
                 //Service
@@ -69,23 +67,21 @@ public class SignUp3 extends AppCompatActivity {
                 selfEval.put("fronthand", front);
                 selfEval.put("service", serving);
                 selfEval.put("smashShot", smash);
-                selfEval.put("user_id", userId);
+                selfEval.put("user_id", uid);
                 newEvalRef.set(selfEval);
                 //Rating
                 Map<String, Object> rating = new HashMap<>();
                 rating.put("score", 5);
-                rating.put("user_id", userId);
+                rating.put("user_id", uid);
                 newRateRef.set(rating);
                 //User
                 Map<String, Object> player = new HashMap<>();
                 player.put("gender", gender);
-                player.put("username", username);
                 player.put("dateOfBirth", dateOfBirth);
                 player.put("description", bioText);
                 player.put("email", email);
                 player.put("firstName", firstName);
                 player.put("lastName", lastName);
-                player.put("password", password);
                 player.put("phoneNo", phoneNo);
                 player.put("ratingId", rateId);
                 player.put("selfEvalId", evalId);
@@ -105,7 +101,7 @@ public class SignUp3 extends AppCompatActivity {
         backHand = findViewById(R.id.ratingBackHand);
         dropShot = findViewById(R.id.ratingDropShot);
         smashShot = findViewById(R.id.ratingSmashShot);
-        bio = findViewById(R.id.etOtherBio);
+        bio = findViewById(R.id.etMyBio);
     }
 
 }

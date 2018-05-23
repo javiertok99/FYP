@@ -30,10 +30,8 @@ public class SignUp2 extends AppCompatActivity {
         rgGender = findViewById(R.id.rgGender);
 
         Intent i = getIntent();
-        final String username = i.getStringExtra("username");
-        final String password = i.getStringExtra("password");
+        final String uid = i.getStringExtra("uid");
         final String email = i.getStringExtra("email");
-
         setTitle("SIGN UP");
 
         Button btn = findViewById(R.id.btnNext);
@@ -41,7 +39,6 @@ public class SignUp2 extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isEmpty();
                 String firstName = etFirstName.getText().toString();
                 String lastName = etLastName.getText().toString();
                 String phone = etPhoneNo.getText().toString();
@@ -49,30 +46,16 @@ public class SignUp2 extends AppCompatActivity {
                 RadioButton rb = findViewById(rgGender.getCheckedRadioButtonId());
                 String gender = rb.getText().toString();
                 Intent i = new Intent(SignUp2.this, SignUp3.class);
-                i.putExtra("username", username);
-                i.putExtra("password", password);
+                i.putExtra("uid", uid);
                 i.putExtra("email", email);
                 i.putExtra("firstName", firstName);
                 i.putExtra("lastName", lastName);
                 i.putExtra("phone", phone);
                 i.putExtra("dob", dob);
                 i.putExtra("gender", gender);
-
                 startActivity(i);
             }
         });
-    }
-    private void isEmpty(){
-        String firstName = etFirstName.getText().toString();
-        String lastName = etLastName.getText().toString();
-        String phone = etPhoneNo.getText().toString();
-        String dob = etDateOfBirth.getText().toString();
-
-        if(!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName) && !TextUtils.isEmpty(phone) && !TextUtils.isEmpty(dob)){
-
-        }else{
-            Toast.makeText(SignUp2.this,"Textfields is Empty", Toast.LENGTH_LONG).show();
-        }
     }
 }
 
