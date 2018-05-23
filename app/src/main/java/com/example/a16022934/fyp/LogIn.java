@@ -2,13 +2,10 @@ package com.example.a16022934.fyp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +30,6 @@ public class LogIn extends AppCompatActivity {
     EditText etPassword;
     private FirebaseUser user;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
 
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -74,31 +70,40 @@ public class LogIn extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog progressDialog = ProgressDialog.show(LogIn.this, "Authenticating...", "Processing...", true);
-                (mAuth.signInWithEmailAndPassword(etUserName.getText().toString(),etPassword.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            user = mAuth.getCurrentUser();
-                            String uid = user.getUid();
-                            userRef = db.collection("users").document(uid);
-                            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    DocumentSnapshot document = task.getResult();
-                                    Player user = document.toObject(Player.class);
-                                    Intent i = new Intent(LogIn.this, BottomNavBar.class);
-                                    i.putExtra("type", "login");
-                                    startActivity(i);
-                                    finish();
-                                }
-                            });
-
+                String userName = etUserName.getText().toString();
+                String password = etPassword.getText().toString();
+                if (userName.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LogIn.this,"User Name or Password not Entered",Toast.LENGTH_LONG).show();
+                } else {
+                    final ProgressDialog progressDialog = ProgressDialog.show(LogIn.this, "Authenticating...", "Processing...", true);
+                    (mAuth.signInWithEmailAndPassword(etUserName.getText().toString(), etPassword.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                user = mAuth.getCurrentUser();
+                                String uid = user.getUid();
+                                userRef = db.collection("users").document(uid);
+                                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        DocumentSnapshot document = task.getResult();
+                                        Player user = document.toObject(Player.class);
+                                        Intent i = new Intent(LogIn.this, BottomNavBar.class);
+                                        i.putExtra("type", "login");
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                });
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(LogIn.this, "Unable to find email, please try again", Toast.LENGTH_LONG).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
+
 
         tvCreateAcc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,13 +116,14 @@ public class LogIn extends AppCompatActivity {
     }
 
 
-    private void isEmpty() {
-        String userName = etUserName.getText().toString();
-        String password = etPassword.getText().toString();
-        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
-
-        } else {
-            Toast.makeText(LogIn.this, "User Name or Password not Entered", Toast.LENGTH_LONG).show();
-        }
-    }
+//    private boolean isEmpty() {
+//        String userName = etUserName.getText().toString();
+//        String password = etPassword.getText().toString();
+//        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
+//
+//        } else {
+//            Toast.makeText(LogIn.this, "User Name or Password not Entered", Toast.LENGTH_LONG).show();
+//        }
+//        return false;
+//    }
 }
