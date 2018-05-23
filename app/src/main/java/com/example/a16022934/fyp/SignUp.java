@@ -64,6 +64,9 @@ public class SignUp extends AppCompatActivity {
                             }
                         }
                     });
+                }else{
+                    progressDialog.dismiss();
+                    Toast.makeText(SignUp.this,"Passwords are not the same", Toast.LENGTH_SHORT);
                 }
 
 
