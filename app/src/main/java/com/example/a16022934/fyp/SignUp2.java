@@ -23,6 +23,7 @@ public class SignUp2 extends AppCompatActivity {
     ImageView ivProfile;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
 
+    EditText etBio;
     EditText etFirstName;
     EditText etLastName;
     EditText etPhoneNo;
@@ -34,11 +35,7 @@ public class SignUp2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_2);
         ImageView ivProfile = (ImageView) findViewById(R.id.ivProfile);
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etPhoneNo = findViewById(R.id.etPhoneNo);
-        etDateOfBirth = findViewById(R.id.etDoB);
-        rgGender = findViewById(R.id.rgGender);
+        initialize();
 
         Intent i = getIntent();
         final String uid = i.getStringExtra("uid");
@@ -59,6 +56,8 @@ public class SignUp2 extends AppCompatActivity {
                 String lastName = etLastName.getText().toString();
                 String phone = etPhoneNo.getText().toString();
                 String dob = etDateOfBirth.getText().toString();
+                String bio = etBio.getText().toString();
+
                 RadioButton rb = findViewById(rgGender.getCheckedRadioButtonId());
                 String gender = rb.getText().toString();
                 Intent i = new Intent(SignUp2.this, SignUp3.class);
@@ -69,11 +68,21 @@ public class SignUp2 extends AppCompatActivity {
                 i.putExtra("phone", phone);
                 i.putExtra("dob", dob);
                 i.putExtra("gender", gender);
+                i.putExtra("bio", bio);
                 startActivity(i);
             }
         });
 
 
+    }
+
+    private void initialize() {
+        etBio = findViewById(R.id.etBio);
+        etFirstName = findViewById(R.id.etFirstName);
+        etLastName = findViewById(R.id.etLastName);
+        etPhoneNo = findViewById(R.id.etPhoneNo);
+        etDateOfBirth = findViewById(R.id.etDoB);
+        rgGender = findViewById(R.id.rgGender);
     }
 
 

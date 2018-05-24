@@ -8,9 +8,13 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 public class MyProfilePageFragment extends Fragment {
-
+    TextView name;
+    EditText etBio;
+    RatingBar publicRating;
     public MyProfilePageFragment() {
         // Required empty public constructor
     }
@@ -19,9 +23,11 @@ public class MyProfilePageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_profile_page, container, false);
-
-        EditText etBio = view.findViewById(R.id.etMyBio);
+        name = view.findViewById(R.id.tvMyName);
+        etBio = view.findViewById(R.id.etMyBio);
+        publicRating = view.findViewById(R.id.ratingBarProfile);
         etBio.setEnabled(false);
+
 
 
         return view;

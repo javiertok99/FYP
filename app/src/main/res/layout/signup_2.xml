@@ -20,7 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        app:srcCompat="@drawable/profile" />
+        app:srcCompat="@drawable/profile"
+        android:contentDescription="@string/profile_picture" />
 
     <TextView
         android:id="@+id/textView3"
@@ -88,7 +89,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/user" />
+        app:srcCompat="@drawable/user"
+        android:contentDescription="@string/usericon" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -99,7 +101,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/phone" />
+        app:srcCompat="@drawable/phone"
+        android:contentDescription="@string/phoneicon" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -110,7 +113,8 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:srcCompat="@drawable/calendar" />
+        app:srcCompat="@drawable/calendar"
+        android:contentDescription="@string/dateicon" />
 
     <EditText
         android:id="@+id/etPhoneNo"
@@ -180,5 +184,39 @@
             android:layout_weight="1"
             android:text="@string/female" />
     </RadioGroup>
+
+    <EditText
+        android:id="@+id/etBio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgGender" />
+
+    <TextView
+        android:id="@+id/tvBIo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/bio"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/etBio"
+        app:layout_constraintEnd_toEndOf="@+id/etBio"
+        app:layout_constraintStart_toStartOf="@+id/etBio"
+        app:layout_constraintTop_toTopOf="@+id/etBio" />
 
 </android.support.constraint.ConstraintLayout>

@@ -25,8 +25,7 @@ public class SignUp extends AppCompatActivity {
     EditText etConfirmPassword;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();;
-    private FirebaseUser user = firebaseAuth.getCurrentUser();
-    private DocumentReference userRef;
+
 
 
     @Override
@@ -37,7 +36,7 @@ public class SignUp extends AppCompatActivity {
         etPassword = findViewById(R.id.etPw);
         etConfirmPassword = findViewById(R.id.etConfirmPw);
         setTitle("SIGN UP");
-
+        final FirebaseUser user = firebaseAuth.getCurrentUser();
         Button btn = findViewById(R.id.btnCreate);
 
         btn.setOnClickListener(new View.OnClickListener() {
