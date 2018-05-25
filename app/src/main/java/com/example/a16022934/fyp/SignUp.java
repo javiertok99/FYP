@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,12 +43,10 @@ public class SignUp extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog progressDialog = ProgressDialog.show(SignUp.this, "Creating Account...", "Processing...", true);
-                if (etPassword.getText().toString().equals(etConfirmPassword.getText().toString())) {
+                if (etPassword.getText().toString().equals(etConfirmPassword.getText().toString()) && checkIfEmpty()) {
                     (firebaseAuth.createUserWithEmailAndPassword(etEmail.getText().toString().trim(), etPassword.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            progressDialog.dismiss();
                             if (task.isSuccessful()) {
                                 Toast.makeText(SignUp.this, "Registration successful", Toast.LENGTH_LONG).show();
                                 String uid = user.getUid();
@@ -64,13 +63,26 @@ public class SignUp extends AppCompatActivity {
                         }
                     });
                 }else{
-                    progressDialog.dismiss();
-                    Toast.makeText(SignUp.this,"Passwords are not the same", Toast.LENGTH_SHORT);
+                    if(TextUtils.isEmpty(etEmail.getText().toString())){
+                        Toast.makeText(SignUp.this, "Email not Entered", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(SignUp.this,"Passwords are not the same", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
 
             }
         });
+    }
+
+    public boolean checkIfEmpty(){
+        if(TextUtils.isEmpty(etEmail.getText().toString()) &&
+        TextUtils.isEmpty(etPassword.getText().toString()) &&
+        TextUtils.isEmpty(etConfirmPassword.getText().toString())){
+            return false;
+        }else{
+            return true;
+        }
     }
 
 

@@ -94,6 +94,9 @@ public class BottomNavBar extends AppCompatActivity {
                 startActivity(intentToAppSettings);
                 return true;
             case R.id.logOut:
+                DBHelper dbh = new DBHelper(BottomNavBar.this);
+                int uid = dbh.getId();
+                dbh.removeUserId(uid);
                 Intent intent = new Intent(getBaseContext(), LogIn.class);
                 startActivity(intent);
                 finish();

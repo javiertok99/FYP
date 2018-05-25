@@ -67,7 +67,7 @@
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingBarProfile" />
 
     <android.support.design.widget.BottomNavigationView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/navBar"

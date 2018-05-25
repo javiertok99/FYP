@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -41,13 +43,21 @@ public class LogIn extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        DBHelper dbh = new DBHelper(LogIn.this);
+        final String uid = dbh.getUserId();
         users.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        Player user = document.toObject(Player.class);
-                        alPlayer.add(user);
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.getId().equals(uid)) {
+                            loggedIn = true;
+                            Intent i = new Intent(LogIn.this, BottomNavBar.class);
+                            Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_LONG).show();
+                            startActivity(i);
+                            finish();
+
+                        }
                     }
                 }
             }
@@ -59,21 +69,19 @@ public class LogIn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         etUserName = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         setTitle("LOG IN PAGE");
         TextView tvCreateAcc = findViewById(R.id.tvCreateAccount);
         Button btnLogin = findViewById(R.id.btnLogin);
         setTitle("MATCH MINTON");
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userName = etUserName.getText().toString();
                 String password = etPassword.getText().toString();
                 if (userName.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LogIn.this,"User Name or Password not Entered",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LogIn.this, "User Name or Password not Entered", Toast.LENGTH_LONG).show();
                 } else {
                     final ProgressDialog progressDialog = ProgressDialog.show(LogIn.this, "Authenticating...", "Processing...", true);
                     (mAuth.signInWithEmailAndPassword(etUserName.getText().toString(), etPassword.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -82,6 +90,12 @@ public class LogIn extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 user = mAuth.getCurrentUser();
                                 String uid = user.getUid();
+                                DBHelper dbh = new DBHelper(LogIn.this);
+                                long row_affected = dbh.retainUserLogIn(uid);
+                                dbh.close();
+                                if (row_affected != -1) {
+                                    Toast.makeText(LogIn.this, "Insert Successful", Toast.LENGTH_SHORT).show();
+                                }
                                 userRef = db.collection("users").document(uid);
                                 userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
@@ -104,7 +118,6 @@ public class LogIn extends AppCompatActivity {
             }
         });
 
-
         tvCreateAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,16 +127,4 @@ public class LogIn extends AppCompatActivity {
             }
         });
     }
-
-
-//    private boolean isEmpty() {
-//        String userName = etUserName.getText().toString();
-//        String password = etPassword.getText().toString();
-//        if (!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)) {
-//
-//        } else {
-//            Toast.makeText(LogIn.this, "User Name or Password not Entered", Toast.LENGTH_LONG).show();
-//        }
-//        return false;
-//    }
 }

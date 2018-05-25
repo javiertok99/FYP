@@ -34,7 +34,6 @@ public class SignUp2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_2);
-        ImageView ivProfile = (ImageView) findViewById(R.id.ivProfile);
         initialize();
 
         Intent i = getIntent();
@@ -52,37 +51,36 @@ public class SignUp2 extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String firstName = etFirstName.getText().toString();
-                String lastName = etLastName.getText().toString();
-                String phone = etPhoneNo.getText().toString();
-                String dob = etDateOfBirth.getText().toString();
-                String bio = etBio.getText().toString();
+                if(checkIfEmpty()){
+                    String bio = etBio.getText().toString();
+                    String firstName = etFirstName.getText().toString();
+                    String lastName = etLastName.getText().toString();
+                    String phone = etPhoneNo.getText().toString();
+                    String dob = etDateOfBirth.getText().toString();
+                    RadioButton rb = findViewById(rgGender.getCheckedRadioButtonId());
+                    String gender = rb.getText().toString();
+                    Intent i = new Intent(SignUp2.this, SignUp3.class);
+                    i.putExtra("uid", uid);
+                    i.putExtra("email", email);
+                    i.putExtra("firstName", firstName);
+                    i.putExtra("lastName", lastName);
+                    i.putExtra("phone", phone);
+                    i.putExtra("dob", dob);
+                    i.putExtra("gender", gender);
+                    i.putExtra("bio", bio);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(SignUp2.this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show();
+                }
 
-                RadioButton rb = findViewById(rgGender.getCheckedRadioButtonId());
-                String gender = rb.getText().toString();
-                Intent i = new Intent(SignUp2.this, SignUp3.class);
-                i.putExtra("uid", uid);
-                i.putExtra("email", email);
-                i.putExtra("firstName", firstName);
-                i.putExtra("lastName", lastName);
-                i.putExtra("phone", phone);
-                i.putExtra("dob", dob);
-                i.putExtra("gender", gender);
-                i.putExtra("bio", bio);
-                startActivity(i);
+
+
+
+
             }
         });
 
 
-    }
-
-    private void initialize() {
-        etBio = findViewById(R.id.etBio);
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etPhoneNo = findViewById(R.id.etPhoneNo);
-        etDateOfBirth = findViewById(R.id.etDoB);
-        rgGender = findViewById(R.id.rgGender);
     }
 
 
@@ -145,5 +143,25 @@ public class SignUp2 extends AppCompatActivity {
             Uri selectedImageUri = data.getData();
             ivProfile.setImageURI(selectedImageUri);
         }
+    }
+
+    public boolean checkIfEmpty(){
+        initialize();
+        boolean check = false;
+        if(TextUtils.isEmpty(etFirstName.getText().toString()) && TextUtils.isEmpty(etLastName.getText().toString()) && TextUtils.isEmpty(etDateOfBirth.getText().toString()) && TextUtils.isEmpty(etPhoneNo.getText().toString())){
+            check = false;
+        }else{
+            check = true;
+        }
+        return check;
+    }
+
+    public void initialize(){
+        ivProfile = findViewById(R.id.ivProfile);
+        etFirstName = findViewById(R.id.etFirstName);
+        etLastName = findViewById(R.id.etLastName);
+        etPhoneNo = findViewById(R.id.etPhoneNo);
+        etDateOfBirth = findViewById(R.id.etDoB);
+        rgGender = findViewById(R.id.rgGender);
     }
 }
