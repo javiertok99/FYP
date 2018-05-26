@@ -93,9 +93,6 @@ public class LogIn extends AppCompatActivity {
                                 DBHelper dbh = new DBHelper(LogIn.this);
                                 long row_affected = dbh.retainUserLogIn(uid);
                                 dbh.close();
-                                if (row_affected != -1) {
-                                    Toast.makeText(LogIn.this, "Insert Successful", Toast.LENGTH_SHORT).show();
-                                }
                                 userRef = db.collection("users").document(uid);
                                 userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override

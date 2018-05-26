@@ -11,10 +11,19 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class MyProfilePageFragment extends Fragment {
     TextView name;
     EditText etBio;
     RatingBar publicRating;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Player currUser;
+    Ratings currRating;
+    SelfEvaluations currEvaluation;
     public MyProfilePageFragment() {
         // Required empty public constructor
     }
@@ -26,10 +35,32 @@ public class MyProfilePageFragment extends Fragment {
         name = view.findViewById(R.id.tvMyName);
         etBio = view.findViewById(R.id.etMyBio);
         publicRating = view.findViewById(R.id.ratingBarProfile);
+        DBHelper dbh = new DBHelper(getActivity());
+        String uid = dbh.getUserId();
+        DocumentReference userDoc = db.collection("users").document(uid);
+        userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                currUser = documentSnapshot.toObject(Player.class);
+                String fullName = currUser.getFirstName() + " " + currUser.getLastName();
+                name.setText(fullName);
+                etBio.setText(currUser.getDescription());
+                String ratingId = currUser.getRatingId();
+                DocumentReference rateRef = db.collection("ratings").document(ratingId);
+                rateRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        currRating = documentSnapshot.toObject(Ratings.class);
+                        publicRating.setRating(currRating.getScore());
+                    }
+                });
+
+            }
+        });
+
+
+
         etBio.setEnabled(false);
-
-
-
         return view;
     }
 
