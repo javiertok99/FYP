@@ -83,7 +83,7 @@ public class MatchBaseAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Player player = mDisplayedValues.get(position);
-                Intent i = new Intent(v.getContext(), MyProfilePage.class);
+                Intent i = new Intent(v.getContext(), BottomNavBar.class);
                 i.putExtra("player", player);
                 v.getContext().startActivity(i);
 

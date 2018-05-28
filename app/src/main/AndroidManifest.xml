@@ -33,7 +33,6 @@
         <activity android:name=".PublicProfileSettings" />
         <activity android:name=".PrivateProfileSettings" />
         <activity android:name=".Chat" />
-        <activity android:name=".MyProfilePage" />
         <activity android:name=".AppSettings" />
         <activity android:name=".SignUp" />
         <activity android:name=".SignUp2" />

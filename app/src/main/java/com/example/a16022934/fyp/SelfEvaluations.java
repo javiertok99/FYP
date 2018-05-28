@@ -1,32 +1,32 @@
 package com.example.a16022934.fyp;
 
 public class SelfEvaluations {
-    private int backHand;
+    private int backhand;
     private int dropShot;
-    private int frontHand;
+    private int fronthand;
     private int service;
     private int smashShot;
-    private int user_id;
+    private String user_id;
 
     public SelfEvaluations() {
 
     }
 
-    public SelfEvaluations(int backHand, int dropShot, int frontHand, int service, int smashShot, int user_id) {
-        this.backHand = backHand;
+    public SelfEvaluations(int backHand, int dropShot, int frontHand, int service, int smashShot, String user_id) {
+        this.backhand = backHand;
         this.dropShot = dropShot;
-        this.frontHand = frontHand;
+        this.fronthand = frontHand;
         this.service = service;
         this.smashShot = smashShot;
         this.user_id = user_id;
     }
 
     public int getBackHand() {
-        return backHand;
+        return backhand;
     }
 
     public void setBackHand(int backHand) {
-        this.backHand = backHand;
+        this.backhand = backHand;
     }
 
     public int getDropShot() {
@@ -38,11 +38,11 @@ public class SelfEvaluations {
     }
 
     public int getFrontHand() {
-        return frontHand;
+        return fronthand;
     }
 
     public void setFrontHand(int frontHand) {
-        this.frontHand = frontHand;
+        this.fronthand = frontHand;
     }
 
     public int getService() {
@@ -61,11 +61,11 @@ public class SelfEvaluations {
         this.smashShot = smashShot;
     }
 
-    public int getUser_id() {
+    public String getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(int user_id) {
+    public void setUser_id(String user_id) {
         this.user_id = user_id;
     }
 }

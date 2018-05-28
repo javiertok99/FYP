@@ -32,8 +32,6 @@ public class LogIn extends AppCompatActivity {
     EditText etPassword;
     private FirebaseUser user;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference users = db.collection("users");
     DocumentReference userRef;
