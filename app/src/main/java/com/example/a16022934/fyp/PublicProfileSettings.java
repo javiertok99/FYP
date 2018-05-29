@@ -92,19 +92,6 @@ public class PublicProfileSettings extends AppCompatActivity {
             }
         });
 
-        //get the new name
-        final String newName = settingName.getText().toString();
-
-        //get the new bio
-        final String newBio = settingBio.getText().toString();
-
-        //get the rating for all the ratingbars
-        final float serviceRating = settingService.getRating();
-        final float backHandRating = settingBackHand.getRating();
-        final float frontHandRating = settingFrontHand.getRating();
-        final float smashShotRating = settingSmashShot.getRating();
-        final float dropShotRating = settingDropShot.getRating();
-
         //Service
         settingService.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -131,11 +118,11 @@ public class PublicProfileSettings extends AppCompatActivity {
                 if (settingBackHand.getRating() == 1) {
                     settingsDescription.setText("Back Hand - 1STAR \nHave little to no experience in back hand");
                 } else if (settingBackHand.getRating() == 2) {
-                    settingsDescription.setText("Back Hand - 2STAR \nAble to deliver some successful back hand.\n");
+                    settingsDescription.setText("Back Hand - 2STAR \nAble to deliver some successful back hand.");
                 } else if (settingBackHand.getRating() == 3) {
-                    settingsDescription.setText("Back Hand - 3STAR \nAble to deliver successful back hand most of the times.\n");
+                    settingsDescription.setText("Back Hand - 3STAR \nAble to deliver successful back hand most of the times.");
                 } else if (settingBackHand.getRating() == 4) {
-                    settingsDescription.setText("Back Hand - 4STAR \nAble to back hand with little failure rate\n");
+                    settingsDescription.setText("Back Hand - 4STAR \nAble to back hand with little failure rate.");
                 } else if (settingBackHand.getRating() == 5) {
                     settingsDescription.setText("Back Hand - 5STAR \nAble to back hand professionally.");
                 } else {
@@ -205,6 +192,20 @@ public class PublicProfileSettings extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //get the new name
+                String newName = settingName.getText().toString();
+
+                //get the new bio
+                String newBio = settingBio.getText().toString();
+
+                //get the rating for all the ratingbars
+                float serviceRating = settingService.getRating();
+                float backHandRating = settingBackHand.getRating();
+                float frontHandRating = settingFrontHand.getRating();
+                float smashShotRating = settingSmashShot.getRating();
+                float dropShotRating = settingDropShot.getRating();
+
 
                 //Update the name and bio
                 userDoc.update(

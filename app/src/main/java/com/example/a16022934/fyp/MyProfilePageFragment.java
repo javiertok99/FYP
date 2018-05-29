@@ -23,7 +23,6 @@ public class MyProfilePageFragment extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     Player currUser;
     Ratings currRating;
-    SelfEvaluations currEvaluation;
     public MyProfilePageFragment() {
         // Required empty public constructor
     }
@@ -54,12 +53,8 @@ public class MyProfilePageFragment extends Fragment {
                         publicRating.setRating(currRating.getScore());
                     }
                 });
-
             }
         });
-
-
-
         etBio.setEnabled(false);
         return view;
     }

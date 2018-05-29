@@ -50,6 +50,9 @@ public class SignUp extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(SignUp.this, "Registration successful", Toast.LENGTH_LONG).show();
                                 String uid = user.getUid();
+                                DBHelper dbh = new DBHelper(SignUp.this);
+                                dbh.retainUserLogIn(uid);
+                                dbh.close();
                                 String email = etEmail.getText().toString();
                                 Intent i = new Intent(SignUp.this, SignUp2.class);
                                 i.putExtra("uid", uid);

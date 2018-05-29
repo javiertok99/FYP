@@ -163,5 +163,6 @@ public class SignUp2 extends AppCompatActivity {
         etPhoneNo = findViewById(R.id.etPhoneNo);
         etDateOfBirth = findViewById(R.id.etDoB);
         rgGender = findViewById(R.id.rgGender);
+        etBio = findViewById(R.id.etBio);
     }
 }

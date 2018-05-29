@@ -13,11 +13,12 @@ public class Player implements Serializable {
     private int phoneNo;
     private String ratingId;
     private String selfEvalId;
+    private String user_id;
 
     public Player() {
     }
 
-    public Player(String dateOfBirth, String description, String email, String firstName, String gender, String lastName, int phoneNo, String ratingId, String selfEvalId) {
+    public Player(String dateOfBirth, String description, String email, String firstName, String gender, String lastName, int phoneNo, String ratingId, String selfEvalId, String user_id) {
         this.dateOfBirth = dateOfBirth;
         this.description = description;
         this.email = email;
@@ -27,6 +28,7 @@ public class Player implements Serializable {
         this.phoneNo = phoneNo;
         this.ratingId = ratingId;
         this.selfEvalId = selfEvalId;
+        this.user_id = user_id;
     }
 
     public String getDateOfBirth() {
@@ -100,4 +102,8 @@ public class Player implements Serializable {
     public void setSelfEvalId(String selfEvalId) {
         this.selfEvalId = selfEvalId;
     }
+
+    public String getUser_id() { return user_id; }
+
+    public void setUser_id(String user_id) { this.user_id = user_id; }
 }

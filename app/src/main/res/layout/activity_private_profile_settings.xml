@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDisplayBirthDate" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrivateDOB" />
 
     <TextView
         android:id="@+id/tvPassword"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/ivChangePassword"
+        android:id="@+id/ibChangePassword"
         android:layout_width="45dp"
         android:layout_height="40dp"
         android:layout_marginBottom="8dp"
@@ -40,7 +40,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/tvLockedPW"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPrivatePassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvPassword"
         app:srcCompat="@drawable/changepw" />
@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dividerBelowPassword" />
 
     <TextView
-        android:id="@+id/tvLockedPW"
+        android:id="@+id/tvPrivatePassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -81,10 +81,10 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLockedPW" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrivatePassword" />
 
     <EditText
-        android:id="@+id/etMobile"
+        android:id="@+id/etPrivateMobile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
@@ -101,7 +101,7 @@
 
 
     <TextView
-        android:id="@+id/tvEmailDisplay"
+        android:id="@+id/tvPrivateEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -128,7 +128,7 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEmailDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPrivateEmail" />
 
     <TextView
         android:id="@+id/tvEmail"
@@ -139,7 +139,7 @@
         android:layout_marginTop="8dp"
         android:text="Email"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etMobile" />
+        app:layout_constraintTop_toBottomOf="@+id/etPrivateMobile" />
 
     <TextView
         android:id="@+id/tvGender"
@@ -154,7 +154,7 @@
         app:layout_constraintTop_toBottomOf="@+id/DividerBelowEmail" />
 
     <RadioGroup
-        android:id="@+id/radioGroup2"
+        android:id="@+id/RGPrivateGender"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -194,7 +194,7 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+        app:layout_constraintTop_toBottomOf="@+id/RGPrivateGender" />
 
     <TextView
         android:id="@+id/tvBirthdate"
@@ -208,7 +208,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dividerBelowGender" />
 
     <TextView
-        android:id="@+id/tvDisplayBirthDate"
+        android:id="@+id/tvPrivateDOB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -230,7 +230,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/tvDisplayBirthDate"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPrivateDOB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvBirthdate"
         app:srcCompat="@drawable/calendar" />
