@@ -42,12 +42,7 @@ public class PrivateProfileSettings extends AppCompatActivity {
         setTitle("PRIVATE PROFILE SETTINGS");
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        btnSave = findViewById(R.id.btnSave);
-        tvPrivatePassword = findViewById(R.id.tvPrivatePassword);
-        tvPrivateEmail = findViewById(R.id.tvPrivateEmail);
-        tvDOB = findViewById(R.id.tvPrivateDOB);
-        rgPrivateGender = findViewById(R.id.RGPrivateGender);
-
+        initialize();
 
         DBHelper dbh = new DBHelper(PrivateProfileSettings.this);
         String uid = dbh.getUserId();
@@ -60,7 +55,8 @@ public class PrivateProfileSettings extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 currUser = documentSnapshot.toObject(Player.class);
-                etPrivateMobile.setText(currUser.getPhoneNo());
+                String phoneNo = currUser.getPhoneNo() + "";
+                etPrivateMobile.setText(phoneNo);
                 tvPrivateEmail.setText(currUser.getEmail());
                 tvDOB.setText(currUser.getDateOfBirth());
             }
@@ -101,4 +97,13 @@ public class PrivateProfileSettings extends AppCompatActivity {
             }
         });
     }
+    private void initialize(){
+        btnSave = findViewById(R.id.btnSave);
+        tvPrivatePassword = findViewById(R.id.tvPrivatePassword);
+        tvPrivateEmail = findViewById(R.id.tvPrivateEmail);
+        tvDOB = findViewById(R.id.tvPrivateDOB);
+        etPrivateMobile = findViewById(R.id.etPrivateMobile);
+        rgPrivateGender = findViewById(R.id.RGPrivateGender);
+    }
 }
+

@@ -71,7 +71,7 @@ public class MatchBaseAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        String fullName = mDisplayedValues.get(position).getFirstName() + " " + mDisplayedValues.get(position).getLastName();
+        String fullName = mDisplayedValues.get(position).getFullName();
         holder.tvName.setText(fullName);
         holder.tvGender.setText(mDisplayedValues.get(position).getGender());
         String year = mDisplayedValues.get(position).getDateOfBirth().substring(6,9);

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 
 public class FindMatchFragment extends Fragment {
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference users = db.collection("users");
-    ArrayList<Player> alMatches = new ArrayList<>();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference users = db.collection("users");
+    private ArrayList<Player> alMatches = new ArrayList<>();
 
     public FindMatchFragment() {
         // Required empty public constructor

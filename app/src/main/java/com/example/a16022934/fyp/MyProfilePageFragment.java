@@ -17,12 +17,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MyProfilePageFragment extends Fragment {
-    TextView name;
-    EditText etBio;
-    RatingBar publicRating;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    Player currUser;
-    Ratings currRating;
+    private TextView name;
+    private EditText etBio;
+    private RatingBar publicRating;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Player currUser;
+    private Ratings currRating;
     public MyProfilePageFragment() {
         // Required empty public constructor
     }
@@ -41,7 +41,7 @@ public class MyProfilePageFragment extends Fragment {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 currUser = documentSnapshot.toObject(Player.class);
-                String fullName = currUser.getFirstName() + " " + currUser.getLastName();
+                String fullName = currUser.getFullName();
                 name.setText(fullName);
                 etBio.setText(currUser.getDescription());
                 String ratingId = currUser.getRatingId();

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -17,15 +16,13 @@ import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 public class SignUp2 extends AppCompatActivity {
     ImageView ivProfile;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
 
     EditText etBio;
-    EditText etFirstName;
-    EditText etLastName;
+    EditText etFullName;
     EditText etPhoneNo;
     EditText etDateOfBirth;
     RadioGroup rgGender;
@@ -53,8 +50,7 @@ public class SignUp2 extends AppCompatActivity {
             public void onClick(View view) {
                 if(checkIfEmpty()){
                     String bio = etBio.getText().toString();
-                    String firstName = etFirstName.getText().toString();
-                    String lastName = etLastName.getText().toString();
+                    String fullName = etFullName.getText().toString();
                     String phone = etPhoneNo.getText().toString();
                     String dob = etDateOfBirth.getText().toString();
                     RadioButton rb = findViewById(rgGender.getCheckedRadioButtonId());
@@ -62,8 +58,7 @@ public class SignUp2 extends AppCompatActivity {
                     Intent i = new Intent(SignUp2.this, SignUp3.class);
                     i.putExtra("uid", uid);
                     i.putExtra("email", email);
-                    i.putExtra("firstName", firstName);
-                    i.putExtra("lastName", lastName);
+                    i.putExtra("fullName", fullName);
                     i.putExtra("phone", phone);
                     i.putExtra("dob", dob);
                     i.putExtra("gender", gender);
@@ -148,7 +143,7 @@ public class SignUp2 extends AppCompatActivity {
     public boolean checkIfEmpty(){
         initialize();
         boolean check = false;
-        if(TextUtils.isEmpty(etFirstName.getText().toString()) && TextUtils.isEmpty(etLastName.getText().toString()) && TextUtils.isEmpty(etDateOfBirth.getText().toString()) && TextUtils.isEmpty(etPhoneNo.getText().toString())){
+        if(TextUtils.isEmpty(etFullName.getText().toString()) && TextUtils.isEmpty(etDateOfBirth.getText().toString()) && TextUtils.isEmpty(etPhoneNo.getText().toString())){
             check = false;
         }else{
             check = true;
@@ -158,8 +153,7 @@ public class SignUp2 extends AppCompatActivity {
 
     public void initialize(){
         ivProfile = findViewById(R.id.ivProfile);
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
+        etFullName = findViewById(R.id.etFullName);
         etPhoneNo = findViewById(R.id.etPhoneNo);
         etDateOfBirth = findViewById(R.id.etDoB);
         rgGender = findViewById(R.id.rgGender);

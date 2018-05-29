@@ -21,13 +21,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class SignUp extends AppCompatActivity {
-    EditText etEmail;
-    EditText etPassword;
-    EditText etConfirmPassword;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();;
-
-
+    private EditText etEmail;
+    private EditText etPassword;
+    private EditText etConfirmPassword;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,6 @@ public class SignUp extends AppCompatActivity {
         etPassword = findViewById(R.id.etPw);
         etConfirmPassword = findViewById(R.id.etConfirmPw);
         setTitle("SIGN UP");
-        final FirebaseUser user = firebaseAuth.getCurrentUser();
         Button btn = findViewById(R.id.btnCreate);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +46,7 @@ public class SignUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(SignUp.this, "Registration successful", Toast.LENGTH_LONG).show();
+                                FirebaseUser user = firebaseAuth.getCurrentUser();
                                 String uid = user.getUid();
                                 DBHelper dbh = new DBHelper(SignUp.this);
                                 dbh.retainUserLogIn(uid);

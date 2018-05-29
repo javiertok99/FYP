@@ -28,15 +28,15 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class LogIn extends AppCompatActivity {
-    EditText etUserName;
-    EditText etPassword;
+    private EditText etUserName;
+    private EditText etPassword;
     private FirebaseUser user;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference users = db.collection("users");
-    DocumentReference userRef;
-    ArrayList<Player> alPlayer = new ArrayList<>();
-    boolean loggedIn = false;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference users = db.collection("users");
+    private DocumentReference userRef;
+    private ArrayList<Player> alPlayer = new ArrayList<>();
+    private boolean loggedIn = false;
 
     @Override
     protected void onStart() {

@@ -16,7 +16,7 @@ import android.widget.TextView;
 public class BottomNavBar extends AppCompatActivity {
 
     private TextView mTextMessage;
-    String page = "";
+    private String page = "";
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

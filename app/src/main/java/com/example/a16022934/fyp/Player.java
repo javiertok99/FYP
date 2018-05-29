@@ -7,9 +7,8 @@ public class Player implements Serializable {
     private String dateOfBirth;
     private String description;
     private String email;
-    private String firstName;
+    private String fullName;
     private String gender;
-    private String lastName;
     private int phoneNo;
     private String ratingId;
     private String selfEvalId;
@@ -18,13 +17,12 @@ public class Player implements Serializable {
     public Player() {
     }
 
-    public Player(String dateOfBirth, String description, String email, String firstName, String gender, String lastName, int phoneNo, String ratingId, String selfEvalId, String user_id) {
+    public Player(String dateOfBirth, String description, String email, String fullName, String gender, int phoneNo, String ratingId, String selfEvalId, String user_id) {
         this.dateOfBirth = dateOfBirth;
         this.description = description;
         this.email = email;
-        this.firstName = firstName;
+        this.fullName = fullName;
         this.gender = gender;
-        this.lastName = lastName;
         this.phoneNo = phoneNo;
         this.ratingId = ratingId;
         this.selfEvalId = selfEvalId;
@@ -55,12 +53,12 @@ public class Player implements Serializable {
         this.email = email;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getGender() {
@@ -69,14 +67,6 @@ public class Player implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public int getPhoneNo() {
@@ -103,7 +93,11 @@ public class Player implements Serializable {
         this.selfEvalId = selfEvalId;
     }
 
-    public String getUser_id() { return user_id; }
+    public String getUser_id() {
+        return user_id;
+    }
 
-    public void setUser_id(String user_id) { this.user_id = user_id; }
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 }

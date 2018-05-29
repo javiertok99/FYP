@@ -71,7 +71,7 @@ public class PublicProfileSettings extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 currUser = documentSnapshot.toObject(Player.class);
-                String fullName = currUser.getFirstName() + " " + currUser.getLastName();
+                String fullName = currUser.getFullName();
                 settingName.setText(fullName);
                 settingBio.setText(currUser.getDescription());
                 String selfEval = currUser.getSelfEvalId();

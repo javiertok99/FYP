@@ -35,8 +35,7 @@ public class SignUp3 extends AppCompatActivity {
         Intent i = getIntent();
         final String email = i.getStringExtra("email");
         final String uid = i.getStringExtra("uid");
-        final String firstName = i.getStringExtra("firstName");
-        final String lastName = i.getStringExtra("lastName");
+        final String fullName = i.getStringExtra("fullName");
         final int phoneNo = Integer.parseInt(i.getStringExtra("phone"));
         final String dateOfBirth = i.getStringExtra("dob");
         final String gender = i.getStringExtra("gender");
@@ -199,8 +198,7 @@ public class SignUp3 extends AppCompatActivity {
                 player.put("dateOfBirth", dateOfBirth);
                 player.put("description", bioText);
                 player.put("email", email);
-                player.put("firstName", firstName);
-                player.put("lastName", lastName);
+                player.put("fullName", fullName);
                 player.put("phoneNo", phoneNo);
                 player.put("ratingId", rateId);
                 player.put("selfEvalId", evalId);
