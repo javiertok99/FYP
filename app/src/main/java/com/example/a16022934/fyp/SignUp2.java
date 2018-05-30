@@ -74,7 +74,7 @@ public class SignUp2 extends AppCompatActivity {
 
             }
         });
-
+//commit testing
 
     }
 
@@ -160,3 +160,5 @@ public class SignUp2 extends AppCompatActivity {
         etBio = findViewById(R.id.etBio);
     }
 }
+
+
