@@ -22,11 +22,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FindMatchFragment extends Fragment {
-
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference users = db.collection("users");
-    private ArrayList<Player> alMatches = new ArrayList<>();
-
+    ArrayList<Player> alMatches;
     public FindMatchFragment() {
         // Required empty public constructor
     }
@@ -34,21 +30,27 @@ public class FindMatchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ListView lvMatches;
+        MatchBaseAdapter matchAdapter;
+        View view = inflater.inflate(R.layout.fragment_find_match, container, false);
+        lvMatches = view.findViewById(R.id.lvFindMatch);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference users = db.collection("users");
+        alMatches = new ArrayList<>();
         users.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot document : task.getResult()) {
                         Player user = document.toObject(Player.class);
+                        alMatches.add(user);
+                        Toast.makeText(getActivity(),alMatches.size() + "", Toast.LENGTH_LONG).show();
                     }
                 }
             }
         });
 
-        ListView lvMatches;
-        MatchBaseAdapter matchAdapter;
-        View view = inflater.inflate(R.layout.fragment_find_match, container, false);
-        lvMatches = view.findViewById(R.id.lvFindMatch);
+
         matchAdapter = new MatchBaseAdapter(getActivity(), alMatches);
         lvMatches.setAdapter(matchAdapter);
 

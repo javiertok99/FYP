@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,16 @@ public class PrivateProfileSettings extends AppCompatActivity {
                 etPrivateMobile.setText(phoneNo);
                 tvPrivateEmail.setText(currUser.getEmail());
                 tvDOB.setText(currUser.getDateOfBirth());
+                RadioButton male = findViewById(R.id.rMale);
+                RadioButton female = findViewById(R.id.rFemale);
+                if(currUser.getGender().equalsIgnoreCase("male")){
+                    male.setChecked(true);
+                    female.setChecked(false);
+                }else{
+                    male.setChecked(false);
+                    female.setChecked(true);
+                }
+
             }
         });
 
@@ -72,13 +83,14 @@ public class PrivateProfileSettings extends AppCompatActivity {
             public void onClick(View view) {
 
                 //get the new phone
-                String newPhone = etPrivateMobile.getText().toString();
+                int newPhone = Integer.parseInt(etPrivateMobile.getText().toString());
 
                 //get the new date
                 String newDOB = tvDOB.getText().toString();
 
-                //get the new date
-                String newGender = tvDOB.getText().toString();
+                //get the new gender
+                RadioButton rb = findViewById(rgPrivateGender.getCheckedRadioButtonId());
+                String newGender = rb.getText().toString();
 
                 //Update the name and bio
                 userDoc.update(
