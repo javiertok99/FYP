@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +18,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class SignUp2 extends AppCompatActivity {
     ImageView ivProfile;
-    Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    Uri file;
+    int REQUEST_CAMERA = 1, SELECT_FILE = 0;
 
     EditText etBio;
     EditText etFullName;
@@ -48,7 +54,7 @@ public class SignUp2 extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(checkIfEmpty()){
+                if (checkIfEmpty()) {
                     String bio = etBio.getText().toString();
                     String fullName = etFullName.getText().toString();
                     String phone = etPhoneNo.getText().toString();
@@ -64,17 +70,13 @@ public class SignUp2 extends AppCompatActivity {
                     i.putExtra("gender", gender);
                     i.putExtra("bio", bio);
                     startActivity(i);
-                }else{
+                } else {
                     Toast.makeText(SignUp2.this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show();
                 }
 
 
-
-
-
             }
         });
-//commit testing
 
     }
 
@@ -109,7 +111,10 @@ public class SignUp2 extends AppCompatActivity {
                 if (items[i].equals("camera")) {
 
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, 0);
+                    Uri file = Uri.fromFile(getOutputMediaFile());
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
+
+                    startActivityForResult(intent, 1);
 
                 } else if (items[i].equals("Gallery")) {
 
@@ -131,27 +136,29 @@ public class SignUp2 extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CAMERA) {
-            Bundle bundle = data.getExtras();
-            final Bitmap bmp = (Bitmap) bundle.get("data");
-            ivProfile.setImageBitmap(bmp);
+//            dispatchTakePictureIntent();
+            if (resultCode == RESULT_OK) {
+                ivProfile.setImageURI(file);
+            }
+//            ivProfile.setImageBitmap(bmp);
         } else if (requestCode == SELECT_FILE) {
             Uri selectedImageUri = data.getData();
             ivProfile.setImageURI(selectedImageUri);
         }
     }
 
-    public boolean checkIfEmpty(){
+    public boolean checkIfEmpty() {
         initialize();
         boolean check = false;
-        if(TextUtils.isEmpty(etFullName.getText().toString()) && TextUtils.isEmpty(etDateOfBirth.getText().toString()) && TextUtils.isEmpty(etPhoneNo.getText().toString())){
+        if (TextUtils.isEmpty(etFullName.getText().toString()) && TextUtils.isEmpty(etDateOfBirth.getText().toString()) && TextUtils.isEmpty(etPhoneNo.getText().toString())) {
             check = false;
-        }else{
+        } else {
             check = true;
         }
         return check;
     }
 
-    public void initialize(){
+    public void initialize() {
         ivProfile = findViewById(R.id.ivProfile);
         etFullName = findViewById(R.id.etFullName);
         etPhoneNo = findViewById(R.id.etPhoneNo);
@@ -159,6 +166,32 @@ public class SignUp2 extends AppCompatActivity {
         rgGender = findViewById(R.id.rgGender);
         etBio = findViewById(R.id.etBio);
     }
+
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CameraDemo");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+    }
+
+
+//    static final int REQUEST_IMAGE_CAPTURE = 1;
+//
+//    private void dispatchTakePictureIntent() {
+//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//        }
+//    }
 }
+
+
 
 
