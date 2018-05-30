@@ -209,8 +209,7 @@ public class PublicProfileSettings extends AppCompatActivity {
 
                 //Update the name and bio
                 userDoc.update(
-                        "firstName", newName,
-                        "lastName", newName,
+                        "fullName", newName,
                         "description", newBio
                 ).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
