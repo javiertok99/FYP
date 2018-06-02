@@ -133,15 +133,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint="Your Name"
             android:inputType="textPersonName"
             android:textColor="@android:color/black"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivMyProfilePic"
             app:layout_constraintTop_toTopOf="@+id/ivMyProfilePic" />
@@ -150,16 +148,16 @@
             android:id="@+id/etSettingsBio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:hint='"Bio"'
             android:inputType="textMultiLine"
             android:textColor="@android:color/black"
-            android:textSize="12sp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivMyProfilePic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ivMyProfilePic"
@@ -188,7 +186,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:numStars="5"
             android:rating="0"
             android:scaleX="0.7"
@@ -196,7 +194,7 @@
             android:stepSize="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dividerBelowBio" />
+            app:layout_constraintTop_toBottomOf="@+id/etSettingsBio" />
 
         <TextView
             android:id="@+id/tvBackHand"
@@ -246,23 +244,12 @@
             app:layout_constraintTop_toBottomOf="@+id/dividerBelowDropShot" />
 
         <View
-            android:id="@+id/dividerBelowBio"
-            android:layout_width="395dp"
-            android:layout_height="1dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etSettingsBio" />
-
-        <View
             android:id="@+id/dividerBelowBackHand"
             android:layout_width="395dp"
             android:layout_height="1dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBackHand" />
 
@@ -272,7 +259,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingService" />
 
@@ -280,7 +267,7 @@
             android:id="@+id/dividerBelowFrontHand"
             android:layout_width="395dp"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingFrontHand" />
 
@@ -290,7 +277,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="8dp"
             android:layout_marginStart="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingSmashShot" />
 
@@ -300,7 +287,7 @@
             android:layout_height="1dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@android:color/darker_gray"
+            android:background="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingDropShot" />

@@ -1,6 +1,7 @@
 package com.example.a16022934.fyp;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -23,6 +25,7 @@ public class MyProfilePageFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Player currUser;
     private Ratings currRating;
+
     public MyProfilePageFragment() {
         // Required empty public constructor
     }
@@ -30,6 +33,8 @@ public class MyProfilePageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         View view = inflater.inflate(R.layout.fragment_my_profile_page, container, false);
         name = view.findViewById(R.id.tvMyName);
         etBio = view.findViewById(R.id.etMyBio);
@@ -58,7 +63,6 @@ public class MyProfilePageFragment extends Fragment {
         etBio.setEnabled(false);
         return view;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,5 +72,6 @@ public class MyProfilePageFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.option_menu_profile, menu);
     }
+
 }
 

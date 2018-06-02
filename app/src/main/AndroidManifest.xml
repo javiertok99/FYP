@@ -3,17 +3,16 @@
     package="com.example.a16022934.fyp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-feature
-    android:name="android.hardware.camera"
-    android:required="true" />
+        android:name="android.hardware.camera"
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.camera.autofocus"
         android:required="false" />
-
 
     <application
         android:allowBackup="true"
@@ -39,6 +38,9 @@
         <activity
             android:name=".BottomNavBar"
             android:label="@string/title_activity_bottom_nav_bar" />
+        <activity android:name=".ChangePassword" />
+        <activity android:name=".ChangePhoneNumber" />
+        <activity android:name=".Verification"></activity>
     </application>
 
 </manifest>

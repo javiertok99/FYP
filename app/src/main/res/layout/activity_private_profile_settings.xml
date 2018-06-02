@@ -14,33 +14,32 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrivateDOB" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDisplayDOB" />
 
     <TextView
         android:id="@+id/tvPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Password"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ibChangePassword"
         android:layout_width="45dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/tvPrivatePassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvPassword"
         app:srcCompat="@drawable/changepw" />
@@ -49,21 +48,20 @@
         android:id="@+id/tvMobile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Mobile"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dividerBelowPassword" />
 
     <TextView
-        android:id="@+id/tvPrivatePassword"
+        android:id="@+id/tvPasswordDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
-        android:text="mypasswordsucks"
+        android:text="************"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,23 +76,26 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPrivatePassword" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPasswordDisplay" />
 
-    <EditText
-        android:id="@+id/etPrivateMobile"
+    <TextView
+        android:id="@+id/tvDisplayMobile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
         android:ems="10"
-        android:inputType="phone"
+        android:inputType="number"
+        android:maxLength="8"
         android:text="90673011"
         android:textColor="@android:color/black"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMobile" />
@@ -125,7 +126,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPrivateEmail" />
@@ -134,22 +135,22 @@
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Email"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPrivateMobile" />
+        app:layout_constraintTop_toBottomOf="@+id/dividerBelowBirthDate" />
 
     <TextView
         android:id="@+id/tvGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_weight="1"
         android:text="Gender"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DividerBelowEmail" />
 
@@ -191,24 +192,24 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_weight="1"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RGPrivateGender" />
 
     <TextView
-        android:id="@+id/tvBirthdate"
+        android:id="@+id/tvDOB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Birth date"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dividerBelowGender" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
-        android:id="@+id/tvPrivateDOB"
+        android:id="@+id/tvDisplayDOB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -218,21 +219,22 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthdate" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDOB" />
 
     <ImageButton
         android:id="@+id/ibCalendar"
         android:layout_width="35dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/tvPrivateDOB"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDisplayDOB"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvBirthdate"
+        app:layout_constraintStart_toStartOf="@+id/ibChangeMobile"
+        app:layout_constraintTop_toTopOf="@+id/tvDOB"
         app:srcCompat="@drawable/calendar" />
 
     <Button
@@ -251,5 +253,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ibChangeMobile"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDisplayMobile"
+        app:layout_constraintEnd_toEndOf="@+id/tvDisplayMobile"
+        app:layout_constraintTop_toTopOf="@+id/tvMobile"
+        app:srcCompat="@drawable/phonechange" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDisplayMobile" />
 
 </android.support.constraint.ConstraintLayout>
