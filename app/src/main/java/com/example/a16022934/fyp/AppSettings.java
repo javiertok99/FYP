@@ -20,21 +20,30 @@ public class AppSettings extends AppCompatActivity {
         Button btnSave = findViewById(R.id.btnSave);
         Switch nightSwitch = findViewById(R.id.switchNightMode);
         Switch volumeSwitch = findViewById(R.id.switchVolume);
+        Button btn2 = findViewById(R.id.button3);
 
-        btnSave.setOnClickListener(new View.OnClickListener(){
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-                Toast.makeText(getBaseContext(),"App Settings Updated",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "App Settings Updated", Toast.LENGTH_SHORT).show();
             }
         });
+
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setContentView(R.layout.activity_chat);
+            }
+        });
+
 
         nightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(getBaseContext(),"Night Mode is 'ON'",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Night Mode is 'ON'", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getBaseContext(),"Night Mode is 'OFF'",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Night Mode is 'OFF'", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -42,9 +51,9 @@ public class AppSettings extends AppCompatActivity {
         volumeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(getBaseContext(),"Volume is 'ON'",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Volume is 'ON'", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getBaseContext(),"Volume is 'OFF'",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), "Volume is 'OFF'", Toast.LENGTH_SHORT).show();
                 }
             }
         });
