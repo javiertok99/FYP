@@ -111,7 +111,7 @@ public class ChatFragment extends Fragment {
 
                 ChatMsg messages = new ChatMsg(msg, time, name);
                 messageListRef.push().setValue(messages);
-                etMessage.setText("");
+                etMessage.setText(" ");
 
 
             }
