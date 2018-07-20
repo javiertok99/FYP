@@ -13,10 +13,6 @@
         android:orderInCategory="101"
         android:title="Private Profile Info" />
     <item
-        android:id="@+id/AppSettings"
-        android:orderInCategory="102"
-        android:title="App Settings" />
-    <item
         android:id="@+id/logOut"
         android:orderInCategory="103"
         android:title="Log Out" />

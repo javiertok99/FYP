@@ -153,7 +153,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint='"Bio"'
+            android:hint="Bio"
+            android:maxLength="80"
             android:inputType="textMultiLine"
             android:textColor="@android:color/black"
             android:textSize="16sp"

@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -30,8 +31,6 @@
         </activity>
         <activity android:name=".PublicProfileSettings" />
         <activity android:name=".PrivateProfileSettings" />
-        <activity android:name=".Chat" />
-        <activity android:name=".AppSettings" />
         <activity android:name=".SignUp" />
         <activity android:name=".SignUp2" />
         <activity android:name=".SignUp3" />
@@ -39,8 +38,6 @@
             android:name=".BottomNavBar"
             android:label="@string/title_activity_bottom_nav_bar" />
         <activity android:name=".ChangePassword" />
-        <activity android:name=".ChangePhoneNumber" />
-        <activity android:name=".Verification"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -25,10 +26,11 @@ import java.util.Calendar;
 
 public class PrivateProfileSettings extends AppCompatActivity {
 
-    TextView tvPrivatePassword, tvPrivateEmail, tvDOB, tvPrivateMobile;
+    TextView tvPrivatePassword, tvPrivateEmail, tvDOB;
+    EditText etPrivateMobile;
     RadioGroup rgPrivateGender;
     Button btnSave;
-    ImageButton ibChangePassword, ibChangeDOB, ibChangeMobile;
+    ImageButton ibChangePassword, ibChangeDOB;
 
     //get firebase database
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -52,8 +54,8 @@ public class PrivateProfileSettings extends AppCompatActivity {
         tvPrivateEmail = findViewById(R.id.tvPrivateEmail);
         tvDOB = findViewById(R.id.tvDisplayDOB);
         ibChangePassword = findViewById(R.id.ibChangePassword);
-        ibChangeMobile = findViewById(R.id.ibChangeMobile);
         ibChangeDOB = findViewById(R.id.ibCalendar);
+        etPrivateMobile = findViewById(R.id.etDisplayMobile);
 
 
         //get radio group object
@@ -96,7 +98,7 @@ public class PrivateProfileSettings extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 currUser = documentSnapshot.toObject(Player.class);
                 String phoneNo = currUser.getPhoneNo() + "";
-                tvPrivateMobile.setText(phoneNo);
+                etPrivateMobile.setText(phoneNo);
                 tvPrivateEmail.setText(currUser.getEmail());
                 tvDOB.setText(currUser.getDateOfBirth());
                 String gender = currUser.getGender();
@@ -122,22 +124,12 @@ public class PrivateProfileSettings extends AppCompatActivity {
             }
         });
 
-        //Change mobile
-        ibChangeMobile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getBaseContext(), ChangePhoneNumber.class);
-                startActivity(intent);
-            }
-        });
-
-
         //Save the settings
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String phoneNo = tvPrivateMobile.getText().toString();
+                String phoneNo = etPrivateMobile.getText().toString();
 
                 //get the new phone
                 int newPhone = Integer.parseInt(phoneNo);
@@ -171,7 +163,7 @@ public class PrivateProfileSettings extends AppCompatActivity {
         tvPrivatePassword = findViewById(R.id.tvPasswordDisplay);
         tvPrivateEmail = findViewById(R.id.tvPrivateEmail);
         tvDOB = findViewById(R.id.tvDisplayDOB);
-        tvPrivateMobile = findViewById(R.id.tvDisplayMobile);
+        etPrivateMobile = findViewById(R.id.etDisplayMobile);
         rgPrivateGender = findViewById(R.id.RGPrivateGender);
     }
 

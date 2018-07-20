@@ -89,10 +89,6 @@ public class BottomNavBar extends AppCompatActivity {
                 Intent intentToPrivate = new Intent(getBaseContext(), PrivateProfileSettings.class);
                 startActivity(intentToPrivate);
                 return true;
-            case R.id.AppSettings:
-                Intent intentToAppSettings = new Intent(getBaseContext(), AppSettings.class);
-                startActivity(intentToAppSettings);
-                return true;
             case R.id.logOut:
                 DBHelper dbh = new DBHelper(BottomNavBar.this);
                 int uid = dbh.getId();
