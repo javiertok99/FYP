@@ -135,11 +135,11 @@ public class SignUp2 extends AppCompatActivity {
             data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_CAMERA) {
-//            dispatchTakePictureIntent();
-            if (resultCode == RESULT_OK) {
-                ivProfile.setImageURI(file);
-            }
+        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ivProfile.setImageBitmap(imageBitmap);
+
 //            ivProfile.setImageBitmap(bmp);
         } else if (requestCode == SELECT_FILE) {
             Uri selectedImageUri = data.getData();
@@ -181,6 +181,12 @@ public class SignUp2 extends AppCompatActivity {
                 "IMG_" + timeStamp + ".jpg");
     }
 
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_CAMERA);
+        }
+    }
 
 //    static final int REQUEST_IMAGE_CAPTURE = 1;
 //

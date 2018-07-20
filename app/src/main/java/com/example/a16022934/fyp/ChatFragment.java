@@ -63,14 +63,14 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.activity_chat, container, false);
+        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         etMessage = (EditText) view.findViewById(R.id.editTextMessage);
-        sendBtn = (FloatingActionButton) view.findViewById(R.id.fab);
+        sendBtn = (FloatingActionButton) view.findViewById(R.id.sendfab);
 
 
 
-        lv = (ListView) view.findViewById(R.id.lvMessage);
+        lv = (ListView) view.findViewById(R.id.list_of_message);
         alMessage = new ArrayList<ChatMsg>();
         caMessage = new CustomAdapter(getContext(), R.layout.msg, alMessage);
         lv.setAdapter(caMessage);

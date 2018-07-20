@@ -29,9 +29,9 @@ public class BottomNavBar extends AppCompatActivity {
                     setTitle("Find Match");
                     transaction.replace(R.id.container, new FindMatchFragment()).commit();
                     return true;
-                case R.id.matchHistory:
+                case R.id.chat:
                     setTitle("Chat");
-                    transaction.replace(R.id.container, new MatchHistoryFragment()).commit();
+                    transaction.replace(R.id.container, new ChatFragment()).commit();
                     return true;
                 case R.id.videos:
                     setTitle("Videos");
