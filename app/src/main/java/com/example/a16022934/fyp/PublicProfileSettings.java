@@ -1,6 +1,8 @@
 package com.example.a16022934.fyp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,7 +36,6 @@ public class PublicProfileSettings extends AppCompatActivity {
 
     //Create a Ratings object
     Ratings currRating;
-    ;
 
     //Get the user
     DocumentReference userDoc;
@@ -234,5 +235,23 @@ public class PublicProfileSettings extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Public Profile Settings Updated", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Hold on!");
+        builder.setMessage("Changes have not been saved, are you sure you want to leave?");
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                PublicProfileSettings.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+        builder.show();
     }
 }

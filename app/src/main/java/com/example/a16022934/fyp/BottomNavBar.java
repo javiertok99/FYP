@@ -29,9 +29,9 @@ public class BottomNavBar extends AppCompatActivity {
                     setTitle("Find Match");
                     transaction.replace(R.id.container, new FindMatchFragment()).commit();
                     return true;
-                case R.id.matchHistory:
-                    setTitle("Match History");
-                    transaction.replace(R.id.container, new MatchHistoryFragment()).commit();
+                case R.id.chat:
+                    setTitle("Chat");
+                    transaction.replace(R.id.container, new ChatFragment()).commit();
                     return true;
                 case R.id.videos:
                     setTitle("Videos");
@@ -88,10 +88,6 @@ public class BottomNavBar extends AppCompatActivity {
             case R.id.PrivateProfileSettings:
                 Intent intentToPrivate = new Intent(getBaseContext(), PrivateProfileSettings.class);
                 startActivity(intentToPrivate);
-                return true;
-            case R.id.AppSettings:
-                Intent intentToAppSettings = new Intent(getBaseContext(), AppSettings.class);
-                startActivity(intentToAppSettings);
                 return true;
             case R.id.logOut:
                 DBHelper dbh = new DBHelper(BottomNavBar.this);

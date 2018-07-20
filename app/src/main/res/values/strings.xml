@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FYP</string>
     <string name="findMatch">Find Match</string>
-    <string name="matchHistory">Match History</string>
+    <string name="chat">Chat</string>
     <string name="videos">Videos</string>
     <string name="topPlayers">Top Players</string>
     <string name="profile">Profile</string>

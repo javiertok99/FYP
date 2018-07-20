@@ -5,9 +5,10 @@
         android:title="@string/findMatch"
         android:icon="@drawable/search" />
 
-    <item android:id="@+id/matchHistory"
-        android:title="@string/matchHistory"
-        android:icon="@drawable/list" />
+    <item
+        android:id="@+id/chat"
+        android:icon="@drawable/list"
+        android:title="@string/chat" />
 
     <item android:id="@+id/videos"
         android:title="@string/videos"
