@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,9 @@ import java.util.ArrayList;
 
 public class FindMatchFragment extends Fragment {
     ArrayList<Player> alMatches;
+    DBHelper dbh;
+    String uid;
+    private ProgressBar loader;
     public FindMatchFragment() {
         // Required empty public constructor
     }
@@ -30,28 +34,36 @@ public class FindMatchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ListView lvMatches;
-        MatchBaseAdapter matchAdapter;
+        final ListView lvMatches;
+        final MatchBaseAdapter matchAdapter;
         View view = inflater.inflate(R.layout.fragment_find_match, container, false);
         lvMatches = view.findViewById(R.id.lvFindMatch);
+        loader = view.findViewById(R.id.loader);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference users = db.collection("users");
         alMatches = new ArrayList<>();
+        dbh = new DBHelper(getActivity());
+        uid = dbh.getUserId();
+        matchAdapter = new MatchBaseAdapter(getActivity(), alMatches);
         users.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot document : task.getResult()) {
                         Player user = document.toObject(Player.class);
-                        alMatches.add(user);
-                        Toast.makeText(getActivity(),alMatches.size() + "", Toast.LENGTH_LONG).show();
+                        if(!document.getId().equals(uid)) {
+                            alMatches.add(user);
+                            loader.setVisibility(View.INVISIBLE);
+                            lvMatches.setVisibility(View.VISIBLE);
+                        }
                     }
+                    matchAdapter.notifyDataSetChanged();
                 }
             }
         });
 
 
-        matchAdapter = new MatchBaseAdapter(getActivity(), alMatches);
+
         lvMatches.setAdapter(matchAdapter);
 
         // Inflate the layout for this fragment

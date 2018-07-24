@@ -27,24 +27,24 @@ public class BottomNavBar extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.search:
                     setTitle("Find Match");
-                    transaction.replace(R.id.container, new FindMatchFragment()).commit();
+                    transaction.replace(R.id.frame, new FindMatchFragment()).commit();
                     return true;
                 case R.id.chat:
                     setTitle("Chat");
-                    transaction.replace(R.id.container, new ChatFragment()).commit();
+                    transaction.replace(R.id.frame, new ChatFragment()).commit();
                     return true;
                 case R.id.videos:
                     setTitle("Videos");
-                    transaction.replace(R.id.container, new VideoFragment()).commit();
+                    transaction.replace(R.id.frame, new VideoFragment()).commit();
                     return true;
                 case R.id.topPlayers:
                     setTitle("Top Players");
-                    transaction.replace(R.id.container, new TopPlayerFragment()).commit();
+                    transaction.replace(R.id.frame, new TopPlayerFragment()).commit();
                     return true;
                 case R.id.profile:
                     setTitle("My Profile");
                     page = "profile";
-                    transaction.replace(R.id.container, new MyProfilePageFragment()).commit();
+                    transaction.replace(R.id.frame, new MyProfilePageFragment()).commit();
                     return true;
             }
             return false;
@@ -62,15 +62,14 @@ public class BottomNavBar extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.frame, new FindMatchFragment()).commit();
+        setTitle("Find Match");
         Intent i = getIntent();
         String type = i.getStringExtra("type");
         if(type != null){
             if(type.equals("signUp")){
                 setTitle("My Profile");
-                transaction.replace(R.id.container, new MyProfilePageFragment()).commit();
-            }else{
-                setTitle("Find Match");
-                transaction.replace(R.id.container, new FindMatchFragment()).commit();
+                transaction.replace(R.id.frame, new MyProfilePageFragment()).commit();
             }
         }
 

@@ -39,31 +39,6 @@ public class LogIn extends AppCompatActivity {
     private boolean loggedIn = false;
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        DBHelper dbh = new DBHelper(LogIn.this);
-        final String uid = dbh.getUserId();
-        users.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        if (document.getId().equals(uid)) {
-                            loggedIn = true;
-                            Intent i = new Intent(LogIn.this, BottomNavBar.class);
-                            Toast.makeText(getApplicationContext(), uid, Toast.LENGTH_LONG).show();
-                            startActivity(i);
-                            finish();
-
-                        }
-                    }
-                }
-            }
-        });
-
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

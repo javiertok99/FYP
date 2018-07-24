@@ -120,7 +120,7 @@
         app:layout_constraintStart_toEndOf="@+id/ivPhoneIcon"
         app:layout_constraintTop_toBottomOf="@+id/etFullName" />
 
-    <EditText
+    <TextView
         android:id="@+id/etDoB"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/date_of_birth"
-        android:inputType="date"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivDateIcon"
         app:layout_constraintTop_toBottomOf="@+id/etPhoneNo" />

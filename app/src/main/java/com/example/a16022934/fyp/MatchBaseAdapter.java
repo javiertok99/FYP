@@ -74,11 +74,11 @@ public class MatchBaseAdapter extends BaseAdapter {
         String fullName = mDisplayedValues.get(position).getFullName();
         holder.tvName.setText(fullName);
         holder.tvGender.setText(mDisplayedValues.get(position).getGender());
-        String year = mDisplayedValues.get(position).getDateOfBirth().substring(6,9);
-        String age = Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(year) + "";
-        holder.tvAge.setText(age);
-        holder.ivProfilePic.getLayoutParams().height = 250;
-        holder.ivProfilePic.getLayoutParams().width = 250;
+//        String year = mDisplayedValues.get(position).getDateOfBirth().substring(6,9);
+//        String age = Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(year) + "";
+//        holder.tvAge.setText(age);
+        holder.ivProfilePic.getLayoutParams().height = 400;
+        holder.ivProfilePic.getLayoutParams().width = 400;
         holder.btnViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

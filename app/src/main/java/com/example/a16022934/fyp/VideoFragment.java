@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 public class VideoFragment extends Fragment {
 
-    WebView webView;
+    private WebView webView;
+    private ProgressBar wvLoader;
 
     public VideoFragment() {
         // Required empty public constructor
@@ -25,10 +27,10 @@ public class VideoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
 
         webView = view.findViewById(R.id.webView);
+        wvLoader = view.findViewById(R.id.wvLoader);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl("https://m.youtube.com/results?search_query=badminton+tutorial");
-
         return view;
     };
 

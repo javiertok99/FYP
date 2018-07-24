@@ -1,5 +1,6 @@
 package com.example.a16022934.fyp;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -20,6 +23,7 @@ import android.widget.RadioGroup;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SignUp2 extends AppCompatActivity {
@@ -30,7 +34,7 @@ public class SignUp2 extends AppCompatActivity {
     EditText etBio;
     EditText etFullName;
     EditText etPhoneNo;
-    EditText etDateOfBirth;
+    TextView etDateOfBirth;
     RadioGroup rgGender;
 
     @Override
@@ -74,6 +78,32 @@ public class SignUp2 extends AppCompatActivity {
                     Toast.makeText(SignUp2.this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show();
                 }
 
+
+            }
+        });
+
+        etDateOfBirth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                        etDateOfBirth.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
+                    }
+                };
+                int Year = now.get(Calendar.YEAR);
+                int Month = now.get(Calendar.MONTH);
+                int Day = now.get(Calendar.DAY_OF_MONTH);
+
+                // Create the Date Picker Dialog
+                DatePickerDialog myDateDialog = new DatePickerDialog(SignUp2.this,
+                        myDateListener, Year, Month, Day);
+                myDateDialog.getDatePicker().setSpinnersShown(true);
+                myDateDialog.getDatePicker().setCalendarViewShown(false);
+
+                myDateDialog.show();
 
             }
         });
