@@ -27,7 +27,6 @@ public class VideoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_video, container, false);
 
         webView = view.findViewById(R.id.webView);
-        wvLoader = view.findViewById(R.id.wvLoader);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.loadUrl("https://m.youtube.com/results?search_query=badminton+tutorial");

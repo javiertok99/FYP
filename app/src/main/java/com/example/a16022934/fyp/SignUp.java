@@ -24,7 +24,6 @@ public class SignUp extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private EditText etConfirmPassword;
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,28 +39,13 @@ public class SignUp extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (etPassword.getText().toString().equals(etConfirmPassword.getText().toString()) && checkIfEmpty()) {
-                    (firebaseAuth.createUserWithEmailAndPassword(etEmail.getText().toString().trim(), etPassword.getText().toString())).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "Registration successful", Toast.LENGTH_LONG).show();
-                                FirebaseUser user = firebaseAuth.getCurrentUser();
-                                String uid = user.getUid();
-                                DBHelper dbh = new DBHelper(SignUp.this);
-                                dbh.retainUserLogIn(uid);
-                                dbh.close();
-                                String email = etEmail.getText().toString();
-                                Intent i = new Intent(SignUp.this, SignUp2.class);
-                                i.putExtra("uid", uid);
-                                i.putExtra("email", email);
-                                startActivity(i);
-                                finish();
-                            } else {
-                                Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-
-                            }
-                        }
-                    });
+                    Intent i = new Intent(SignUp.this, SignUp2.class);
+                    String email = etEmail.getText().toString();
+                    String password = etPassword.getText().toString();
+                    i.putExtra("email", email);
+                    i.putExtra("password", password);
+                    startActivity(i);
+                    finish();
                 }else{
                     if(TextUtils.isEmpty(etEmail.getText().toString())){
                         Toast.makeText(SignUp.this, "Email not Entered", Toast.LENGTH_SHORT).show();

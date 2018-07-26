@@ -18,7 +18,7 @@ public class AutoLogin extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference users = db.collection("users");
-    private Boolean loggedIn;
+    private Boolean loggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,8 @@ public class AutoLogin extends AppCompatActivity {
                         startActivity(i);
                         finish();
                     }
+                    
+
                 }
             }
         });

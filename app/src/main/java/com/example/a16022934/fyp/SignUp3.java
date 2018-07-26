@@ -2,6 +2,7 @@ package com.example.a16022934.fyp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,6 +33,7 @@ public class SignUp3 extends AppCompatActivity {
     Button btnSave;
     TextView settingsDescription;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,7 @@ public class SignUp3 extends AppCompatActivity {
         initialize();
         Intent i = getIntent();
         final String email = i.getStringExtra("email");
-        final String uid = i.getStringExtra("uid");
+        final String password = i.getStringExtra("password");
         final String fullName = i.getStringExtra("fullName");
         final int phoneNo = Integer.parseInt(i.getStringExtra("phone"));
         final String dateOfBirth = i.getStringExtra("dob");
@@ -143,51 +151,65 @@ public class SignUp3 extends AppCompatActivity {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             Button btn = findViewById(R.id.btnSave);
-
             @Override
-
-
             public void onClick(View view) {
-                DocumentReference newUserRef = db.collection("users").document(uid);
-                DocumentReference newRateRef = db.collection("ratings").document();
-                DocumentReference newEvalRef = db.collection("selfEvaluations").document();
-                String rateId = newRateRef.getId();
-                String evalId = newEvalRef.getId();
-                //Service
-                float serving = service.getRating();
-                float front = frontHand.getRating();
-                float back = backHand.getRating();
-                float smash = dropShot.getRating();
-                float drop = smashShot.getRating();
-                Map<String, Object> selfEval = new HashMap<>();
-                selfEval.put("backhand", back);
-                selfEval.put("dropShot", drop);
-                selfEval.put("fronthand", front);
-                selfEval.put("service", serving);
-                selfEval.put("smashShot", smash);
-                selfEval.put("user_id", uid);
-                newEvalRef.set(selfEval);
-                //Rating
-                Map<String, Object> rating = new HashMap<>();
-                rating.put("score", 5);
-                rating.put("user_id", uid);
-                newRateRef.set(rating);
-                //User
-                Map<String, Object> player = new HashMap<>();
-                player.put("gender", gender);
-                player.put("dateOfBirth", dateOfBirth);
-                player.put("description", bioText);
-                player.put("email", email);
-                player.put("fullName", fullName);
-                player.put("phoneNo", phoneNo);
-                player.put("ratingId", rateId);
-                player.put("selfEvalId", evalId);
-                newUserRef.set(player);
 
-                Intent i = new Intent(SignUp3.this, BottomNavBar.class);
-                i.putExtra("type", "signUp");
-                startActivity(i);
-                finish();
+                (firebaseAuth.createUserWithEmailAndPassword(email, password)).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(SignUp3.this, "Registration successful", Toast.LENGTH_LONG).show();
+                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            String uid = user.getUid();
+                            DBHelper dbh = new DBHelper(SignUp3.this);
+                            dbh.retainUserLogIn(uid);
+                            dbh.close();
+                            DocumentReference newUserRef = db.collection("users").document(uid);
+                            DocumentReference newRateRef = db.collection("ratings").document();
+                            DocumentReference newEvalRef = db.collection("selfEvaluations").document();
+                            String rateId = newRateRef.getId();
+                            String evalId = newEvalRef.getId();
+                            //Service
+                            float serving = service.getRating();
+                            float front = frontHand.getRating();
+                            float back = backHand.getRating();
+                            float smash = dropShot.getRating();
+                            float drop = smashShot.getRating();
+                            Map<String, Object> selfEval = new HashMap<>();
+                            selfEval.put("backhand", back);
+                            selfEval.put("dropShot", drop);
+                            selfEval.put("fronthand", front);
+                            selfEval.put("service", serving);
+                            selfEval.put("smashShot", smash);
+                            selfEval.put("user_id", uid);
+                            newEvalRef.set(selfEval);
+                            //Rating
+                            Map<String, Object> rating = new HashMap<>();
+                            rating.put("score", 5);
+                            rating.put("user_id", uid);
+                            newRateRef.set(rating);
+                            //User
+                            Map<String, Object> player = new HashMap<>();
+                            player.put("gender", gender);
+                            player.put("dateOfBirth", dateOfBirth);
+                            player.put("description", bioText);
+                            player.put("email", email);
+                            player.put("fullName", fullName);
+                            player.put("phoneNo", phoneNo);
+                            player.put("ratingId", rateId);
+                            player.put("selfEvalId", evalId);
+                            newUserRef.set(player);
+
+                            Intent i = new Intent(SignUp3.this, BottomNavBar.class);
+                            i.putExtra("type", "signUp");
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Toast.makeText(SignUp3.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
+                        }
+                    }
+                });
             }
 
         });

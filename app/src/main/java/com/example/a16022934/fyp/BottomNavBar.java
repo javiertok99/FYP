@@ -62,8 +62,6 @@ public class BottomNavBar extends AppCompatActivity {
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frame, new FindMatchFragment()).commit();
-        setTitle("Find Match");
         Intent i = getIntent();
         String type = i.getStringExtra("type");
         if(type != null){
@@ -71,6 +69,9 @@ public class BottomNavBar extends AppCompatActivity {
                 setTitle("My Profile");
                 transaction.replace(R.id.frame, new MyProfilePageFragment()).commit();
             }
+        }else{
+            setTitle("Find Match");
+            transaction.replace(R.id.frame, new FindMatchFragment()).commit();
         }
 
 

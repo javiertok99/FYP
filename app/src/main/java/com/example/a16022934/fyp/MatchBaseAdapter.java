@@ -77,8 +77,8 @@ public class MatchBaseAdapter extends BaseAdapter {
 //        String year = mDisplayedValues.get(position).getDateOfBirth().substring(6,9);
 //        String age = Calendar.getInstance().get(Calendar.YEAR) - Integer.parseInt(year) + "";
 //        holder.tvAge.setText(age);
-        holder.ivProfilePic.getLayoutParams().height = 400;
-        holder.ivProfilePic.getLayoutParams().width = 400;
+//        holder.ivProfilePic.getLayoutParams().height = 400;
+//        holder.ivProfilePic.getLayoutParams().width = 400;
         holder.btnViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

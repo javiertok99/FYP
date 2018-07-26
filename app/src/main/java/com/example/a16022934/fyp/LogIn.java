@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class LogIn extends AppCompatActivity {
     private EditText etUserName;
     private EditText etPassword;
+    private TextView tvForgotPassword;
     private FirebaseUser user;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -47,6 +48,7 @@ public class LogIn extends AppCompatActivity {
         setTitle("LOG IN PAGE");
         TextView tvCreateAcc = findViewById(R.id.tvCreateAccount);
         Button btnLogin = findViewById(R.id.btnLogin);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
         setTitle("MATCH MINTON");
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +75,6 @@ public class LogIn extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         Player user = document.toObject(Player.class);
                                         Intent i = new Intent(LogIn.this, BottomNavBar.class);
-                                        i.putExtra("type", "login");
                                         startActivity(i);
                                         finish();
                                     }
@@ -94,6 +95,14 @@ public class LogIn extends AppCompatActivity {
                 Intent intent = new Intent(getBaseContext(), SignUp.class);
                 intent.putExtra("Question", "q2");
                 startActivity(intent);
+            }
+        });
+
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LogIn.this, Forgot.class);
+                startActivity(i);
             }
         });
     }

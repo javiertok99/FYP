@@ -44,7 +44,7 @@ public class SignUp2 extends AppCompatActivity {
         initialize();
 
         Intent i = getIntent();
-        final String uid = i.getStringExtra("uid");
+        final String password = i.getStringExtra("password");
         final String email = i.getStringExtra("email");
         setTitle("SIGN UP");
 
@@ -59,21 +59,23 @@ public class SignUp2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkIfEmpty()) {
-                    String bio = etBio.getText().toString();
-                    String fullName = etFullName.getText().toString();
-                    String phone = etPhoneNo.getText().toString();
-                    String dob = etDateOfBirth.getText().toString();
-                    RadioButton rb = findViewById(rgGender.getCheckedRadioButtonId());
-                    String gender = rb.getText().toString();
-                    Intent i = new Intent(SignUp2.this, SignUp3.class);
-                    i.putExtra("uid", uid);
-                    i.putExtra("email", email);
-                    i.putExtra("fullName", fullName);
-                    i.putExtra("phone", phone);
-                    i.putExtra("dob", dob);
-                    i.putExtra("gender", gender);
-                    i.putExtra("bio", bio);
-                    startActivity(i);
+                    if(etPhoneNo.getText().toString().length() == 8){
+                        String bio = etBio.getText().toString();
+                        String fullName = etFullName.getText().toString();
+                        String phone = etPhoneNo.getText().toString();
+                        String dob = etDateOfBirth.getText().toString();
+                        RadioButton rb = findViewById(rgGender.getCheckedRadioButtonId());
+                        String gender = rb.getText().toString();
+                        Intent i = new Intent(SignUp2.this, SignUp3.class);
+                        i.putExtra("password", password);
+                        i.putExtra("email", email);
+                        i.putExtra("fullName", fullName);
+                        i.putExtra("phone", phone);
+                        i.putExtra("dob", dob);
+                        i.putExtra("gender", gender);
+                        i.putExtra("bio", bio);
+                        startActivity(i);
+                    }
                 } else {
                     Toast.makeText(SignUp2.this, "All Fields Must Be Filled", Toast.LENGTH_SHORT).show();
                 }
