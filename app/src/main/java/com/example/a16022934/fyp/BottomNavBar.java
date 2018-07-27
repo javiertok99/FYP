@@ -68,6 +68,10 @@ public class BottomNavBar extends AppCompatActivity {
             if(type.equals("signUp")){
                 setTitle("My Profile");
                 transaction.replace(R.id.frame, new MyProfilePageFragment()).commit();
+
+            }else if(type.equals("chat")){
+                setTitle("Chat");
+                transaction.replace(R.id.frame, new ChatFragment()).commit();
             }
         }else{
             setTitle("Find Match");

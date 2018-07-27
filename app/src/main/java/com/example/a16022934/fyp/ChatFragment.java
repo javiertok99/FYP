@@ -1,6 +1,7 @@
 package com.example.a16022934.fyp;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -24,6 +28,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,7 +52,11 @@ public class ChatFragment extends Fragment {
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference messageListRef, nameRef, mName;
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private DatabaseReference messageListRef;
+    private CollectionReference nameRef;
+    private Player user;
+
     private long time;
     Object obj;
     private String usernameToDelete = "";
@@ -80,26 +91,20 @@ public class ChatFragment extends Fragment {
         String uid = firebaseUser.getUid();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
-        nameRef = firebaseDatabase.getReference("user/");
+        nameRef = firebaseFirestore.collection("users");
         messageListRef = firebaseDatabase.getReference("messages/");
-        mName = nameRef.child(uid);
-        registerForContextMenu(lv);
 
-
-        mName.addValueEventListener(new ValueEventListener() {
+        nameRef.document(uid)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                name = (String) dataSnapshot.getValue();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                user = task.getResult().toObject(Player.class);
+                if(user != null){
+                    name = user.getFullName();
+                }
             }
         });
-
-
-
+        registerForContextMenu(lv);
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -109,7 +114,7 @@ public class ChatFragment extends Fragment {
 
                 time = new Date().getTime();
 
-                ChatMsg messages = new ChatMsg(msg, time, name);
+                ChatMsg messages = new ChatMsg(msg, name, time);
                 messageListRef.push().setValue(messages);
                 etMessage.setText(" ");
 
@@ -120,10 +125,10 @@ public class ChatFragment extends Fragment {
         messageListRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.i("CommunicateFragment", "onChildAdded");
+                Log.i("ChatFragment", "onChildAdded");
                 ChatMsg msg = dataSnapshot.getValue(ChatMsg.class);
                 if (msg != null) {
-                    msg.setMessageUser(dataSnapshot.getKey());
+                    msg.setMessageUser(msg.getMessageUser());
                     alMessage.add(msg);
                     caMessage.notifyDataSetChanged();
                 }

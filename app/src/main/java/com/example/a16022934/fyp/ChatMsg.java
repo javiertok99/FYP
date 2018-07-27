@@ -14,7 +14,7 @@ public class ChatMsg {
         this.messageTime = messageTime;
     }
 
-    public ChatMsg(String msg, long time, String name){
+    public ChatMsg(){
 
     }
 

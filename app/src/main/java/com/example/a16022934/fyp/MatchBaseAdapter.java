@@ -93,8 +93,9 @@ public class MatchBaseAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Player player = mDisplayedValues.get(position);
-                Intent i = new Intent(v.getContext(), ChatFragment.class);
+                Intent i = new Intent(v.getContext(), BottomNavBar.class);
                 i.putExtra("player", player);
+                i.putExtra("type", "chat");
                 v.getContext().startActivity(i);
             }
         });
