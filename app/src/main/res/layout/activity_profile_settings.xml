@@ -34,10 +34,8 @@
         <RatingBar
             android:id="@+id/ratingDropShot"
             android:layout_width="wrap_content"
-            android:layout_height="58dp"
+            android:layout_height="60dp"
             android:layout_marginEnd="-0dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="-0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:numStars="5"
@@ -49,6 +47,68 @@
             app:layout_constraintHorizontal_bias="0.472"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dividerBelowSmashShot" />
+
+        <TextView
+            android:id="@+id/tvDropShot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Drop Shot"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ratingDropShot"
+            app:layout_constraintEnd_toEndOf="@+id/ratingDropShot"
+            app:layout_constraintStart_toStartOf="@+id/ratingDropShot"
+            app:layout_constraintTop_toTopOf="@+id/ratingDropShot" />
+
+        <View
+            android:id="@+id/dividerBelowDropShot"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingDropShot" />
+
+        <RatingBar
+            android:id="@+id/ratingFootWork"
+            android:layout_width="wrap_content"
+            android:layout_height="47dp"
+            android:layout_marginEnd="-0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:numStars="5"
+            android:rating="0"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.472"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingDropShot" />
+
+        <TextView
+            android:id="@+id/tvFootWork"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="Foot Work"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@+id/ratingFootWork"
+            app:layout_constraintEnd_toEndOf="@+id/ratingFootWork"
+            app:layout_constraintStart_toStartOf="@+id/ratingFootWork"
+            app:layout_constraintTop_toTopOf="@+id/ratingFootWork" />
+
+        <View
+            android:id="@+id/dividerBelowFootWork"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ratingFootWork" />
 
         <RatingBar
             android:id="@+id/ratingFrontHand"
@@ -83,22 +143,6 @@
             app:layout_constraintEnd_toEndOf="@+id/ratingSmashShot"
             app:layout_constraintStart_toStartOf="@+id/ratingSmashShot"
             app:layout_constraintTop_toTopOf="@+id/ratingSmashShot" />
-
-        <TextView
-            android:id="@+id/tvDropShot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Drop Shot"
-            android:textColor="@android:color/black"
-            app:layout_constraintBottom_toTopOf="@+id/ratingDropShot"
-            app:layout_constraintEnd_toEndOf="@+id/ratingDropShot"
-            app:layout_constraintStart_toStartOf="@+id/ratingDropShot"
-            app:layout_constraintTop_toTopOf="@+id/ratingDropShot" />
 
         <TextView
             android:id="@+id/tvFrontHand2"
@@ -232,7 +276,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="center"
@@ -242,15 +286,15 @@
             app:layout_constraintBottom_toTopOf="@+id/btnSave"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dividerBelowDropShot" />
+            app:layout_constraintTop_toBottomOf="@+id/ratingFootWork" />
 
         <View
             android:id="@+id/dividerBelowBackHand"
             android:layout_width="395dp"
             android:layout_height="1dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingBackHand" />
 
@@ -258,9 +302,8 @@
             android:id="@+id/dividerService"
             android:layout_width="395dp"
             android:layout_height="1dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
             android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingService" />
 
@@ -269,6 +312,7 @@
             android:layout_width="395dp"
             android:layout_height="1dp"
             android:background="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ratingFrontHand" />
 
@@ -276,22 +320,10 @@
             android:id="@+id/dividerBelowSmashShot"
             android:layout_width="395dp"
             android:layout_height="1dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@android:color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingSmashShot" />
-
-        <View
-            android:id="@+id/dividerBelowDropShot"
-            android:layout_width="395dp"
-            android:layout_height="1dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:background="@android:color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ratingDropShot" />
+            app:layout_constraintTop_toBottomOf="@+id/ratingSmashShot" />
 
         <Button
             android:id="@+id/btnSave"

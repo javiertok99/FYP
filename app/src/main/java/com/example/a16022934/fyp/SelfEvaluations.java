@@ -6,27 +6,30 @@ public class SelfEvaluations {
     private int fronthand;
     private int service;
     private int smashShot;
+    private int footWork;
     private String user_id;
+
 
     public SelfEvaluations() {
 
     }
 
-    public SelfEvaluations(int backHand, int dropShot, int frontHand, int service, int smashShot, String user_id) {
-        this.backhand = backHand;
+    public SelfEvaluations(int backhand, int dropShot, int fronthand, int service, int smashShot, int footWork, String user_id) {
+        this.backhand = backhand;
         this.dropShot = dropShot;
-        this.fronthand = frontHand;
+        this.fronthand = fronthand;
         this.service = service;
         this.smashShot = smashShot;
+        this.footWork = footWork;
         this.user_id = user_id;
     }
 
-    public int getBackHand() {
+    public int getBackhand() {
         return backhand;
     }
 
-    public void setBackHand(int backHand) {
-        this.backhand = backHand;
+    public void setBackhand(int backhand) {
+        this.backhand = backhand;
     }
 
     public int getDropShot() {
@@ -37,12 +40,12 @@ public class SelfEvaluations {
         this.dropShot = dropShot;
     }
 
-    public int getFrontHand() {
+    public int getFronthand() {
         return fronthand;
     }
 
-    public void setFrontHand(int frontHand) {
-        this.fronthand = frontHand;
+    public void setFronthand(int fronthand) {
+        this.fronthand = fronthand;
     }
 
     public int getService() {
@@ -59,6 +62,14 @@ public class SelfEvaluations {
 
     public void setSmashShot(int smashShot) {
         this.smashShot = smashShot;
+    }
+
+    public int getFootWork() {
+        return footWork;
+    }
+
+    public void setFootWork(int footWork) {
+        this.footWork = footWork;
     }
 
     public String getUser_id() {

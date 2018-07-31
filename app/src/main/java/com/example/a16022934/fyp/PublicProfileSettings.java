@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class PublicProfileSettings extends AppCompatActivity {
 
     EditText settingName, settingBio;
-    RatingBar settingService, settingBackHand, settingFrontHand, settingSmashShot, settingDropShot;
+    RatingBar settingService, settingBackHand, settingFrontHand, settingSmashShot, settingDropShot, settingFootWork;
     TextView settingsDescription;
     Button btnSave;
 
@@ -59,7 +59,9 @@ public class PublicProfileSettings extends AppCompatActivity {
         settingFrontHand = findViewById(R.id.ratingFrontHand);
         settingSmashShot = findViewById(R.id.ratingSmashShot);
         settingDropShot = findViewById(R.id.ratingDropShot);
+        settingFootWork = findViewById(R.id.ratingFootWork);
         settingsDescription = findViewById(R.id.tvSkillDescription);
+
 
         DBHelper dbh = new DBHelper(PublicProfileSettings.this);
         String uid = dbh.getUserId();
@@ -82,12 +84,11 @@ public class PublicProfileSettings extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         currEvaluation = documentSnapshot.toObject(SelfEvaluations.class);
                         settingService.setRating(currEvaluation.getService());
-                        settingBackHand.setRating(currEvaluation.getBackHand());
-                        Toast.makeText(getApplicationContext(), String.valueOf(currEvaluation.getBackHand()), Toast.LENGTH_SHORT).show();
-                        settingFrontHand.setRating(currEvaluation.getFrontHand());
-                        Toast.makeText(getApplicationContext(), String.valueOf(currEvaluation.getFrontHand()), Toast.LENGTH_SHORT).show();
+                        settingBackHand.setRating(currEvaluation.getBackhand());
+                        settingFrontHand.setRating(currEvaluation.getFronthand());
                         settingSmashShot.setRating(currEvaluation.getSmashShot());
                         settingDropShot.setRating(currEvaluation.getDropShot());
+                        settingFootWork.setRating(currEvaluation.getFootWork());
                     }
                 });
             }
@@ -188,6 +189,25 @@ public class PublicProfileSettings extends AppCompatActivity {
                 }
             }
         });
+        //Footwork
+        settingFootWork.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (settingFootWork.getRating() == 1) {
+                    settingsDescription.setText("Foot Work - 1STAR \nNo experience in foot work skills.");
+                } else if (settingFootWork.getRating() == 2) {
+                    settingsDescription.setText("Foot Work - 2STAR \nLittle experience in foot work skills.");
+                } else if (settingFootWork.getRating() == 3) {
+                    settingsDescription.setText("Foot Work - 3STAR \nAble to apply foot work skills.");
+                } else if (settingFootWork.getRating() == 4) {
+                    settingsDescription.setText("Foot Work - 4STAR \nIntermediate foot work skills.");
+                } else if (settingFootWork.getRating() == 5) {
+                    settingsDescription.setText("Foot Work - 5STAR \nFully mastered Foot Work skills.");
+                } else {
+                    settingsDescription.setText("Description will update\naccording to rating bar value");
+                }
+            }
+        });
 
         //Save the settings
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +226,7 @@ public class PublicProfileSettings extends AppCompatActivity {
                 float frontHandRating = settingFrontHand.getRating();
                 float smashShotRating = settingSmashShot.getRating();
                 float dropShotRating = settingDropShot.getRating();
+                float footWorkRating = settingFootWork.getRating();
 
 
                 //Update the name and bio
@@ -223,14 +244,17 @@ public class PublicProfileSettings extends AppCompatActivity {
                         "backhand",backHandRating,
                         "fronthand",frontHandRating,
                         "smashShot",smashShotRating,
-                        "dropShot",dropShotRating
+                        "dropShot",dropShotRating,
+                        "footWork",footWorkRating
                 ).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
                     }
                 });
-
+                Intent i = new Intent(PublicProfileSettings.this, BottomNavBar.class);
+                i.putExtra("type", "profile");
+                startActivity(i);
                 finish();
                 Toast.makeText(getBaseContext(), "Public Profile Settings Updated", Toast.LENGTH_SHORT).show();
             }

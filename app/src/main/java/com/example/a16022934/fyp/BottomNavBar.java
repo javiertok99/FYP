@@ -1,5 +1,6 @@
 package com.example.a16022934.fyp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,7 +67,7 @@ public class BottomNavBar extends AppCompatActivity {
         Intent i = getIntent();
         String type = i.getStringExtra("type");
         if(type != null){
-            if(type.equals("signUp")){
+            if(type.equals("signUp") || type.equals("profile")){
                 setTitle("My Profile");
                 transaction.replace(R.id.frame, new MyProfilePageFragment()).commit();
 
@@ -94,12 +96,26 @@ public class BottomNavBar extends AppCompatActivity {
                 startActivity(intentToPrivate);
                 return true;
             case R.id.logOut:
-                DBHelper dbh = new DBHelper(BottomNavBar.this);
-                int uid = dbh.getId();
-                dbh.removeUserId(uid);
-                Intent intent = new Intent(getBaseContext(), LogIn.class);
-                startActivity(intent);
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+                builder.setTitle("Log out?");
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        DBHelper dbh = new DBHelper(BottomNavBar.this);
+                        int uid = dbh.getId();
+                        dbh.removeUserId(uid);
+                        Intent intent = new Intent(getBaseContext(), LogIn.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                builder.show();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
