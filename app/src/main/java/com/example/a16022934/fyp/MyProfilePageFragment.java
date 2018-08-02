@@ -1,7 +1,6 @@
 package com.example.a16022934.fyp;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -26,8 +24,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class MyProfilePageFragment extends Fragment {
     private TextView name;
@@ -56,7 +52,7 @@ public class MyProfilePageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profile_page, container, false);
         name = view.findViewById(R.id.tvMyName);
         etBio = view.findViewById(R.id.etMyBio);
-        publicRating = view.findViewById(R.id.ratingBarProfile);
+        publicRating = view.findViewById(R.id.ratingBarMyProfile);
         ivProfile = view.findViewById(R.id.ivMyProfilePic);
         loader = view.findViewById(R.id.loading);
         barChart = view.findViewById(R.id.barChartDisplay);
@@ -74,20 +70,6 @@ public class MyProfilePageFragment extends Fragment {
                 name.setText(fullName);
                 etBio.setText(currUser.getDescription());
                 String ratingId = currUser.getRatingId();
-
-                DocumentReference rateRef = db.collection("ratings").document(ratingId);
-                rateRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        currRating = documentSnapshot.toObject(Ratings.class);
-                        name.setVisibility(View.VISIBLE);
-                        etBio.setVisibility(View.VISIBLE);
-                        publicRating.setVisibility(View.VISIBLE);
-                        ivProfile.setVisibility(View.VISIBLE);
-                        loader.setVisibility(View.INVISIBLE);
-                        barChart.setVisibility(View.VISIBLE);
-                    }
-                });
 
                 String selfEval = currUser.getSelfEvalId();
                 selfRef = db.collection("selfEvaluations").document(selfEval);
@@ -123,6 +105,7 @@ public class MyProfilePageFragment extends Fragment {
 
                         BarDataSet barDataSet = new BarDataSet(entries, "labels");
 
+
                         ArrayList<String> labels = new ArrayList<>();
                         labels.add("Service");
                         labels.add("Back Hand");
@@ -146,6 +129,13 @@ public class MyProfilePageFragment extends Fragment {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
                         barChart.animateY(3000);
+
+                        name.setVisibility(View.VISIBLE);
+                        etBio.setVisibility(View.VISIBLE);
+                        publicRating.setVisibility(View.VISIBLE);
+                        ivProfile.setVisibility(View.VISIBLE);
+                        loader.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
                     }
                 });
             }

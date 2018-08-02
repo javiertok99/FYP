@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -83,16 +84,16 @@ public class BottomNavBar extends AppCompatActivity {
                 fragment.setArguments(bundle);
                 transaction.replace(R.id.frame, fragment).commit();
             }else if(type.equals("otherPlayer")){
-                setTitle("Other Player");
                 Intent intent = getIntent();
                 Player otherPlayer = (Player)intent.getSerializableExtra("player");
-
+                Log.v("Check Other Player", otherPlayer.getFullName());
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("player", otherPlayer);
                 // set Fragmentclass Arguments
-                OtherPlayerProfile fragobj = new OtherPlayerProfile();
-                fragobj.setArguments(bundle);
-                transaction.replace(R.id.frame, new OtherPlayerProfile()).commit();
+                setTitle(otherPlayer.getFullName());
+                OtherPlayerProfile fragment = new OtherPlayerProfile();
+                fragment.setArguments(bundle);
+                transaction.replace(R.id.frame, fragment).commit();
             }
         }else{
             setTitle("Find Match");

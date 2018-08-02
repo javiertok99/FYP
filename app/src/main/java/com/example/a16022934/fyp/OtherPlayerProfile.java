@@ -1,7 +1,6 @@
 package com.example.a16022934.fyp;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,21 +26,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 public class OtherPlayerProfile extends Fragment {
     private TextView name;
     private EditText etBio;
     private RatingBar publicRating;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Player currUser;
+    private Player otherPlayer;
     private Ratings currRating;
     private ImageView ivProfile;
     private ProgressBar loader;
 
     private BarChart barChart;
     private BarData barData;
-    private Player otherPlayer;
+
+    private String fullName;
+    private String ratingId;
+    private String selfEval;
 
     //Create a SelfEvaluations object
     SelfEvaluations currEvaluation;
@@ -55,43 +55,26 @@ public class OtherPlayerProfile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_other_player_profile, container, false);
-        otherPlayer = (Player)getArguments().getSerializable("player");
-        name = view.findViewById(R.id.tvMyName);
-        etBio = view.findViewById(R.id.etMyBio);
-        publicRating = view.findViewById(R.id.ratingBarProfile);
-        ivProfile = view.findViewById(R.id.ivMyProfilePic);
-        loader = view.findViewById(R.id.loading);
-        barChart = view.findViewById(R.id.barChartDisplay);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            Toast.makeText(getContext(), "I got past bundle", Toast.LENGTH_SHORT).show();
+            otherPlayer = (Player) bundle.getSerializable("player");
 
+            name = view.findViewById(R.id.tvOtherName);
+            etBio = view.findViewById(R.id.etOtherBio);
+            publicRating = view.findViewById(R.id.ratingOther);
+            ivProfile = view.findViewById(R.id.ivOtherProfilePic);
+            loader = view.findViewById(R.id.loadingOther);
+            barChart = view.findViewById(R.id.barChartDisplayOther);
 
-        DBHelper dbh = new DBHelper(getActivity());
-        String uid = dbh.getUserId();
-        DocumentReference userDoc = db.collection("users").document(uid);
-        userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                currUser = documentSnapshot.toObject(Player.class);
-                String fullName = currUser.getFullName();
+            if (otherPlayer != null) {
+                Toast.makeText(getContext(), "IT WENT IN HERE", Toast.LENGTH_SHORT).show();
+                fullName = otherPlayer.getFullName();
                 name.setText(fullName);
-                etBio.setText(currUser.getDescription());
-                String ratingId = currUser.getRatingId();
+                etBio.setText(otherPlayer.getDescription());
+                ratingId = otherPlayer.getRatingId();
+                selfEval = otherPlayer.getSelfEvalId();
 
-                DocumentReference rateRef = db.collection("ratings").document(ratingId);
-                rateRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        currRating = documentSnapshot.toObject(Ratings.class);
-                        name.setVisibility(View.VISIBLE);
-                        etBio.setVisibility(View.VISIBLE);
-                        publicRating.setVisibility(View.VISIBLE);
-                        ivProfile.setVisibility(View.VISIBLE);
-                        loader.setVisibility(View.INVISIBLE);
-                        barChart.setVisibility(View.VISIBLE);
-                    }
-                });
-
-                String selfEval = currUser.getSelfEvalId();
                 selfRef = db.collection("selfEvaluations").document(selfEval);
                 selfRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -104,14 +87,14 @@ public class OtherPlayerProfile extends Fragment {
                         int dropShotP = currEvaluation.getDropShot();
                         int footWorkP = currEvaluation.getFootWork();
 
-                        Float serviceFloat = Float.parseFloat(serviceP+"");
-                        Float backHandFloat = Float.parseFloat(backHandP+"");
-                        Float frontHandFloat = Float.parseFloat(frontHandP+"");
-                        Float smashShotFloat = Float.parseFloat(smashShotP+"");
-                        Float dropShotFloat = Float.parseFloat(dropShotP+"");
-                        Float footWorkFloat = Float.parseFloat(footWorkP+"");
+                        Float serviceFloat = Float.parseFloat(serviceP + "");
+                        Float backHandFloat = Float.parseFloat(backHandP + "");
+                        Float frontHandFloat = Float.parseFloat(frontHandP + "");
+                        Float smashShotFloat = Float.parseFloat(smashShotP + "");
+                        Float dropShotFloat = Float.parseFloat(dropShotP + "");
+                        Float footWorkFloat = Float.parseFloat(footWorkP + "");
 
-                        Float averageRating = Float.parseFloat((serviceP + backHandP + frontHandP + smashShotP + dropShotP + footWorkP)/6.0 + "");
+                        Float averageRating = Float.parseFloat((serviceP + backHandP + frontHandP + smashShotP + dropShotP + footWorkP) / 6.0 + "");
 
                         publicRating.setRating(averageRating);
 
@@ -135,6 +118,7 @@ public class OtherPlayerProfile extends Fragment {
 
                         barChart.getXAxis().setLabelsToSkip(0);
 
+
                         BarData data = new BarData(labels, barDataSet);
 
                         barDataSet.setBarSpacePercent(0.5f);
@@ -148,14 +132,22 @@ public class OtherPlayerProfile extends Fragment {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
 
                         barChart.animateY(3000);
+
+                        name.setVisibility(View.VISIBLE);
+                        etBio.setVisibility(View.VISIBLE);
+                        publicRating.setVisibility(View.VISIBLE);
+                        ivProfile.setVisibility(View.VISIBLE);
+                        loader.setVisibility(View.INVISIBLE);
+                        barChart.setVisibility(View.VISIBLE);
                     }
                 });
+                etBio.setEnabled(false);
             }
-        });
-        etBio.setEnabled(false);
+        }
         return view;
 
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
