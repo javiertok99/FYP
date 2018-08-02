@@ -1,5 +1,6 @@
 package com.example.a16022934.fyp;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,16 +22,21 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class SignUp2 extends AppCompatActivity {
-    ImageView ivProfile;
-    Uri file;
-    int REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    public static final int SELECT_FILE = 1;
+    public static final int REQUEST_CAMERA = 0;
 
+    ImageView ivProfile;
+    TextView selectImage;
     EditText etBio;
     EditText etFullName;
     EditText etPhoneNo;
@@ -49,17 +55,12 @@ public class SignUp2 extends AppCompatActivity {
         setTitle("SIGN UP");
 
         Button btn = findViewById(R.id.btnNext);
-        ivProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SelectImage();
-            }
-        });
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkIfEmpty()) {
-                    if(etPhoneNo.getText().toString().length() == 8){
+                    if (etPhoneNo.getText().toString().length() == 8) {
                         String bio = etBio.getText().toString();
                         String fullName = etFullName.getText().toString();
                         String phone = etPhoneNo.getText().toString();
@@ -91,8 +92,19 @@ public class SignUp2 extends AppCompatActivity {
                 DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                        etDateOfBirth.setText(dayOfMonth + "/" + (monthOfYear+1) + "/" + year);
+                        int day = dayOfMonth;
+                        int month = monthOfYear + 1;
+                        int yr = year;
+                        String strDay = "" + day;
+                        String strMonth = "" + month;
+                        if(day < 10){
+                            strDay = "0" + day;
+                        }
+                        if(month < 10){
+                            strMonth = "0" + month;
+                        }
+                        String dob = strDay + "/" + strMonth + "/" + yr;
+                        etDateOfBirth.setText(dob);
                     }
                 };
                 int Year = now.get(Calendar.YEAR);
@@ -110,29 +122,14 @@ public class SignUp2 extends AppCompatActivity {
             }
         });
 
+        selectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SelectImage();
+            }
+        });
     }
 
-
-    //    protected void onActivityResult(int requestCode, int resultCode, Intent
-//            imageReturnedIntent) {
-//        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-//        ImageView ivProfile = (ImageView) findViewById(R.id.ivProfile);
-//        switch (requestCode) {
-//            case 0:
-//                if (resultCode == RESULT_OK) {
-//                    Uri selectedImage = imageReturnedIntent.getData();
-//                    ivProfile.setImageURI(selectedImage);
-//                }
-//
-//                break;
-//            case 1:
-//                if (resultCode == RESULT_OK) {
-//                    Uri selectedImage = imageReturnedIntent.getData();
-//                    ivProfile.setImageURI(selectedImage);
-//                }
-//                break;
-//        }
-//    }
     private void SelectImage() {
         final CharSequence[] items = {"Camera", "Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(SignUp2.this);
@@ -141,15 +138,10 @@ public class SignUp2 extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (items[i].equals("camera")) {
-
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    Uri file = Uri.fromFile(getOutputMediaFile());
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
-
-                    startActivityForResult(intent, 1);
+                    startActivityForResult(intent, REQUEST_CAMERA);
 
                 } else if (items[i].equals("Gallery")) {
-
                     Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(intent, SELECT_FILE);
@@ -160,23 +152,6 @@ public class SignUp2 extends AppCompatActivity {
             }
         });
         builder.show();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent
-            data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CAMERA && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ivProfile.setImageBitmap(imageBitmap);
-
-//            ivProfile.setImageBitmap(bmp);
-        } else if (requestCode == SELECT_FILE) {
-            Uri selectedImageUri = data.getData();
-            ivProfile.setImageURI(selectedImageUri);
-        }
     }
 
     public boolean checkIfEmpty() {
@@ -197,39 +172,29 @@ public class SignUp2 extends AppCompatActivity {
         etDateOfBirth = findViewById(R.id.etDoB);
         rgGender = findViewById(R.id.rgGender);
         etBio = findViewById(R.id.etBio);
+        selectImage = findViewById(R.id.tvSelectImage);
     }
 
-    private static File getOutputMediaFile() {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CameraDemo");
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                return null;
+
+        //Detects request codes
+        if (requestCode == SELECT_FILE && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            Bitmap bitmap = null;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                ivProfile.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
             }
         }
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return new File(mediaStorageDir.getPath() + File.separator +
-                "IMG_" + timeStamp + ".jpg");
     }
 
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_CAMERA);
-        }
-    }
-
-//    static final int REQUEST_IMAGE_CAPTURE = 1;
-//
-//    private void dispatchTakePictureIntent() {
-//        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        }
-//    }
 }
-
-
-
-

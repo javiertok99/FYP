@@ -1,7 +1,15 @@
 package com.example.a16022934.fyp;
 
+import android.text.format.DateFormat;
+import android.util.Log;
+
 import java.io.Serializable;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class Player implements Serializable {
     private String dateOfBirth;
@@ -99,5 +107,31 @@ public class Player implements Serializable {
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
+    }
+
+    public int getAge() {
+        String strDate = getDateOfBirth();
+        String[] dmy = strDate.split("/");
+        Calendar today = Calendar.getInstance();
+        Calendar dob = Calendar.getInstance();
+        int day = Integer.parseInt(dmy[0]);
+        int month = Integer.parseInt(dmy[1]);
+        int year = Integer.parseInt(dmy[2]);
+        dob.set(year, month, day);
+        Log.v("Name", getFullName());
+        Log.v("DOB String", dob.toString());
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        if (age != 0) {
+            if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
+                age = age - 1;
+            } else if (today.get(Calendar.DAY_OF_MONTH) == dob.get(Calendar.DAY_OF_MONTH)) {
+                age = age - 1;
+            }
+        }
+
+
+        Log.v("age after day", age + "");
+
+        return age;
     }
 }

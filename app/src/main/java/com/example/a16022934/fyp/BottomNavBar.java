@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 public class BottomNavBar extends AppCompatActivity {
 
+    public FragmentTransaction transaction;
     private TextView mTextMessage;
     private String page = "";
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -63,7 +64,7 @@ public class BottomNavBar extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction = fragmentManager.beginTransaction();
         Intent i = getIntent();
         String type = i.getStringExtra("type");
         if(type != null){
@@ -74,6 +75,9 @@ public class BottomNavBar extends AppCompatActivity {
             }else if(type.equals("chat")){
                 setTitle("Chat");
                 transaction.replace(R.id.frame, new ChatFragment()).commit();
+            }else if(type.equals("otherPlayer")){
+                setTitle("Other Player Profile");
+                transaction.replace(R.id.frame, new OtherPlayerProfile()).commit();
             }
         }else{
             setTitle("Find Match");

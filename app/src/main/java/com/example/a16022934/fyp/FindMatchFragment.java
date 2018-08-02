@@ -1,6 +1,7 @@
 package com.example.a16022934.fyp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -35,7 +37,7 @@ public class FindMatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final ListView lvMatches;
-        final MatchBaseAdapter matchAdapter;
+        final MatchAdapter matchAdapter;
         View view = inflater.inflate(R.layout.fragment_find_match, container, false);
         lvMatches = view.findViewById(R.id.lvFindMatch);
         loader = view.findViewById(R.id.loader);
@@ -44,7 +46,7 @@ public class FindMatchFragment extends Fragment {
         alMatches = new ArrayList<>();
         dbh = new DBHelper(getActivity());
         uid = dbh.getUserId();
-        matchAdapter = new MatchBaseAdapter(getActivity(), alMatches);
+        matchAdapter = new MatchAdapter(getActivity(), R.layout.findmatch_row, alMatches);
         users.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -62,12 +64,11 @@ public class FindMatchFragment extends Fragment {
             }
         });
 
-
-
         lvMatches.setAdapter(matchAdapter);
 
         // Inflate the layout for this fragment
         return view;
     }
+
 
 }

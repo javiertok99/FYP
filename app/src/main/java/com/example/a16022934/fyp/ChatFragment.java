@@ -117,6 +117,7 @@ public class ChatFragment extends Fragment {
                 ChatMsg messages = new ChatMsg(msg, name, time);
                 messageListRef.push().setValue(messages);
                 etMessage.setText(" ");
+                scrollMyListViewToBottom();
 
 
             }
@@ -131,6 +132,7 @@ public class ChatFragment extends Fragment {
                     msg.setMessageUser(msg.getMessageUser());
                     alMessage.add(msg);
                     caMessage.notifyDataSetChanged();
+                    scrollMyListViewToBottom();
                 }
             }
 
@@ -200,9 +202,6 @@ public class ChatFragment extends Fragment {
 
     }
 
-
-
-
     public boolean onContextItemSelected(MenuItem item) {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -232,5 +231,14 @@ public class ChatFragment extends Fragment {
         return super.onContextItemSelected(item);
     }
 
+    private void scrollMyListViewToBottom() {
+        lv.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                lv.setSelection(caMessage.getCount() - 1);
+            }
+        });
+    }
 
 }

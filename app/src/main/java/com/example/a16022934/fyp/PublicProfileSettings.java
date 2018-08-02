@@ -175,15 +175,15 @@ public class PublicProfileSettings extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if (settingDropShot.getRating() == 1) {
-                    settingsDescription.setText("Smash Shot - 1STAR \nHave little to no experience in drop shot.");
+                    settingsDescription.setText("Drop Shot - 1STAR \nHave little to no experience in drop shot.");
                 } else if (settingDropShot.getRating() == 2) {
-                    settingsDescription.setText("Smash Shot - 2STAR \nAble to deliver some successful drop shot.");
+                    settingsDescription.setText("Drop Shot - 2STAR \nAble to deliver some successful drop shot.");
                 } else if (settingDropShot.getRating() == 3) {
-                    settingsDescription.setText("Smash Shot - 3STAR \nAble to deliver successful drop shot most of the times.");
+                    settingsDescription.setText("Drop Shot - 3STAR \nAble to deliver successful drop shot most of the times.");
                 } else if (settingDropShot.getRating() == 4) {
-                    settingsDescription.setText("Smash Shot - 4STAR \nAble to drop shot with little failure rate.");
+                    settingsDescription.setText("Drop Shot - 4STAR \nAble to drop shot with little failure rate.");
                 } else if (settingDropShot.getRating() == 5) {
-                    settingsDescription.setText("Smash Shot - 5STAR \nAble to drop shot professionally.");
+                    settingsDescription.setText("Drop Shot - 5STAR \nAble to drop shot professionally.");
                 } else {
                     settingsDescription.setText("Description will update\naccording to rating bar value");
                 }

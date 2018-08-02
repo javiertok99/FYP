@@ -30,6 +30,7 @@ public class SignUp3 extends AppCompatActivity {
     RatingBar backHand;
     RatingBar dropShot;
     RatingBar smashShot;
+    RatingBar footWork;
     Button btnSave;
     TextView settingsDescription;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -133,15 +134,34 @@ public class SignUp3 extends AppCompatActivity {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
                 if (dropShot.getRating() == 1) {
-                    settingsDescription.setText("Smash Shot - 1STAR \nHave little to no experience in drop shot.");
+                    settingsDescription.setText("Drop Shot - 1STAR \nHave little to no experience in drop shot.");
                 } else if (dropShot.getRating() == 2) {
-                    settingsDescription.setText("Smash Shot - 2STAR \nAble to deliver some successful drop shot.");
+                    settingsDescription.setText("Drop Shot - 2STAR \nAble to deliver some successful drop shot.");
                 } else if (dropShot.getRating() == 3) {
-                    settingsDescription.setText("Smash Shot - 3STAR \nAble to deliver successful drop shot most of the times.");
+                    settingsDescription.setText("Drop Shot - 3STAR \nAble to deliver successful drop shot most of the times.");
                 } else if (dropShot.getRating() == 4) {
-                    settingsDescription.setText("Smash Shot - 4STAR \nAble to drop shot with little failure rate.");
+                    settingsDescription.setText("Drop Shot - 4STAR \nAble to drop shot with little failure rate.");
                 } else if (dropShot.getRating() == 5) {
-                    settingsDescription.setText("Smash Shot - 5STAR \nAble to drop shot professionally.");
+                    settingsDescription.setText("Drop Shot - 5STAR \nAble to drop shot professionally.");
+                } else {
+                    settingsDescription.setText("Description will update\naccording to rating bar value");
+                }
+            }
+        });
+        //FootWork
+        footWork.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                if (footWork.getRating() == 1) {
+                    settingsDescription.setText("Foot Work - 1STAR \nNo experience in foot work skills.");
+                } else if (footWork.getRating() == 2) {
+                    settingsDescription.setText("Foot Work - 2STAR \nLittle experience in foot work skills.");
+                } else if (footWork.getRating() == 3) {
+                    settingsDescription.setText("Foot Work - 3STAR \nAble to apply foot work skills.");
+                } else if (footWork.getRating() == 4) {
+                    settingsDescription.setText("Foot Work - 4STAR \nIntermediate foot work skills.");
+                } else if (footWork.getRating() == 5) {
+                    settingsDescription.setText("Foot Work - 5STAR \nFully mastered Foot Work skills.");
                 } else {
                     settingsDescription.setText("Description will update\naccording to rating bar value");
                 }
@@ -175,12 +195,15 @@ public class SignUp3 extends AppCompatActivity {
                             float back = backHand.getRating();
                             float smash = dropShot.getRating();
                             float drop = smashShot.getRating();
+                            float foot = footWork.getRating();
+
                             Map<String, Object> selfEval = new HashMap<>();
                             selfEval.put("backhand", back);
                             selfEval.put("dropShot", drop);
                             selfEval.put("fronthand", front);
                             selfEval.put("service", serving);
                             selfEval.put("smashShot", smash);
+                            selfEval.put("footwork", foot);
                             selfEval.put("user_id", uid);
                             newEvalRef.set(selfEval);
                             //Rating
@@ -221,6 +244,7 @@ public class SignUp3 extends AppCompatActivity {
         backHand = findViewById(R.id.ratingBackHand);
         dropShot = findViewById(R.id.ratingDropShot);
         smashShot = findViewById(R.id.ratingSmashShot);
+        footWork = findViewById(R.id.ratingFootWork);
         settingsDescription = findViewById(R.id.tvSkillDescription);
     }
 

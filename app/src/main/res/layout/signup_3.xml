@@ -193,7 +193,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:gravity="center"
@@ -203,7 +202,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dividerBelowDropShot" />
+        app:layout_constraintTop_toBottomOf="@+id/ratingFootWork" />
 
     <View
         android:id="@+id/dividerBelowBackHand"
@@ -250,6 +249,37 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@android:color/darker_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ratingDropShot" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Foot Work"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/ratingFootWork"
+        app:layout_constraintEnd_toEndOf="@+id/ratingFootWork"
+        app:layout_constraintStart_toStartOf="@+id/ratingFootWork"
+        app:layout_constraintTop_toTopOf="@+id/ratingFootWork" />
+
+    <RatingBar
+        android:id="@+id/ratingFootWork"
+
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:numStars="5"
+        android:rating="1"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        android:stepSize="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingDropShot" />
