@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class FindMatchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         final ListView lvMatches;
         final MatchAdapter matchAdapter;
         View view = inflater.inflate(R.layout.fragment_find_match, container, false);
@@ -64,11 +67,12 @@ public class FindMatchFragment extends Fragment {
             }
         });
 
+
+
         lvMatches.setAdapter(matchAdapter);
 
         // Inflate the layout for this fragment
         return view;
     }
-
 
 }

@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -65,7 +66,6 @@ public class MatchBaseAdapter extends BaseAdapter {
             holder.tvAge = convertView.findViewById(R.id.tvAge);
             holder.tvGender = convertView.findViewById(R.id.tvGender);
             holder.tvLocation = convertView.findViewById(R.id.tvLocation);
-            holder.btnViewProfile = convertView.findViewById(R.id.btnViewProfile);
             holder.ibChat = convertView.findViewById(R.id.ibChat);
             convertView.setTag(holder);
         } else {
@@ -79,16 +79,7 @@ public class MatchBaseAdapter extends BaseAdapter {
 //        holder.tvAge.setText(age);
 //        holder.ivProfilePic.getLayoutParams().height = 400;
 //        holder.ivProfilePic.getLayoutParams().width = 400;
-        holder.btnViewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Player player = mDisplayedValues.get(position);
-                Intent i = new Intent(v.getContext(), BottomNavBar.class);
-                i.putExtra("player", player);
-                v.getContext().startActivity(i);
 
-            }
-        });
         holder.ibChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

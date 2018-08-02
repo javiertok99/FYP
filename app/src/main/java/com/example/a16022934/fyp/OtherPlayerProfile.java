@@ -41,6 +41,7 @@ public class OtherPlayerProfile extends Fragment {
 
     private BarChart barChart;
     private BarData barData;
+    private Player otherPlayer;
 
     //Create a SelfEvaluations object
     SelfEvaluations currEvaluation;
@@ -53,7 +54,8 @@ public class OtherPlayerProfile extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_profile_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_other_player_profile, container, false);
+        otherPlayer = (Player)getArguments().getSerializable("player");
         name = view.findViewById(R.id.tvMyName);
         etBio = view.findViewById(R.id.etMyBio);
         publicRating = view.findViewById(R.id.ratingBarProfile);
@@ -61,32 +63,6 @@ public class OtherPlayerProfile extends Fragment {
         loader = view.findViewById(R.id.loading);
         barChart = view.findViewById(R.id.barChartDisplay);
 
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(1f, 0));
-        entries.add(new BarEntry(2f, 1));
-        entries.add(new BarEntry(3f, 2));
-        entries.add(new BarEntry(4f, 3));
-        entries.add(new BarEntry(5f, 4));
-
-        BarDataSet barDataSet = new BarDataSet(entries, "Cells");
-
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add(0,"Service");
-        labels.add(1,"Back Hand");
-        labels.add(2,"Front Hand");
-        labels.add(3,"Smash Shot");
-        labels.add(4,"Drop Shot");
-
-        BarData data = new BarData(labels, barDataSet);
-        barChart.setData(data);
-        barChart.setTouchEnabled(false);
-        barChart.setDragEnabled(false);
-        barChart.setScaleEnabled(false );
-        barChart.setDescription("");
-
-        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-
-        barChart.animateY(3000);
 
         DBHelper dbh = new DBHelper(getActivity());
         String uid = dbh.getUserId();
@@ -94,17 +70,18 @@ public class OtherPlayerProfile extends Fragment {
         userDoc.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
+
                 currUser = documentSnapshot.toObject(Player.class);
                 String fullName = currUser.getFullName();
                 name.setText(fullName);
                 etBio.setText(currUser.getDescription());
                 String ratingId = currUser.getRatingId();
+
                 DocumentReference rateRef = db.collection("ratings").document(ratingId);
                 rateRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         currRating = documentSnapshot.toObject(Ratings.class);
-
                         name.setVisibility(View.VISIBLE);
                         etBio.setVisibility(View.VISIBLE);
                         publicRating.setVisibility(View.VISIBLE);
@@ -113,6 +90,7 @@ public class OtherPlayerProfile extends Fragment {
                         barChart.setVisibility(View.VISIBLE);
                     }
                 });
+
                 String selfEval = currUser.getSelfEvalId();
                 selfRef = db.collection("selfEvaluations").document(selfEval);
                 selfRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -124,16 +102,59 @@ public class OtherPlayerProfile extends Fragment {
                         int frontHandP = currEvaluation.getFronthand();
                         int smashShotP = currEvaluation.getSmashShot();
                         int dropShotP = currEvaluation.getDropShot();
+                        int footWorkP = currEvaluation.getFootWork();
 
-                        Float averageRating = Float.parseFloat((serviceP + backHandP + frontHandP + smashShotP + dropShotP)/5.0 + "");
+                        Float serviceFloat = Float.parseFloat(serviceP+"");
+                        Float backHandFloat = Float.parseFloat(backHandP+"");
+                        Float frontHandFloat = Float.parseFloat(frontHandP+"");
+                        Float smashShotFloat = Float.parseFloat(smashShotP+"");
+                        Float dropShotFloat = Float.parseFloat(dropShotP+"");
+                        Float footWorkFloat = Float.parseFloat(footWorkP+"");
+
+                        Float averageRating = Float.parseFloat((serviceP + backHandP + frontHandP + smashShotP + dropShotP + footWorkP)/6.0 + "");
 
                         publicRating.setRating(averageRating);
+
+                        ArrayList<BarEntry> entries = new ArrayList<>();
+                        entries.add(new BarEntry(serviceFloat, 0));
+                        entries.add(new BarEntry(backHandFloat, 1));
+                        entries.add(new BarEntry(frontHandFloat, 2));
+                        entries.add(new BarEntry(smashShotFloat, 3));
+                        entries.add(new BarEntry(dropShotFloat, 4));
+                        entries.add(new BarEntry(footWorkFloat, 5));
+
+                        BarDataSet barDataSet = new BarDataSet(entries, "labels");
+
+                        ArrayList<String> labels = new ArrayList<>();
+                        labels.add("Service");
+                        labels.add("Back Hand");
+                        labels.add("Front Hand");
+                        labels.add("Smash Shot");
+                        labels.add("Drop Shot");
+                        labels.add("Foot Work");
+
+                        barChart.getXAxis().setLabelsToSkip(0);
+
+                        BarData data = new BarData(labels, barDataSet);
+
+                        barDataSet.setBarSpacePercent(0.5f);
+
+                        barChart.setData(data);
+                        barChart.setTouchEnabled(false);
+                        barChart.setDragEnabled(false);
+                        barChart.setScaleEnabled(true);
+                        barChart.setDescription("");
+
+                        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
+                        barChart.animateY(3000);
                     }
                 });
             }
         });
         etBio.setEnabled(false);
         return view;
+
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {

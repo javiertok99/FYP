@@ -64,7 +64,7 @@ public class BottomNavBar extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        transaction = fragmentManager.beginTransaction();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         Intent i = getIntent();
         String type = i.getStringExtra("type");
         if(type != null){
@@ -76,7 +76,15 @@ public class BottomNavBar extends AppCompatActivity {
                 setTitle("Chat");
                 transaction.replace(R.id.frame, new ChatFragment()).commit();
             }else if(type.equals("otherPlayer")){
-                setTitle("Other Player Profile");
+                setTitle("Other Player");
+                Intent intent = getIntent();
+                Player otherPlayer = (Player)intent.getSerializableExtra("player");
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("player", otherPlayer);
+                // set Fragmentclass Arguments
+                OtherPlayerProfile fragobj = new OtherPlayerProfile();
+                fragobj.setArguments(bundle);
                 transaction.replace(R.id.frame, new OtherPlayerProfile()).commit();
             }
         }else{
