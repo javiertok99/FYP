@@ -5,15 +5,18 @@ public class TopPlayers {
     private String name;
     private String gender;
     private int age;
-    private String location;
+    private String placeOfBirth;
     private String description;
 
-    public TopPlayers(int res, String name, String gender, int age, String location, String description) {
+    public TopPlayers() {
+    }
+
+    public TopPlayers(int res, String name, String gender, int age, String placeOfBirth, String description) {
         this.res = res;
         this.name = name;
         this.gender = gender;
         this.age = age;
-        this.location = location;
+        this.placeOfBirth = placeOfBirth;
         this.description = description;
     }
 
@@ -49,12 +52,12 @@ public class TopPlayers {
         this.age = age;
     }
 
-    public String getLocation() {
-        return location;
+    public String getplaceOfBirth() {
+        return placeOfBirth;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setplaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
     }
 
     public String getDescription() {

@@ -34,7 +34,7 @@ public class BottomNavBar extends AppCompatActivity {
                     return true;
                 case R.id.chat:
                     setTitle("Chat");
-                    transaction.replace(R.id.frame, new ChatFragment()).commit();
+                    transaction.replace(R.id.frame, new ChatList()).commit();
                     return true;
                 case R.id.videos:
                     setTitle("Videos");
@@ -74,7 +74,14 @@ public class BottomNavBar extends AppCompatActivity {
 
             }else if(type.equals("chat")){
                 setTitle("Chat");
-                transaction.replace(R.id.frame, new ChatFragment()).commit();
+                Intent chat = getIntent();
+                ChatSolo soloChat = (ChatSolo) chat.getSerializableExtra("partner");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("soloChat", soloChat);
+
+                ChatFragment fragment = new ChatFragment();
+                fragment.setArguments(bundle);
+                transaction.replace(R.id.frame, fragment).commit();
             }else if(type.equals("otherPlayer")){
                 setTitle("Other Player");
                 Intent intent = getIntent();

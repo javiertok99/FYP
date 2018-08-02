@@ -15,7 +15,7 @@ import java.util.Date;
 public class CustomAdapter extends ArrayAdapter {
     Context parent_context;
     int layout_id;
-    ArrayList<ChatMsg> message;
+    ArrayList<ChatSolo> message;
     TextView tvDisplayName, tvDateTime, tvMessage;
 
 
@@ -28,10 +28,10 @@ public class CustomAdapter extends ArrayAdapter {
         tvMessage = (TextView) rowView.findViewById(R.id.message_text);
         tvDateTime = (TextView) rowView.findViewById(R.id.message_time);
 
-        ChatMsg currentItem = message.get(position);
-        String displayName = currentItem.getMessageUser();
-        long dateTime = currentItem.getMessageTime();
-        String message = currentItem.getMessageText();
+        ChatSolo currentItem = message.get(position);
+        String displayName = currentItem.getSenderName();
+        long dateTime = currentItem.getTimeStamp();
+        String message = currentItem.getMsg();
 
         Date d = new Date(dateTime);
 
@@ -48,7 +48,7 @@ public class CustomAdapter extends ArrayAdapter {
 
     }
 
-    public CustomAdapter(Context context, int resource, ArrayList<ChatMsg> objects) {
+    public CustomAdapter(Context context, int resource, ArrayList<ChatSolo> objects) {
         super(context, resource, objects);
 
         parent_context = context;

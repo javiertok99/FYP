@@ -1,4 +1,5 @@
 package com.example.a16022934.fyp;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -40,192 +41,181 @@ public class ChatFragment extends Fragment {
 
     EditText etMessage;
     FloatingActionButton sendBtn;
-    String name;
+
     ListView lv;
-    ArrayList<ChatMsg> alMessage = new ArrayList<ChatMsg>();
-    private ChatMsg message;
+    ArrayList<ChatSolo> alMessage = new ArrayList<>();
     CustomAdapter caMessage = null;
-    private int thisTime=0;
-    String msguser;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth firebaseAuth;
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    private DatabaseReference messageListRef;
-    private CollectionReference nameRef;
-    private Player user;
-
+    private ChatSolo chat;
+    private String uid;
     private long time;
-    Object obj;
-    private String usernameToDelete = "";
 
+    private CollectionReference nameRef;
+    private DatabaseReference messageListRef;
 
-
-
+    String receiverName;
+    String senderName;
+    String receiverId;
     public ChatFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            chat = (ChatSolo) bundle.getSerializable("soloChat");
+            if (chat != null) {
 
-        etMessage = (EditText) view.findViewById(R.id.editTextMessage);
-        sendBtn = (FloatingActionButton) view.findViewById(R.id.sendfab);
+                etMessage = (EditText) view.findViewById(R.id.editTextMessage);
+                sendBtn = (FloatingActionButton) view.findViewById(R.id.sendfab);
+                lv = (ListView) view.findViewById(R.id.list_of_message);
 
+                alMessage = new ArrayList<ChatSolo>();
+                caMessage = new CustomAdapter(getContext(), R.layout.msg, alMessage);
 
+                lv.setAdapter(caMessage);
 
-        lv = (ListView) view.findViewById(R.id.list_of_message);
-        alMessage = new ArrayList<ChatMsg>();
-        caMessage = new CustomAdapter(getContext(), R.layout.msg, alMessage);
-        lv.setAdapter(caMessage);
+                firebaseAuth = FirebaseAuth.getInstance();
+                firebaseUser = firebaseAuth.getCurrentUser();
+                uid = firebaseUser.getUid();
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
-        String uid = firebaseUser.getUid();
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        nameRef = firebaseFirestore.collection("users");
-        messageListRef = firebaseDatabase.getReference("messages/");
-
-        nameRef.document(uid)
-                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                user = task.getResult().toObject(Player.class);
-                if(user != null){
-                    name = user.getFullName();
+                if(uid.equals(chat.getSenderId())){
+                    senderName = chat.getSenderName();
+                    receiverName = chat.getReceiverName();
+                    receiverId = chat.getReceiverId();
+                }else{
+                    senderName = chat.getReceiverName();
+                    receiverName = chat.getSenderName();
+                    receiverId = chat.getSenderId();
                 }
-            }
-        });
-        registerForContextMenu(lv);
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onClick(View view) {
-                String msg = etMessage.getText().toString();
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                nameRef = firebaseFirestore.collection("users");
+                messageListRef = firebaseDatabase.getReference("messages/");
 
-                time = new Date().getTime();
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onClick(View view) {
+                        String msg = etMessage.getText().toString();
+                        time = new Date().getTime();
+                        ChatSolo messages = new ChatSolo(senderName, receiverName, uid, receiverId, msg, time);
+                        messageListRef.push().setValue(messages);
+                        etMessage.setText(" ");
+                        scrollMyListViewToBottom();
+                    }
+                });
 
-                ChatMsg messages = new ChatMsg(msg, name, time);
-                messageListRef.push().setValue(messages);
-                etMessage.setText(" ");
-                scrollMyListViewToBottom();
+                messageListRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.i("ChatFragment", "onChildAdded");
+                        ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
+                        if (msg != null) {
+                            if(msg.getReceiverId().equals(receiverId) || msg.getSenderId().equals(receiverId)){
+                                if(msg.getReceiverId().equals(uid) || msg.getSenderId().equals(uid)){
+                                    alMessage.add(msg);
+                                    caMessage.notifyDataSetChanged();
+                                    scrollMyListViewToBottom();
+                                }
 
-
-            }
-        });
-
-        messageListRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.i("ChatFragment", "onChildAdded");
-                ChatMsg msg = dataSnapshot.getValue(ChatMsg.class);
-                if (msg != null) {
-                    msg.setMessageUser(msg.getMessageUser());
-                    alMessage.add(msg);
-                    caMessage.notifyDataSetChanged();
-                    scrollMyListViewToBottom();
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                String selectedId = dataSnapshot.getKey();
-                ChatMsg msg = dataSnapshot.getValue(ChatMsg.class);
-
-                if (msg != null) {
-                    for (int i = 0; i < alMessage.size(); i++) {
-                        if (alMessage.get(i).getMessageUser().equals(selectedId)) {
-                            msg.setMessageUser(selectedId);
-                            alMessage.set(i, msg);
+                            }
                         }
                     }
 
-                    caMessage.notifyDataSetChanged();
-                }
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        String selectedId = dataSnapshot.getKey();
+                        ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
 
-            }
+                        if (msg != null) {
+                            for (int i = 0; i < alMessage.size(); i++) {
+//                        if (alMessage.get(i).getMessageUser().equals(selectedId)) {
+//                            msg.setMessageUser(selectedId);
+//                            alMessage.set(i, msg);
+//                        }
+                            }
 
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.i("MainActivity", "onChildRemoved()");
-
-                String selectedId = dataSnapshot.getKey();
-                ChatMsg msg = dataSnapshot.getValue(ChatMsg.class);
-                if (msg != null) {
-                    for (int i = 0; i < alMessage.size(); i++) {
-                        if (alMessage.get(i).getMessageUser().equals(selectedId)) {
-                            msg.setMessageUser(selectedId);
-                            alMessage.remove(i);
+                            caMessage.notifyDataSetChanged();
                         }
+
                     }
-                    caMessage.notifyDataSetChanged();
-                }
 
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        Log.i("MainActivity", "onChildRemoved()");
+
+                        String selectedId = dataSnapshot.getKey();
+                        ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
+                        if (msg != null) {
+                            for (int i = 0; i < alMessage.size(); i++) {
+//                        if (alMessage.get(i).getMessageUser().equals(selectedId)) {
+//                            msg.setMessageUser(selectedId);
+//                            alMessage.remove(i);
+//                        }
+                            }
+                            caMessage.notifyDataSetChanged();
+                        }
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                registerForContextMenu(lv);
             }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
-
+        }
 
         return view;
-
     }
 
 
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Select Option");
-
-
-
         menu.add(0, v.getId(), 0, "Delete");
         menu.add(0, v.getId(), 0, "Copy");
-
-
     }
 
     public boolean onContextItemSelected(MenuItem item) {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
-        msguser = alMessage.get(index).getMessageUser();
-        Toast.makeText(getContext(), "msg sender: " + msguser + "/ncurrent user: " + name, Toast.LENGTH_LONG).show();
-        if (msguser.equals(name)) {
-
-            if (item.getTitle() == "Delete") {
-
-                alMessage.remove(index);
-                caMessage.notifyDataSetChanged();
-                String id = alMessage.get(index).getMessageUser();
-
-                messageListRef.child(alMessage.get(index).getMessageUser()).removeValue();
-            }
-
-
-        } else if (msguser != name) {
-            item.setVisible(false);
-            Toast.makeText(getContext(), "You cannot delete other user's msg!", Toast.LENGTH_LONG).show();
-        }
-
-
+//        msguser = alMessage.get(index).getMessageUser();
+//        Toast.makeText(getContext(), "msg sender: " + msguser + "/ncurrent user: " + name, Toast.LENGTH_LONG).show();
+//        if (msguser.equals(senderName)) {
+//
+//            if (item.getTitle() == "Delete") {
+//
+//                alMessage.remove(index);
+//                caMessage.notifyDataSetChanged();
+//                  String id = alMessage.get(index).getMessageUser();
+//
+//                  messageListRef.child(alMessage.get(index).getMessageUser()).removeValue();
+//            }
+//
+//
+//        } else if (msguser != senderName) {
+//            item.setVisible(false);
+//            Toast.makeText(getContext(), "You cannot delete other user's msg!", Toast.LENGTH_LONG).show();
+//        }
 
 
         return super.onContextItemSelected(item);

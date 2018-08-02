@@ -39,7 +39,7 @@
             android:label="@string/title_activity_bottom_nav_bar" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".LogIn" />
-        <activity android:name=".Forgot"></activity>
+        <activity android:name=".Forgot" />
     </application>
 
 </manifest>
