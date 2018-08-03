@@ -9,7 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -30,15 +36,16 @@ public class MatchAdapter extends ArrayAdapter {
         TextView tvGender;
         Button btnViewProfile;
         ImageButton ibChat;
+        RatingBar rb;
         int position;
     }
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
         final ViewHolder view;
-        if(convertView == null){
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-             convertView = inflater.inflate(R.layout.findmatch_row, parent, false);
+            convertView = inflater.inflate(R.layout.findmatch_row, parent, false);
             view = new ViewHolder();
             view.position = position;
             view.ivProfilePic = convertView.findViewById(R.id.ivMyProfilePic);
@@ -47,6 +54,7 @@ public class MatchAdapter extends ArrayAdapter {
             view.tvGender = convertView.findViewById(R.id.tvGender);
             view.btnViewProfile = convertView.findViewById(R.id.btnViewProfile);
             view.ibChat = convertView.findViewById(R.id.ibChat);
+            view.rb = convertView.findViewById(R.id.ratingBarFindMatch);
             final Player currentPlayer = player.get(position);
             view.btnViewProfile
                     .setOnClickListener(new View.OnClickListener() {
@@ -70,13 +78,41 @@ public class MatchAdapter extends ArrayAdapter {
                         }
                     });
             convertView.setTag(view);
-        }else{
+        } else {
             view = (ViewHolder) convertView.getTag();
         }
         Player currentPlayer = player.get(position);
         view.tvName.setText(currentPlayer.getFullName());
-        view.tvAge.setText(currentPlayer.getAge()  +" years old");
-        view.tvGender.setText("Gender: " +currentPlayer.getGender());
+        String age = "Age: " + currentPlayer.getAge();
+        view.tvAge.setText(age);
+        view.tvGender.setText(currentPlayer.getGender());
+        String uid = currentPlayer.getUser_id();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference user = db.collection("users").document(uid);
+        user.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Player player = documentSnapshot.toObject(Player.class);
+                if (player != null) {
+                    String selfID = player.getSelfEvalId();
+                    FirebaseFirestore fb = FirebaseFirestore.getInstance();
+                    DocumentReference user = fb.collection("selfEvaluations").document(selfID);
+                    user.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            SelfEvaluations self = documentSnapshot.toObject(SelfEvaluations.class);
+                            if (self != null) {
+                                float total = self.getBackhand() + self.getDropShot() + self.getService() + self.getFootWork() + self.getFronthand() + self.getSmashShot();
+                                float avg = total / (float) 6.0;
+                                view.rb.setRating(avg);
+                            }
+                        }
+                    });
+
+                }
+
+            }
+        });
 
         view.position = position;
         return convertView;
