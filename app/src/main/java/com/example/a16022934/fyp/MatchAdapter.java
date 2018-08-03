@@ -75,8 +75,8 @@ public class MatchAdapter extends ArrayAdapter {
         }
         Player currentPlayer = player.get(position);
         view.tvName.setText(currentPlayer.getFullName());
-        view.tvAge.setText(currentPlayer.getAge() + "");
-        view.tvGender.setText(currentPlayer.getGender());
+        view.tvAge.setText(currentPlayer.getAge()  +" years old");
+        view.tvGender.setText("Gender: " +currentPlayer.getGender());
 
         view.position = position;
         return convertView;
