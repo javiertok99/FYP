@@ -63,10 +63,10 @@ public class TopPlayerBaseAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.name.setText("Name: " + mDisplayedValues.get(position).getName());
-        holder.age.setText("Age: " + mDisplayedValues.get(position).getAge());
+        holder.name.setText(mDisplayedValues.get(position).getName());
+        holder.age.setText(mDisplayedValues.get(position).getAge() + "years old");
         holder.gender.setText("Gender: " + mDisplayedValues.get(position).getGender());
-        holder.location.setText("From: " + mDisplayedValues.get(position).getplaceOfBirth());
+        holder.location.setText("Country: " + mDisplayedValues.get(position).getplaceOfBirth());
         holder.description.setText(mDisplayedValues.get(position).getDescription());
 
         final ViewHolder finalHolder = holder;
