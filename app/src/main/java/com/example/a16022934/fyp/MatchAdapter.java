@@ -64,6 +64,7 @@ public class MatchAdapter extends ArrayAdapter {
                         public void onClick(View v) {
                             Intent i = new Intent(getContext(), BottomNavBar.class);
                             i.putExtra("type", "chat");
+                            i.putExtra("class", "adapter");
                             i.putExtra("player", currentPlayer);
                             getContext().startActivity(i);
                         }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,9 +21,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -31,7 +38,8 @@ import java.util.ArrayList;
 public class ChatList extends Fragment {
 
     ListView lvChatList;
-    ArrayList<ChatSolo> alChats;
+    ArrayList<String> alChats;
+    ArrayList<OneToOne> alIds;
     CustomChatListAdapter caChatList;
 
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -41,7 +49,9 @@ public class ChatList extends Fragment {
     CollectionReference nameRef;
     DatabaseReference messageListRef;
     String uid;
-    Boolean contain = false;
+    String senderName;
+    String receiverName;
+    Boolean done = false;
 
     public ChatList() {
         // Required empty public constructor
@@ -55,7 +65,8 @@ public class ChatList extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
         lvChatList = view.findViewById(R.id.ChatList);
         alChats = new ArrayList<>();
-        caChatList = new CustomChatListAdapter(getContext(), R.layout.activity_chat_list_row, alChats);
+        alIds = new ArrayList<>();
+        caChatList = new CustomChatListAdapter(getContext(), R.layout.activity_chat_list_row, alIds);
         lvChatList.setAdapter(caChatList);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
@@ -63,27 +74,43 @@ public class ChatList extends Fragment {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         nameRef = firestore.collection("users");
+        nameRef.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Player player = documentSnapshot.toObject(Player.class);
+                if (player != null) {
+                    senderName = player.getFullName();
+                }
+            }
+        });
+
         messageListRef = firebaseDatabase.getReference("messages/");
 
         messageListRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
-                Log.v("senderid", msg.getSenderId());
-                Log.v("uid", uid);
-
-                if (msg.getReceiverId().equals(uid)) {
-                    if (alChats.size() > 0) {
-                        for (int i = 0; i < alChats.size(); i++) {
-                            if(!alChats.get(i).getSenderId().equals(uid) || !alChats.get(i).getReceiverId().equals(uid)){
-                                alChats.add(msg);
+                ArrayList<String> items = new ArrayList<>();
+                if (msg != null) {
+                    alIds.add(new OneToOne(msg.getSenderName(), msg.getReceiverName(), msg.getSenderId(), msg.getReceiverId()));
+                    if (alIds.size() > 1) {
+                        for (int i = 0; i < alIds.size(); i++) {
+                            for (int j = i + 1; j < alIds.size(); j++) {
+                                if (!alIds.get(i).getReceiverId().equals(uid) && !alIds.get(i).getSenderId().equals(uid)) {
+                                    alIds.remove(i);
+                                }
+                                if (alIds.size() > j) {
+                                    if ((alIds.get(i).getSenderName().equals(alIds.get(j).getSenderName())
+                                            && alIds.get(i).getReceiverName().equals(alIds.get(j).getReceiverName())) ||
+                                            (alIds.get(i).getReceiverName().equals(alIds.get(j).getSenderName())
+                                                    && alIds.get(i).getSenderName().equals(alIds.get(j).getReceiverName()))) {
+                                        alIds.remove(j);
+                                    }
+                                }
                             }
                         }
-                    } else {
-                        alChats.add(msg);
                     }
                 }
-                Log.v("alsize", alChats.size() + "");
                 caChatList.notifyDataSetChanged();
             }
 
@@ -114,12 +141,24 @@ public class ChatList extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent toChat = new Intent(getActivity(), BottomNavBar.class);
                 toChat.putExtra("type", "chat");
-                toChat.putExtra("partner", alChats.get(i));
+                toChat.putExtra("class", "list");
+                toChat.putExtra("partner", alIds.get(i));
                 startActivity(toChat);
             }
         });
 
         return view;
+    }
+
+    public boolean hasDuplicatesInArrayList(ArrayList<ChatSolo> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                if (list.get(i).getReceiverName().equals(list.get(j).getReceiverName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

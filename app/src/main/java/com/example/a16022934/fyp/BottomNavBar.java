@@ -74,15 +74,30 @@ public class BottomNavBar extends AppCompatActivity {
                 transaction.replace(R.id.frame, new MyProfilePageFragment()).commit();
 
             }else if(type.equals("chat")){
+                String file = i.getStringExtra("class");
                 setTitle("Chat");
-                Intent chat = getIntent();
-                ChatSolo soloChat = (ChatSolo) chat.getSerializableExtra("partner");
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("soloChat", soloChat);
+                if(file.equals("adapter")){
+                    Intent intent = getIntent();
+                    Player player = (Player)intent.getSerializableExtra("player");
 
-                ChatFragment fragment = new ChatFragment();
-                fragment.setArguments(bundle);
-                transaction.replace(R.id.frame, fragment).commit();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("newSoloChat", player);
+                    ChatFragment fragment = new ChatFragment();
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame, fragment).commit();
+
+                }else if(file.equals("list")){
+                    Intent chat = getIntent();
+                    OneToOne soloChat = (OneToOne) chat.getSerializableExtra("partner");
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("soloChat", soloChat);
+
+                    ChatFragment fragment = new ChatFragment();
+                    fragment.setArguments(bundle);
+                    transaction.replace(R.id.frame, fragment).commit();
+                }
+
+
             }else if(type.equals("otherPlayer")){
                 Intent intent = getIntent();
                 Player otherPlayer = (Player)intent.getSerializableExtra("player");

@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +52,8 @@ public class ChatFragment extends Fragment {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    private ChatSolo chat;
+    private OneToOne chat;
+    private Player player;
     private String uid;
     private long time;
 
@@ -72,7 +74,8 @@ public class ChatFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            chat = (ChatSolo) bundle.getSerializable("soloChat");
+            chat = (OneToOne) bundle.getSerializable("soloChat");
+            player = (Player) bundle.getSerializable("newSoloChat");
             if (chat != null) {
 
                 etMessage = (EditText) view.findViewById(R.id.editTextMessage);
@@ -106,6 +109,115 @@ public class ChatFragment extends Fragment {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onClick(View view) {
+                        String msg = etMessage.getText().toString();
+                        time = new Date().getTime();
+                        ChatSolo messages = new ChatSolo(senderName, receiverName, uid, receiverId, msg, time);
+                        messageListRef.push().setValue(messages);
+                        etMessage.setText(" ");
+                        scrollMyListViewToBottom();
+                    }
+                });
+
+                messageListRef.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.i("ChatFragment", "onChildAdded");
+                        ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
+                        if (msg != null) {
+                            if(msg.getReceiverId().equals(receiverId) || msg.getSenderId().equals(receiverId)){
+                                if(msg.getReceiverId().equals(uid) || msg.getSenderId().equals(uid)){
+                                    alMessage.add(msg);
+                                    caMessage.notifyDataSetChanged();
+                                    scrollMyListViewToBottom();
+                                }
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        String selectedId = dataSnapshot.getKey();
+                        ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
+
+                        if (msg != null) {
+                            for (int i = 0; i < alMessage.size(); i++) {
+//                        if (alMessage.get(i).getMessageUser().equals(selectedId)) {
+//                            msg.setMessageUser(selectedId);
+//                            alMessage.set(i, msg);
+//                        }
+                            }
+
+                            caMessage.notifyDataSetChanged();
+                        }
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        Log.i("MainActivity", "onChildRemoved()");
+
+                        String selectedId = dataSnapshot.getKey();
+                        ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
+                        if (msg != null) {
+                            for (int i = 0; i < alMessage.size(); i++) {
+//                        if (alMessage.get(i).getMessageUser().equals(selectedId)) {
+//                            msg.setMessageUser(selectedId);
+//                            alMessage.remove(i);
+//                        }
+                            }
+                            caMessage.notifyDataSetChanged();
+                        }
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                registerForContextMenu(lv);
+            }else if(player != null){
+
+                etMessage = (EditText) view.findViewById(R.id.editTextMessage);
+                sendBtn = (FloatingActionButton) view.findViewById(R.id.sendfab);
+                lv = (ListView) view.findViewById(R.id.list_of_message);
+
+                alMessage = new ArrayList<ChatSolo>();
+                caMessage = new CustomAdapter(getContext(), R.layout.msg, alMessage);
+
+                lv.setAdapter(caMessage);
+
+                firebaseAuth = FirebaseAuth.getInstance();
+                firebaseUser = firebaseAuth.getCurrentUser();
+                uid = firebaseUser.getUid();
+                receiverId = player.getUser_id();
+                receiverName = player.getFullName();
+
+                firebaseDatabase = FirebaseDatabase.getInstance();
+                nameRef = firebaseFirestore.collection("users");
+                nameRef.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Player sendPlayer = documentSnapshot.toObject(Player.class);
+                        if(sendPlayer != null){
+                            senderName = sendPlayer.getFullName();
+                        }
+                    }
+                });
+                messageListRef = firebaseDatabase.getReference("messages/");
+
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onClick(View view) {
+                        receiverId = player.getUser_id();
                         String msg = etMessage.getText().toString();
                         time = new Date().getTime();
                         ChatSolo messages = new ChatSolo(senderName, receiverName, uid, receiverId, msg, time);

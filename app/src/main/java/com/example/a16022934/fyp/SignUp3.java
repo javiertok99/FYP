@@ -221,6 +221,7 @@ public class SignUp3 extends AppCompatActivity {
                             player.put("phoneNo", phoneNo);
                             player.put("ratingId", rateId);
                             player.put("selfEvalId", evalId);
+                            player.put("user_id", uid);
                             newUserRef.set(player);
 
                             Intent i = new Intent(SignUp3.this, BottomNavBar.class);
