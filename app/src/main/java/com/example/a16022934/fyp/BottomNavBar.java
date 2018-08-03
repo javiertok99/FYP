@@ -79,9 +79,9 @@ public class BottomNavBar extends AppCompatActivity {
                 if(file.equals("adapter")){
                     Intent intent = getIntent();
                     Player player = (Player)intent.getSerializableExtra("player");
-
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("newSoloChat", player);
+                    bundle.putString("chatString", "player");
                     ChatFragment fragment = new ChatFragment();
                     fragment.setArguments(bundle);
                     transaction.replace(R.id.frame, fragment).commit();
@@ -91,6 +91,7 @@ public class BottomNavBar extends AppCompatActivity {
                     OneToOne soloChat = (OneToOne) chat.getSerializableExtra("partner");
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("soloChat", soloChat);
+                    bundle.putString("chatString", "soloChat");
 
                     ChatFragment fragment = new ChatFragment();
                     fragment.setArguments(bundle);
