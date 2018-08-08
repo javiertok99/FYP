@@ -98,13 +98,13 @@ public class ChatList extends Fragment {
                             for (int j = i + 1; j < alIds.size(); j++) {
                                 if (!alIds.get(i).getReceiverId().equals(uid) || !alIds.get(i).getSenderId().equals(uid)) {
                                     alIds.remove(i);
-                                }
-                                if (alIds.size() > j) {
-                                    if ((alIds.get(i).getSenderName().equals(alIds.get(j).getSenderName())
-                                            && alIds.get(i).getReceiverName().equals(alIds.get(j).getReceiverName())) ||
-                                            (alIds.get(i).getReceiverName().equals(alIds.get(j).getSenderName())
-                                                    && alIds.get(i).getSenderName().equals(alIds.get(j).getReceiverName()))) {
-                                        alIds.remove(j);
+                                    if (alIds.size() > j) {
+                                        if ((alIds.get(i).getSenderName().equals(alIds.get(j).getSenderName())
+                                                && alIds.get(i).getReceiverName().equals(alIds.get(j).getReceiverName())) ||
+                                                (alIds.get(i).getReceiverName().equals(alIds.get(j).getSenderName())
+                                                        && alIds.get(i).getSenderName().equals(alIds.get(j).getReceiverName()))) {
+                                            alIds.remove(j);
+                                        }
                                     }
                                 }
                             }
