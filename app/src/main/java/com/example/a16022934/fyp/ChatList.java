@@ -96,7 +96,7 @@ public class ChatList extends Fragment {
                     if (alIds.size() > 1) {
                         for (int i = 0; i < alIds.size(); i++) {
                             for (int j = i + 1; j < alIds.size(); j++) {
-                                if (!alIds.get(i).getReceiverId().equals(uid) && !alIds.get(i).getSenderId().equals(uid)) {
+                                if (!alIds.get(i).getReceiverId().equals(uid) || !alIds.get(i).getSenderId().equals(uid)) {
                                     alIds.remove(i);
                                 }
                                 if (alIds.size() > j) {
