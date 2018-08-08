@@ -97,8 +97,6 @@ public class BottomNavBar extends AppCompatActivity {
                     fragment.setArguments(bundle);
                     transaction.replace(R.id.frame, fragment).commit();
                 }
-
-
             }else if(type.equals("otherPlayer")){
                 Intent intent = getIntent();
                 Player otherPlayer = (Player)intent.getSerializableExtra("player");
@@ -115,10 +113,7 @@ public class BottomNavBar extends AppCompatActivity {
             setTitle("Find Match");
             transaction.replace(R.id.frame, new FindMatchFragment()).commit();
         }
-
-
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection

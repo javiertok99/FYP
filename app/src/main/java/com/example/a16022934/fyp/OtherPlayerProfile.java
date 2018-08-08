@@ -57,7 +57,6 @@ public class OtherPlayerProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_other_player_profile, container, false);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            Toast.makeText(getContext(), "I got past bundle", Toast.LENGTH_SHORT).show();
             otherPlayer = (Player) bundle.getSerializable("player");
 
             name = view.findViewById(R.id.tvOtherName);
@@ -68,7 +67,6 @@ public class OtherPlayerProfile extends Fragment {
             barChart = view.findViewById(R.id.barChartDisplayOther);
 
             if (otherPlayer != null) {
-                Toast.makeText(getContext(), "IT WENT IN HERE", Toast.LENGTH_SHORT).show();
                 fullName = otherPlayer.getFullName();
                 name.setText(fullName);
                 etBio.setText(otherPlayer.getDescription());
@@ -145,17 +143,6 @@ public class OtherPlayerProfile extends Fragment {
             }
         }
         return view;
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.option_menu_profile, menu);
     }
 }
 
