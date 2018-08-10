@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/ivPlayer"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
@@ -25,9 +25,9 @@
         android:text="Lin Dan"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/imageView6"
-        app:layout_constraintStart_toStartOf="@+id/imageView6"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintEnd_toEndOf="@+id/ivPlayer"
+        app:layout_constraintStart_toStartOf="@+id/ivPlayer"
+        app:layout_constraintTop_toBottomOf="@+id/ivPlayer" />
 
     <TextView
         android:id="@+id/tvLocation"
@@ -76,7 +76,7 @@
         android:textColor="@android:color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/ivPlayer"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

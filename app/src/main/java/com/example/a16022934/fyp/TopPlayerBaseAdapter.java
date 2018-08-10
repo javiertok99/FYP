@@ -1,11 +1,13 @@
 package com.example.a16022934.fyp;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class TopPlayerBaseAdapter extends BaseAdapter {
         TextView gender;
         TextView location;
         TextView description;
+        ImageView ivPlayer;
     }
 
     @Override
@@ -58,6 +61,7 @@ public class TopPlayerBaseAdapter extends BaseAdapter {
             holder.gender = convertView.findViewById(R.id.tvGender);
             holder.location = convertView.findViewById(R.id.tvLocation);
             holder.description = convertView.findViewById(R.id.tvDescription);
+            holder.ivPlayer = convertView.findViewById(R.id.ivPlayer);
 
             convertView.setTag(holder);
         } else {
@@ -69,8 +73,36 @@ public class TopPlayerBaseAdapter extends BaseAdapter {
         holder.location.setText("Country: " + mDisplayedValues.get(position).getplaceOfBirth());
         holder.description.setText(mDisplayedValues.get(position).getDescription());
 
-        final ViewHolder finalHolder = holder;
-
+        if(holder.name.getText().toString().equals("Carolina María")) {
+            holder.ivPlayer.setImageResource(R.drawable.carolina);
+        }
+        else if(holder.name.getText().toString().equals("Jan Ø. Jørgensen")){
+            holder.ivPlayer.setImageResource(R.drawable.janojorgensen);
+        }
+        else if(holder.name.getText().toString().equals("Ratchanok Intanon")){
+            holder.ivPlayer.setImageResource(R.drawable.ratchanokinatanon);
+        }
+        else if(holder.name.getText().toString().equals("Tai Tzu-Ying")){
+            holder.ivPlayer.setImageResource(R.drawable.taitzuying);
+        }
+        else if(holder.name.getText().toString().equals("Vicktor Axelsen")){
+            holder.ivPlayer.setImageResource(R.drawable.viktoraxelsen);
+        }
+        else if(holder.name.getText().toString().equals("Wang Yihan")){
+            holder.ivPlayer.setImageResource(R.drawable.wangyihan);
+        }
+        else if(holder.name.getText().toString().equals("Chen Long")){
+            holder.ivPlayer.setImageResource(R.drawable.chenlong);
+        }
+        else if(holder.name.getText().toString().equals("Lee Chong Wei")){
+            holder.ivPlayer.setImageResource(R.drawable.leechongwei);
+        }
+        else if(holder.name.getText().toString().equals("Li Xuerui")){
+            holder.ivPlayer.setImageResource(R.drawable.lixuerui);
+        }
+        else if(holder.name.getText().toString().equals("Lin Dan")){
+            holder.ivPlayer.setImageResource(R.drawable.lindan);
+        }
         return convertView;
     }
 
