@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ public class BottomNavBar extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = firebaseAuth.getCurrentUser();
     private String uid = user.getUid();
+    private Boolean chatFragment = false;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -74,30 +76,33 @@ public class BottomNavBar extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         Intent i = getIntent();
         String type = i.getStringExtra("type");
-        if(type != null){
-            if(type.equals("signUp") || type.equals("profile")){
+        if (type != null) {
+            if (type.equals("signUp") || type.equals("profile")) {
+                chatFragment = true;
                 setTitle("My Profile");
                 transaction.replace(R.id.frame, new MyProfilePageFragment()).commit();
 
-            }else if(type.equals("chat")){
+            } else if (type.equals("chat")) {
                 String file = i.getStringExtra("class");
-                if(file.equals("adapter")){
+                if (file.equals("adapter")) {
+                    chatFragment = false;
                     Intent intent = getIntent();
-                    Player player = (Player)intent.getSerializableExtra("player");
+                    Player player = (Player) intent.getSerializableExtra("player");
                     setTitle(player.getFullName());
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("newSoloChat", player);
                     bundle.putString("chatString", "player");
                     ChatFragment fragment = new ChatFragment();
                     fragment.setArguments(bundle);
+                    navigation.setSelectedItemId(R.id.chat);
                     transaction.replace(R.id.frame, fragment).commit();
-
-                }else if(file.equals("list")){
+                } else if (file.equals("list")) {
+                    chatFragment = false;
                     Intent chat = getIntent();
                     OneToOne soloChat = (OneToOne) chat.getSerializableExtra("partner");
-                    if(uid.equals(soloChat.getSenderId())){
+                    if (uid.equals(soloChat.getSenderId())) {
                         setTitle(soloChat.getReceiverName());
-                    }else{
+                    } else {
                         setTitle(soloChat.getSenderName());
                     }
                     Bundle bundle = new Bundle();
@@ -106,11 +111,13 @@ public class BottomNavBar extends AppCompatActivity {
 
                     ChatFragment fragment = new ChatFragment();
                     fragment.setArguments(bundle);
+                    navigation.setSelectedItemId(R.id.chat);
                     transaction.replace(R.id.frame, fragment).commit();
                 }
-            }else if(type.equals("otherPlayer")){
+            } else if (type.equals("otherPlayer")) {
+                chatFragment = true;
                 Intent intent = getIntent();
-                Player otherPlayer = (Player)intent.getSerializableExtra("player");
+                Player otherPlayer = (Player) intent.getSerializableExtra("player");
                 Log.v("Check Other Player", otherPlayer.getFullName());
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("player", otherPlayer);
@@ -120,11 +127,13 @@ public class BottomNavBar extends AppCompatActivity {
                 fragment.setArguments(bundle);
                 transaction.replace(R.id.frame, fragment).commit();
             }
-        }else{
+        } else {
+            chatFragment = true;
             setTitle("Find Match");
             transaction.replace(R.id.frame, new FindMatchFragment()).commit();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -162,5 +171,34 @@ public class BottomNavBar extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                exitByBackKey();
+            //moveTaskToBack(false);
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    protected void exitByBackKey() {
+        AlertDialog alertbox = new AlertDialog.Builder(this)
+                .setTitle("Quit app?")
+                .setPositiveButton("Quit", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                        //close();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+                    // do something when the button is clicked
+                    public void onClick(DialogInterface arg0, int arg1) {
+                    }
+                }).show();
     }
 }
