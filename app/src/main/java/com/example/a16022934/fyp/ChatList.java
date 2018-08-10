@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
@@ -64,7 +67,6 @@ public class ChatList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
         lvChatList = view.findViewById(R.id.ChatList);
-        alChats = new ArrayList<>();
         alIds = new ArrayList<>();
         caChatList = new CustomChatListAdapter(getContext(), R.layout.activity_chat_list_row, alIds);
         lvChatList.setAdapter(caChatList);
