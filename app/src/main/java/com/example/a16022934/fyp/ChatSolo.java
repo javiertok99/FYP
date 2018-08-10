@@ -3,6 +3,7 @@ package com.example.a16022934.fyp;
 import java.io.Serializable;
 
 public class ChatSolo implements Serializable{
+    private String msgID;
     private String senderName;
     private String receiverName;
     private String senderId;
@@ -13,13 +14,22 @@ public class ChatSolo implements Serializable{
     public ChatSolo(){
     }
 
-    public ChatSolo(String senderName, String receiverName, String senderId, String receiverId, String msg, long timeStamp) {
+    public ChatSolo(String msgID, String senderName, String receiverName, String senderId, String receiverId, String msg, long timeStamp) {
+        this.msgID = msgID;
         this.senderName = senderName;
         this.receiverName = receiverName;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.msg = msg;
         this.timeStamp = timeStamp;
+    }
+
+    public String getMsgID() {
+        return msgID;
+    }
+
+    public void setMsgID(String msgID) {
+        this.msgID = msgID;
     }
 
     public String getSenderName() {

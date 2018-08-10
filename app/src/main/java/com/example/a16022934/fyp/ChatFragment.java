@@ -3,6 +3,7 @@ package com.example.a16022934.fyp;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -36,6 +38,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 
 public class ChatFragment extends Fragment {
@@ -63,6 +66,7 @@ public class ChatFragment extends Fragment {
     String receiverName;
     String senderName;
     String receiverId;
+    String msguser;
 
     public ChatFragment() {
         // Required empty public constructor
@@ -120,8 +124,9 @@ public class ChatFragment extends Fragment {
                                 receiverId = player.getUser_id();
                                 String msg = etMessage.getText().toString();
                                 time = new Date().getTime();
-                                ChatSolo messages = new ChatSolo(senderName, receiverName, uid, receiverId, msg, time);
-                                messageListRef.push().setValue(messages);
+                                String key = messageListRef.push().getKey();
+                                ChatSolo messages = new ChatSolo(key, senderName, receiverName, uid, receiverId, msg, time);
+                                messageListRef.child(key).setValue(messages);
                                 etMessage.setText(" ");
                                 scrollMyListViewToBottom();
                             }
@@ -234,8 +239,9 @@ public class ChatFragment extends Fragment {
                             public void onClick(View view) {
                                 String msg = etMessage.getText().toString();
                                 time = new Date().getTime();
-                                ChatSolo messages = new ChatSolo(senderName, receiverName, uid, receiverId, msg, time);
-                                messageListRef.push().setValue(messages);
+                                String key = messageListRef.push().getKey();
+                                ChatSolo messages = new ChatSolo(key, senderName, receiverName, uid, receiverId, msg, time);
+                                messageListRef.child(key).setValue(messages);
                                 etMessage.setText(" ");
                                 scrollMyListViewToBottom();
                             }
@@ -270,7 +276,6 @@ public class ChatFragment extends Fragment {
 //                            alMessage.set(i, msg);
 //                        }
                                     }
-
                                     caMessage.notifyDataSetChanged();
                                 }
 
@@ -308,7 +313,6 @@ public class ChatFragment extends Fragment {
                         registerForContextMenu(lv);
                     }
                 }
-
             }
         }
         return view;
@@ -326,26 +330,21 @@ public class ChatFragment extends Fragment {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int index = info.position;
-//        msguser = alMessage.get(index).getMessageUser();
+        msguser = alMessage.get(index).getSenderId();
 //        Toast.makeText(getContext(), "msg sender: " + msguser + "/ncurrent user: " + name, Toast.LENGTH_LONG).show();
-//        if (msguser.equals(senderName)) {
-//
-//            if (item.getTitle() == "Delete") {
-//
-//                alMessage.remove(index);
-//                caMessage.notifyDataSetChanged();
-//                  String id = alMessage.get(index).getMessageUser();
-//
-//                  messageListRef.child(alMessage.get(index).getMessageUser()).removeValue();
-//            }
-//
-//
-//        } else if (msguser != senderName) {
-//            item.setVisible(false);
-//            Toast.makeText(getContext(), "You cannot delete other user's msg!", Toast.LENGTH_LONG).show();
-//        }
+        if (msguser.equals(uid)) {
 
+            if (item.getTitle() == "Delete") {
+                ChatSolo msgToDel = alMessage.get(index);
+                messageListRef.child(msgToDel.getMsgID()).removeValue();
+                alMessage.remove(index);
+                caMessage.notifyDataSetChanged();
+            }
 
+        } else if (!msguser.equals(uid)) {
+            item.setVisible(false);
+            Toast.makeText(getContext(), "You cannot delete other user's msg!", Toast.LENGTH_LONG).show();
+        }
         return super.onContextItemSelected(item);
     }
 
