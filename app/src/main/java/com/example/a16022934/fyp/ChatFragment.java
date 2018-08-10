@@ -175,10 +175,10 @@ public class ChatFragment extends Fragment {
                                 ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
                                 if (msg != null) {
                                     for (int i = 0; i < alMessage.size(); i++) {
-//                        if (alMessage.get(i).getMessageUser().equals(selectedId)) {
-//                            msg.setMessageUser(selectedId);
-//                            alMessage.remove(i);
-//                        }
+                                        if (alMessage.get(i).getMsgID().equals(selectedId)) {
+                                            alMessage.remove(i);
+                                            break;
+                                        }
                                     }
                                     caMessage.notifyDataSetChanged();
                                 }
