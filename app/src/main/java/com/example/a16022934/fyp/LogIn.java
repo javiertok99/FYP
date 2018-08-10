@@ -64,21 +64,26 @@ public class LogIn extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 user = mAuth.getCurrentUser();
-                                String uid = user.getUid();
-                                DBHelper dbh = new DBHelper(LogIn.this);
-                                long row_affected = dbh.retainUserLogIn(uid);
-                                dbh.close();
-                                userRef = db.collection("users").document(uid);
-                                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        DocumentSnapshot document = task.getResult();
-                                        Player user = document.toObject(Player.class);
-                                        Intent i = new Intent(LogIn.this, BottomNavBar.class);
-                                        startActivity(i);
-                                        finish();
-                                    }
-                                });
+                                if (user.isEmailVerified()) {
+                                    String uid = user.getUid();
+                                    DBHelper dbh = new DBHelper(LogIn.this);
+                                    long row_affected = dbh.retainUserLogIn(uid);
+                                    dbh.close();
+                                    userRef = db.collection("users").document(uid);
+                                    userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            DocumentSnapshot document = task.getResult();
+                                            Player user = document.toObject(Player.class);
+                                            Intent i = new Intent(LogIn.this, BottomNavBar.class);
+                                            startActivity(i);
+                                            finish();
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(LogIn.this, "Please proceed to verify your email first.", Toast.LENGTH_SHORT).show();
+                                }
+
                             } else {
                                 progressDialog.dismiss();
                                 Toast.makeText(LogIn.this, "Unable to find email, please try again", Toast.LENGTH_LONG).show();

@@ -211,6 +211,7 @@ public class ChatFragment extends Fragment {
                         lv = (ListView) view.findViewById(R.id.list_of_message);
 
                         alMessage = new ArrayList<ChatSolo>();
+
                         caMessage = new CustomAdapter(getContext(), R.layout.msg, alMessage);
 
                         lv.setAdapter(caMessage);

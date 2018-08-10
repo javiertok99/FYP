@@ -92,24 +92,55 @@ public class ChatList extends Fragment {
                 ChatSolo msg = dataSnapshot.getValue(ChatSolo.class);
                 ArrayList<String> items = new ArrayList<>();
                 if (msg != null) {
-                    alIds.add(new OneToOne(msg.getSenderName(), msg.getReceiverName(), msg.getSenderId(), msg.getReceiverId()));
-                    if (alIds.size() > 1) {
-                        for (int i = 0; i < alIds.size(); i++) {
-                            for (int j = i + 1; j < alIds.size(); j++) {
-                                if (!alIds.get(i).getReceiverId().equals(uid) || !alIds.get(i).getSenderId().equals(uid)) {
-                                    alIds.remove(i);
-                                    if (alIds.size() > j) {
-                                        if ((alIds.get(i).getSenderName().equals(alIds.get(j).getSenderName())
-                                                && alIds.get(i).getReceiverName().equals(alIds.get(j).getReceiverName())) ||
-                                                (alIds.get(i).getReceiverName().equals(alIds.get(j).getSenderName())
-                                                        && alIds.get(i).getSenderName().equals(alIds.get(j).getReceiverName()))) {
-                                            alIds.remove(j);
-                                        }
+                    OneToOne item = new OneToOne(msg.getSenderName(), msg.getReceiverName(), msg.getSenderId(), msg.getReceiverId());
+                    if (alIds.size() == 0) {
+                        if (uid.equals(item.getReceiverId()) || uid.equals(item.getSenderId())) {
+                            Log.v("R&S", uid + "\n" + item.getSenderId() + "\n" + item.getReceiverId());
+                            alIds.add(item);
+                        }
+                    } else {
+                        if (uid.equals(item.getReceiverId()) || uid.equals(item.getSenderId())) {
+                            Log.v("R&S", uid + "\n" + item.getSenderId() + "\n" + item.getReceiverId());
+                            alIds.add(item);
+                        }
+                        if (alIds.size() > 1) {
+                            for (int i = 0; i < alIds.size(); i++) {
+                                for (int j = i + 1; j < alIds.size(); j++) {
+                                    String receiverId = alIds.get(i).getReceiverId();
+                                    String receiverId2 = alIds.get(j).getReceiverId();
+                                    String senderid = alIds.get(i).getSenderId();
+                                    String senderid2 = alIds.get(j).getSenderId();
+                                    if ((receiverId.equals(receiverId2) && senderid.equals(senderid2))
+                                            || (receiverId.equals(senderid2) && senderid.equals(receiverId2))) {
+                                        alIds.remove(j);
                                     }
                                 }
                             }
                         }
                     }
+//                    alIds.add(new OneToOne(msg.getSenderName(), msg.getReceiverName(), msg.getSenderId(), msg.getReceiverId()));
+//                    if (alIds.size() > 1) {
+//                        for (int i = 0; i < alIds.size(); i++) {
+//                            for (int j = i + 1; j < alIds.size(); j++) {
+//                                String receiverId = alIds.get(i).getReceiverId();
+//                                String senderId = alIds.get(i).getSenderId();
+//                                if (!receiverId.equals(uid) || !senderId.equals(uid)) {
+//                                    alIds.remove(i);
+//                                    if (alIds.size() > j) {
+//                                        if (!receiverId.equals(alIds.get(i).getReceiverId()) || !receiverId.equals(alIds.get(i).getReceiverId())) {
+//                                            alIds.remove(i);
+//                                        }
+//                                        if ((alIds.get(i).getSenderName().equals(alIds.get(j).getSenderName())
+//                                                && alIds.get(i).getReceiverName().equals(alIds.get(j).getReceiverName())) ||
+//                                                (alIds.get(i).getReceiverName().equals(alIds.get(j).getSenderName())
+//                                                        && alIds.get(i).getSenderName().equals(alIds.get(j).getReceiverName()))) {
+//                                            alIds.remove(j);
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
                 }
                 caChatList.notifyDataSetChanged();
             }

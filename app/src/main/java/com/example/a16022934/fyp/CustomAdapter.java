@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,18 +20,26 @@ public class CustomAdapter extends ArrayAdapter {
     int layout_id;
     ArrayList<ChatSolo> message;
     TextView tvDisplayName, tvDateTime, tvMessage;
-
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = firebaseAuth.getCurrentUser();
+    private String uid = user.getUid();
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) parent_context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(layout_id, parent, false);
+        ChatSolo currentItem = message.get(position);
+        View rowView;
+        if(currentItem.getSenderId().equals(uid)){
+            rowView = inflater.inflate(R.layout.lv_chat_send, parent, false);
+        }else{
+            rowView = inflater.inflate(R.layout.lv_chat_receive, parent, false);
+        }
+
 
         tvDisplayName = (TextView) rowView.findViewById(R.id.message_user);
         tvMessage = (TextView) rowView.findViewById(R.id.message_text);
         tvDateTime = (TextView) rowView.findViewById(R.id.message_time);
 
-        ChatSolo currentItem = message.get(position);
         String displayName = currentItem.getSenderName();
         long dateTime = currentItem.getTimeStamp();
         String message = currentItem.getMsg();

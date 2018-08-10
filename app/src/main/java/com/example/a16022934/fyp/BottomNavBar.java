@@ -16,11 +16,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class BottomNavBar extends AppCompatActivity {
 
     public FragmentTransaction transaction;
     private TextView mTextMessage;
     private String page = "";
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = firebaseAuth.getCurrentUser();
+    private String uid = user.getUid();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -75,10 +81,10 @@ public class BottomNavBar extends AppCompatActivity {
 
             }else if(type.equals("chat")){
                 String file = i.getStringExtra("class");
-                setTitle("Chat");
                 if(file.equals("adapter")){
                     Intent intent = getIntent();
                     Player player = (Player)intent.getSerializableExtra("player");
+                    setTitle(player.getFullName());
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("newSoloChat", player);
                     bundle.putString("chatString", "player");
@@ -89,6 +95,11 @@ public class BottomNavBar extends AppCompatActivity {
                 }else if(file.equals("list")){
                     Intent chat = getIntent();
                     OneToOne soloChat = (OneToOne) chat.getSerializableExtra("partner");
+                    if(uid.equals(soloChat.getSenderId())){
+                        setTitle(soloChat.getReceiverName());
+                    }else{
+                        setTitle(soloChat.getSenderName());
+                    }
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("soloChat", soloChat);
                     bundle.putString("chatString", "soloChat");

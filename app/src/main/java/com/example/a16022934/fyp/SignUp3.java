@@ -180,6 +180,16 @@ public class SignUp3 extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(SignUp3.this, "Registration successful", Toast.LENGTH_LONG).show();
                             FirebaseUser user = firebaseAuth.getCurrentUser();
+                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(SignUp3.this, "Verification email sent", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(SignUp3.this, "Failed to send verification email", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                             String uid = user.getUid();
                             DBHelper dbh = new DBHelper(SignUp3.this);
                             dbh.retainUserLogIn(uid);
@@ -224,8 +234,7 @@ public class SignUp3 extends AppCompatActivity {
                             player.put("user_id", uid);
                             newUserRef.set(player);
 
-                            Intent i = new Intent(SignUp3.this, BottomNavBar.class);
-                            i.putExtra("type", "signUp");
+                            Intent i = new Intent(SignUp3.this, LogIn.class);
                             startActivity(i);
                             finish();
                         } else {
