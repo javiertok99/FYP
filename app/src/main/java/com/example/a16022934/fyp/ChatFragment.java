@@ -322,9 +322,8 @@ public class ChatFragment extends Fragment {
 
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.setHeaderTitle("Select Option");
+        menu.setHeaderTitle("Are you sure you want to delete?");
         menu.add(0, v.getId(), 0, "Delete");
-        menu.add(0, v.getId(), 0, "Copy");
     }
 
     public boolean onContextItemSelected(MenuItem item) {
@@ -341,7 +340,6 @@ public class ChatFragment extends Fragment {
                 alMessage.remove(index);
                 caMessage.notifyDataSetChanged();
             }
-
         } else if (!msguser.equals(uid)) {
             item.setVisible(false);
             Toast.makeText(getContext(), "You cannot delete other user's msg!", Toast.LENGTH_LONG).show();
