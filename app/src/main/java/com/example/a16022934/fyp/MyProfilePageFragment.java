@@ -57,7 +57,7 @@ public class MyProfilePageFragment extends Fragment {
         loader = view.findViewById(R.id.loading);
         barChart = view.findViewById(R.id.barChartDisplay);
 
-
+        ivProfile.setImageResource(R.drawable.alluserprofile);
         DBHelper dbh = new DBHelper(getActivity());
         String uid = dbh.getUserId();
         DocumentReference userDoc = db.collection("users").document(uid);

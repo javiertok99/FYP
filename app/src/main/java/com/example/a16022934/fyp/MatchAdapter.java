@@ -86,6 +86,7 @@ public class MatchAdapter extends ArrayAdapter {
         String age = "Age: " + currentPlayer.getAge();
         view.tvAge.setText(age);
         view.tvGender.setText(currentPlayer.getGender());
+        view.ivProfilePic.setImageResource(R.drawable.alluserprofile);
         String uid = currentPlayer.getUser_id();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference user = db.collection("users").document(uid);

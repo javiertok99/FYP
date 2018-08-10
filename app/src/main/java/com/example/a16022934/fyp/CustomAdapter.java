@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ public class CustomAdapter extends ArrayAdapter {
     int layout_id;
     ArrayList<ChatSolo> message;
     TextView tvDisplayName, tvDateTime, tvMessage;
+    ImageView ivProfile;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseUser user = firebaseAuth.getCurrentUser();
     private String uid = user.getUid();
@@ -35,7 +37,7 @@ public class CustomAdapter extends ArrayAdapter {
             rowView = inflater.inflate(R.layout.lv_chat_receive, parent, false);
         }
 
-
+        ivProfile = rowView.findViewById(R.id.ivChatPic);
         tvDisplayName = (TextView) rowView.findViewById(R.id.message_user);
         tvMessage = (TextView) rowView.findViewById(R.id.message_text);
         tvDateTime = (TextView) rowView.findViewById(R.id.message_time);
@@ -49,7 +51,7 @@ public class CustomAdapter extends ArrayAdapter {
         SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm");
         String datetoStr = format.format(d);
 
-
+        ivProfile.setImageResource(R.drawable.alluserprofile);
         tvDateTime.setText(datetoStr);
         tvDisplayName.setText(displayName);
         tvMessage.setText(message);
